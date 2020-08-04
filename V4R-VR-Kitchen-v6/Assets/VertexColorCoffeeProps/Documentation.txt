@@ -1,0 +1,21 @@
+Vertex Color Coffee Props
+=========================
+
+DESCRIPTION
+A set of low poly models with vertex colors. 
+The package includes 5 different drinks which are created in a modular style so that you can use what you need.
+A table and window are also included. Examples of standard and unlit lighting models are included but you can use your own shaders if desired.
+These assets are great for a mobile project as there are no textures used.
+
+SHADERS
+StandardLightingVertexColor - Standard lighting model with vertex color support
+UnlitVertexColor - Unlit with vertex color support 
+RimLightTransparent - Transparent with rim lighting, useful for glassy or icy surfaces
+
+DEMO SCENES
+DemoLit - Displays assets using the standard lighting model 
+DemoUnlit - Displays assets using an unlit lighting model
+
+
+CONTACT
+For questions or comments, feel free to email our team: hello@chaoticformula.com 

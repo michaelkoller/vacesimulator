@@ -1,0 +1,50 @@
+# MakeHuman exported MTL
+# www.makehuman.org
+
+
+newmtl DefaultSkin
+Kd 0.4893 0.3537 0.2663
+Ks 0.3 0.3 0.3
+d 1
+
+newmtl ponytail01
+Kd 1 1 1
+Ks 0.04706 0.04706 0.04706
+d 0
+map_Kd textures\ponytail01_diffuse.png
+map_D textures\ponytail01_diffuse.png
+
+newmtl Eye_brown
+Kd 1 1 1
+Ks 1 1 1
+d 0
+map_Kd textures\brown_eye.png
+map_D textures\brown_eye.png
+
+newmtl eyebrow008
+Kd 1 1 1
+Ks 0 0 0
+d 0
+map_Kd textures\eyebrow008.png
+map_D textures\eyebrow008.png
+
+newmtl bodyMaterial
+Kd 1 1 1
+Ks 0 0 0
+d 0
+map_Kd textures\eyelashes01.png
+map_D textures\eyelashes01.png
+
+newmtl female_casualsuit01
+Kd 1 1 1
+Ks 0.02745 0.02745 0.02745
+d 0
+map_Kd textures\female_casualsuit01_diffuse.png
+map_D textures\female_casualsuit01_diffuse.png
+
+newmtl Shoes02
+Kd 1 1 1
+Ks 0.05098 0.04706 0.04706
+d 0
+map_Kd textures\shoes02_diffuse.png
+map_D textures\shoes02_diffuse.png

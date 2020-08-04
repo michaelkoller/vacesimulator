@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: 2eb7ba8a7ac485d4387165fb70494e68
+timeCreated: 1526055822
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: KBottle
+    100004: KLabel
+    100006: KLid
+    100008: MBottle2
+    100010: MLabel2
+    100012: MLid2
+    100014: TBottle1
+    100016: TLabel1
+    100018: TLid1
+    400000: //RootNode
+    400002: KBottle
+    400004: KLabel
+    400006: KLid
+    400008: MBottle2
+    400010: MLabel2
+    400012: MLid2
+    400014: TBottle1
+    400016: TLabel1
+    400018: TLid1
+    2300000: KBottle
+    2300002: KLabel
+    2300004: KLid
+    2300006: MBottle2
+    2300008: MLabel2
+    2300010: MLid2
+    2300012: TBottle1
+    2300014: TLabel1
+    2300016: TLid1
+    3300000: KBottle
+    3300002: KLabel
+    3300004: KLid
+    3300006: MBottle2
+    3300008: MLabel2
+    3300010: MLid2
+    3300012: TBottle1
+    3300014: TLabel1
+    3300016: TLid1
+    4300000: KLid
+    4300002: KLabel
+    4300004: KBottle
+    4300006: TBottle1
+    4300008: TLabel1
+    4300010: TLid1
+    4300012: MLid2
+    4300014: MLabel2
+    4300016: MBottle2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KetchupMat
+    second: {fileID: 2100000, guid: ee3cd06e86093db4eac85ebc9d6e7cb1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong2
+    second: {fileID: 2100000, guid: c95dbeb4611ad6d44bfe807f118061e6, type: 2}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

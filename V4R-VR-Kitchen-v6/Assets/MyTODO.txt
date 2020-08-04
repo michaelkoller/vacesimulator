@@ -1,0 +1,5 @@
+﻿My Todos
+
+Create Game Startup Manager for setting perform or render mode, file names, etc
+Create a visualization of my table to put down controllers
+ 
