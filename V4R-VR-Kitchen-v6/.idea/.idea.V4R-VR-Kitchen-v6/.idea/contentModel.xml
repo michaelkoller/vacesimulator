@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\v4rmini\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\v4rmini\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_V4R-VR-Kitchen-v6.907509989.00" t="ExcludeRecursive" />
-    <e p="C:\Users\v4rmini\Documents\UnityProjects\V4R-VR-Kitchen-v6" t="IncludeRecursive">
+    <e p="C:\Users\v4rmini\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_V4R-VR-Kitchen-v6.734554592.00" t="ExcludeRecursive" />
+    <e p="C:\Users\v4rmini\Documents\github\v4r-vr-kitchen-git\V4R-VR-Kitchen-v6" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -942,10 +942,34 @@
         </e>
         <e p="Manager.cs" t="Include" />
         <e p="MyGameObjectRecorder.cs" t="Include" />
-        <e p="MyTODO.txt.cs" t="Include" />
+        <e p="MyTODO.txt" t="Include" />
         <e p="NonConvexMeshCollider" t="Include">
           <e p="NonConvexMeshCollider.cs" t="Include" />
           <e p="ReadMe.txt" t="Include" />
+        </e>
+        <e p="PlayModeManager.cs" t="Include" />
+        <e p="RecordingsForRender" t="Include">
+          <e p="test0.txt" t="Include" />
+          <e p="test100.txt" t="Include" />
+          <e p="test1000.txt" t="Include" />
+          <e p="test1100.txt" t="Include" />
+          <e p="test1200.txt" t="Include" />
+          <e p="test1300.txt" t="Include" />
+          <e p="test1400.txt" t="Include" />
+          <e p="test1500.txt" t="Include" />
+          <e p="test1600.txt" t="Include" />
+          <e p="test1700.txt" t="Include" />
+          <e p="test1800.txt" t="Include" />
+          <e p="test1900.txt" t="Include" />
+          <e p="test200.txt" t="Include" />
+          <e p="test2000.txt" t="Include" />
+          <e p="test300.txt" t="Include" />
+          <e p="test400.txt" t="Include" />
+          <e p="test500.txt" t="Include" />
+          <e p="test600.txt" t="Include" />
+          <e p="test700.txt" t="Include" />
+          <e p="test800.txt" t="Include" />
+          <e p="test900.txt" t="Include" />
         </e>
         <e p="RenderDepth.cs" t="Include" />
         <e p="Resources" t="Include">
@@ -983,6 +1007,7 @@
             <e p="MouseClickCut.cs" t="Include" />
           </e>
           <e p="ObjectId.cs" t="Include" />
+          <e p="RecordObjectPosRot.cs" t="Include" />
           <e p="RecordPlayerMovement.cs" t="Include" />
           <e p="RecordStrings.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />

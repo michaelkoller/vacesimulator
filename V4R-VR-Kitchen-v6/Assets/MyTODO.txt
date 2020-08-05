@@ -2,4 +2,11 @@
 
 Create Game Startup Manager for setting perform or render mode, file names, etc
 Create a visualization of my table to put down controllers
- 
+Record all object positions and rotations (in text?) per frame
+Record status of some interactable objects (water faucet, stove flames)
+Replay mode
+    Probably turn off all colliders when replaying
+Handle cutting of objects for recording and replay     
+Dont record objects without visible parts
+Test appendline
+put "frame" next to frame number
