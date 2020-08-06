@@ -2,11 +2,22 @@
 
 Create Game Startup Manager for setting perform or render mode, file names, etc
 Create a visualization of my table to put down controllers
-Record all object positions and rotations (in text?) per frame
 Record status of some interactable objects (water faucet, stove flames)
 Replay mode
-    Probably turn off all colliders when replaying
 Handle cutting of objects for recording and replay     
-Dont record objects without visible parts
-Test appendline
-put "frame" next to frame number
+Handle multiple text files (when 1 ends the next should be read in)
+put each recording (i.e. multiple text files) into one new folder
+Handle end of recording
+Link the start record command to the record button on controller
+make recording mode be startable from script
+look up saving of new whole gameobjects with mesh and stuff
+    https://answers.unity.com/questions/1644912/how-can-i-save-the-gameobject-to-file-and-load-it.html
+    https://unitycoder.com/blog/2013/01/26/save-mesh-created-by-script-in-editor-playmode/
+    https://www.raywenderlich.com/3169311-runtime-mesh-manipulation-with-unity#toc-anchor-017
+    
+create datastructure that handles cut objects (i.e. tree for each object that has ever been cut)
+
+
+fix handling of cut objects
+    the newly cut objects cannot be picked up
+    do new and old objects after cut have correct colliders etc?

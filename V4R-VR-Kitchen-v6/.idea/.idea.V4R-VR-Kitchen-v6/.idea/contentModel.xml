@@ -949,27 +949,8 @@
         </e>
         <e p="PlayModeManager.cs" t="Include" />
         <e p="RecordingsForRender" t="Include">
-          <e p="test0.txt" t="Include" />
-          <e p="test100.txt" t="Include" />
-          <e p="test1000.txt" t="Include" />
-          <e p="test1100.txt" t="Include" />
-          <e p="test1200.txt" t="Include" />
-          <e p="test1300.txt" t="Include" />
-          <e p="test1400.txt" t="Include" />
-          <e p="test1500.txt" t="Include" />
-          <e p="test1600.txt" t="Include" />
-          <e p="test1700.txt" t="Include" />
-          <e p="test1800.txt" t="Include" />
-          <e p="test1900.txt" t="Include" />
           <e p="test200.txt" t="Include" />
-          <e p="test2000.txt" t="Include" />
-          <e p="test300.txt" t="Include" />
           <e p="test400.txt" t="Include" />
-          <e p="test500.txt" t="Include" />
-          <e p="test600.txt" t="Include" />
-          <e p="test700.txt" t="Include" />
-          <e p="test800.txt" t="Include" />
-          <e p="test900.txt" t="Include" />
         </e>
         <e p="RenderDepth.cs" t="Include" />
         <e p="Resources" t="Include">

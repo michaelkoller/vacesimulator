@@ -10,12 +10,14 @@ using System.Text;
 
 public class RecordObjectPosRot : MonoBehaviour
 {
-    int currentFrame = 0;
+    int currentFrame = 1;
     private string path;
     private GameObject[] allGameObjects;
     private Renderer[] allRenderers;
     private GameObject[] allGameObjectsWithRenderer;
     private StringBuilder sb;
+    private PlayModeManager playModeManager;
+    private bool playback;
 
     string GetPath()
     {
@@ -24,41 +26,45 @@ public class RecordObjectPosRot : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-    { 
-        allGameObjects = GameObject.FindObjectsOfType<GameObject>();
-        allRenderers = FindObjectsOfType<Renderer>();
-        allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
-        for (int i = 0; i < allRenderers.Length; i++)
+    {
+        playModeManager = GetComponent<PlayModeManager>();
+        playback = playModeManager.playback;
+        if (!playback)
         {
-            allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
+            allGameObjects = GameObject.FindObjectsOfType<GameObject>();
+            allRenderers = FindObjectsOfType<Renderer>();
+            allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
+            for (int i = 0; i < allRenderers.Length; i++)
+            {
+                allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
+            }
+            path = GetPath();
+            sb = new StringBuilder();
         }
-        path = GetPath();
-        //Debug.Log(allGameObjects.Length);
-        sb = new StringBuilder();
-        Debug.Log("ALL RENDERERS LENGTH " + allGameObjectsWithRenderer.Length.ToString());
     }
 
 
 
     // Update is called once per frame
     void Update()
-    {
-        sb.AppendLine("frame " + currentFrame.ToString());
-        sb.AppendLine(Time.time.ToString());
-        sb.AppendLine(Time.deltaTime.ToString());
-        for (int i = 0; i < allGameObjectsWithRenderer.Length; i++)
-        {
-            sb.AppendLine(allGameObjectsWithRenderer[i].name);
-            sb.AppendLine(allGameObjectsWithRenderer[i].transform.position.ToString("F3"));
-            sb.AppendLine(allGameObjectsWithRenderer[i].transform.rotation.ToString("F3"));
-        }
+    {   if(!playback){
+            sb.AppendLine("frame " + currentFrame.ToString());
+            sb.AppendLine(Time.time.ToString());
+            sb.AppendLine(Time.deltaTime.ToString());
+            for (int i = 0; i < allGameObjectsWithRenderer.Length; i++)
+            {
+                sb.AppendLine(allGameObjectsWithRenderer[i].name.ToString());
+                sb.AppendLine(allGameObjectsWithRenderer[i].transform.position.ToString("F3"));
+                sb.AppendLine(allGameObjectsWithRenderer[i].transform.eulerAngles.ToString("F3"));
+            }
 
-        if (currentFrame % 100 == 0)
-        {
-            File.WriteAllText(path, sb.ToString());
-            sb.Clear();
+            if (currentFrame % 200 == 0)
+            {
+                File.WriteAllText(path, sb.ToString());
+                sb.Clear();
+            }
+            currentFrame++;
+            path = GetPath();
         }
-        currentFrame++;
-        path = GetPath();
     }
 }

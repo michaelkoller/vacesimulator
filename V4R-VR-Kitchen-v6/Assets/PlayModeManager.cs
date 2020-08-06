@@ -17,8 +17,9 @@ public class PlaybackState
     private Renderer[] allRenderers;
     private GameObject[] allGameObjectsWithRenderer;
     private Dictionary<string, GameObject> gameObjectDict = new Dictionary<string, GameObject>();
+    
     public PlaybackState(string path)
-    {
+    {   
         allRenderers = GameObject.FindObjectsOfType<Renderer>();
         allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
         for (int i = 0; i < allRenderers.Length; i++)
@@ -34,9 +35,10 @@ public class PlaybackState
 
     public void GetStateOfFrame()
     {
-        this.frameNumber = int.Parse(reader.ReadLine().Trim().Split(' ')[1]);
-        this.time = int.Parse(reader.ReadLine().Trim());
-        this.deltaTime = int.Parse(reader.ReadLine().Trim());
+        string frameNumberString = reader.ReadLine().Trim().Split(' ')[1];
+        this.frameNumber = int.Parse(frameNumberString);
+        this.time = float.Parse(reader.ReadLine().Trim());
+        this.deltaTime = float.Parse(reader.ReadLine().Trim());
         for (int i = 0; i < allGameObjectsWithRenderer.Length; i++)
         {
             string name = reader.ReadLine().Trim().Split((' '))[0];
@@ -53,18 +55,20 @@ public class PlaybackState
                 rotFloat[j] = float.Parse(rot[j]);
             }
             this.gameObjectDict[name].transform.position = new Vector3(posFloat[0],posFloat[1],posFloat[2]);
-            this.gameObjectDict[name].transform.rotation = new Quaternion(rotFloat[0],rotFloat[1],rotFloat[2], rotFloat[3]);
-            
+            this.gameObjectDict[name].transform.eulerAngles = new Vector3(rotFloat[0],rotFloat[1],rotFloat[2]);
         }
+        Debug.Log("FRAME "+frameNumberString);
     }
 }
 
 public class PlayModeManager : MonoBehaviour
 {
-    private string directory = "Assets/RecordingsForRender/";
+    private GameObject recording;
+    private GameObject recordingBB;
+    private string directory = @"C:\Users\v4rmini\Documents\github\v4r-vr-kitchen-git\V4R-VR-Kitchen-v6\Assets\RecordingsForRender";
     private DirectoryInfo di;
     private FileInfo[] fileInfos;
-    public bool playback = false;
+    public bool playback;
 
     private PlaybackState ps;
     
@@ -76,25 +80,27 @@ public class PlayModeManager : MonoBehaviour
             //Leave everything as it is in the project settings
         }
         else
-        {
+        {    
+            //Turn off everything for creating bounding boxes and other frame rendering recording
+            //recording = GameObject.Find("Recording");
+            //recordingBB = GameObject.Find("RecordingBB");
+            //recording.SetActive(false);
+            //recordingBB.SetActive(false);
+            
             //Adjust physics settings to prepare for playback mode
             Physics.autoSimulation = false;
             di = new DirectoryInfo(directory);
             fileInfos = di.GetFiles();
-            Debug.Log("FITEST");
-            foreach (var fileInfo in fileInfos)
-            {
-                Debug.Log(fileInfo);
-            }
-            Debug.Log("FILE NAME "+fileInfos[0].FullName);
             ps = new PlaybackState(fileInfos[0].FullName);
-            Debug.Log(ps);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        ps.GetStateOfFrame();
+        if (playback)
+        {
+            ps.GetStateOfFrame();
+        }
     }
 }
