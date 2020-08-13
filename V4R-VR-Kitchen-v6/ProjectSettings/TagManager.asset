@@ -21,6 +21,7 @@ TagManager:
   - AdditionalEgoCam
   - DepthCamera
   - TestCamera
+  - Manager
   layers:
   - Default
   - TransparentFX

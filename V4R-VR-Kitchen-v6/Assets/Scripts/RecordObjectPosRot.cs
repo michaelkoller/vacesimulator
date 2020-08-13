@@ -12,16 +12,24 @@ public class RecordObjectPosRot : MonoBehaviour
 {
     int currentFrame = 1;
     private string path;
-    private GameObject[] allGameObjects;
+    private string pathCut;
+    //private GameObject[] allGameObjects;
     private Renderer[] allRenderers;
-    private GameObject[] allGameObjectsWithRenderer;
+    //private GameObject[] allGameObjectsWithRenderer;
+    private Dictionary<string, GameObject> allGameObjectsWithRendererDict = new Dictionary<string, GameObject>();
+    private List<string> delGosAfterCut;
+    private List<GameObject> addGosAfterCut;
     private StringBuilder sb;
     private PlayModeManager playModeManager;
     private bool playback;
-
+    private StringBuilder sbCut;
     string GetPath()
     {
         return "Assets/RecordingsForRender/test"+ currentFrame.ToString() +".txt";
+    }
+    string GetPathCut()
+    {
+        return "Assets/RecordingsForRender/testcut"+ currentFrame.ToString() +".txt";
     }
     
     // Start is called before the first frame update
@@ -29,17 +37,22 @@ public class RecordObjectPosRot : MonoBehaviour
     {
         playModeManager = GetComponent<PlayModeManager>();
         playback = playModeManager.playback;
+        addGosAfterCut = new List<GameObject>();
+        delGosAfterCut = new List<string>();
         if (!playback)
         {
-            allGameObjects = GameObject.FindObjectsOfType<GameObject>();
+            //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
-            allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
+            //allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
             for (int i = 0; i < allRenderers.Length; i++)
             {
-                allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
+                //allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
+                allGameObjectsWithRendererDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
             }
             path = GetPath();
             sb = new StringBuilder();
+            pathCut = GetPathCut();
+            sbCut = new StringBuilder();
         }
     }
 
@@ -51,20 +64,50 @@ public class RecordObjectPosRot : MonoBehaviour
             sb.AppendLine("frame " + currentFrame.ToString());
             sb.AppendLine(Time.time.ToString());
             sb.AppendLine(Time.deltaTime.ToString());
-            for (int i = 0; i < allGameObjectsWithRenderer.Length; i++)
+            foreach(KeyValuePair<string,GameObject> goPair in allGameObjectsWithRendererDict)
             {
-                sb.AppendLine(allGameObjectsWithRenderer[i].name.ToString());
-                sb.AppendLine(allGameObjectsWithRenderer[i].transform.position.ToString("F3"));
-                sb.AppendLine(allGameObjectsWithRenderer[i].transform.eulerAngles.ToString("F3"));
+                sb.AppendLine(goPair.Key);
+                sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
+                sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
 
             if (currentFrame % 200 == 0)
             {
                 File.WriteAllText(path, sb.ToString());
                 sb.Clear();
+                path = GetPath();
             }
+
+            foreach (string s in delGosAfterCut)
+            {
+                allGameObjectsWithRendererDict.Remove(s);
+            }
+            delGosAfterCut.Clear();
+            
+            foreach (GameObject go in addGosAfterCut)
+            {
+                allGameObjectsWithRendererDict.Add(go.name, go);
+            }
+            addGosAfterCut.Clear();
+            
             currentFrame++;
-            path = GetPath();
         }
+    }
+
+    public void RecordCut(string originalGameObjectName, Vector3 _contactPoint, Vector3 _direction, GameObject leftGO, GameObject rightGO, Material _cutMaterial = null, bool fill = true, bool _addRigidbody = false)
+    {   
+        sbCut.AppendLine("frame " + currentFrame.ToString());
+        sbCut.AppendLine(originalGameObjectName);
+        sbCut.AppendLine(_contactPoint.ToString("F3"));
+        sbCut.AppendLine(_direction.ToString("F3"));
+        File.WriteAllText(pathCut, sbCut.ToString());
+        sbCut.Clear();
+        delGosAfterCut.Add(originalGameObjectName);
+        addGosAfterCut.Add(leftGO);
+        addGosAfterCut.Add(rightGO);
+        //allGameObjectsWithRendererDict.Remove(originalGameObjectName);
+        //allGameObjectsWithRendererDict.Add(leftGO.name, leftGO);
+        //allGameObjectsWithRendererDict.Add(rightGO.name, rightGO);
+
     }
 }

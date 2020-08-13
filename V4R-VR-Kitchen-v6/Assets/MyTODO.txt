@@ -21,3 +21,27 @@ create datastructure that handles cut objects (i.e. tree for each object that ha
 fix handling of cut objects
     the newly cut objects cannot be picked up
     do new and old objects after cut have correct colliders etc?
+
+when cutting:
+sometimes no ObjectID script is attached to a newly created object. Then also no grasp ghost is created and the object isn't interactable.
+(in Cutter.cs script)
+(error in objectID.cs: maybe the error here leads to not instantiating objectID.cs
+cucumber_10
+UnityEngine.Debug:Log(Object)
+ObjectId:OnCollisionEnter(Collision) (at Assets/Scripts/ObjectId.cs:134)
+
+child cucumber_1Ghost
+UnityEngine.Debug:Log(Object)
+ObjectId:OnCollisionEnter(Collision) (at Assets/Scripts/ObjectId.cs:135)
+
+UnityException: Transform child out of bounds
+ObjectId.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/ObjectId.cs:133)
+
+-----
+
+Record cut actions on objects and just recreate the cuts 
+
+Automate file reading for test and testcut files
+
+After a cut, one of the two new Gameobjects still has the old ghost shape (i.e., the original shape before cut)
+    --> write function to update ghosts too after cut 

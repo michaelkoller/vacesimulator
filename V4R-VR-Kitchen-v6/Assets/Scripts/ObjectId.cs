@@ -131,8 +131,8 @@ public class ObjectId : MonoBehaviour
                 GameObject newGO = Cutter.Cut(collision.collider.gameObject, contact.point, this.transform.forward, null, true, true);
                 
                 collision.collider.transform.GetChild(0).transform.GetComponent<MeshCollider>().sharedMesh = collision.collider.gameObject.GetComponent<MeshCollider>().sharedMesh;
-                Debug.Log(collision.collider.gameObject.name);
-                Debug.Log("child " +collision.collider.gameObject.transform.GetChild(0).gameObject.name);
+                //Debug.Log(collision.collider.gameObject.name);
+                //Debug.Log("child " +collision.collider.gameObject.transform.GetChild(0).gameObject.name);
                 
                 ObjectId newObjectId = newGO.AddComponent<ObjectId>();
                 newObjectId.makeGhost = true;

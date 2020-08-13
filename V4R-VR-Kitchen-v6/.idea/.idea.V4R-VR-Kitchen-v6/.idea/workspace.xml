@@ -8,7 +8,10 @@
       <change beforePath="$PROJECT_DIR$/Assets/PlayModeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayModeManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RecordingsForRender.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,14 +72,14 @@
         <option value="$PROJECT_DIR$/Assets/RenderDepth.cs" />
         <option value="$PROJECT_DIR$/Assets/V4R_VR_Kitchen/depthShader.shader" />
         <option value="$PROJECT_DIR$/Assets/Manager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" />
         <option value="$PROJECT_DIR$/Assets/FollowVRCam.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/CollisionCut.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
-        <option value="$PROJECT_DIR$/Assets/PlayModeManager.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
+        <option value="$PROJECT_DIR$/Assets/PlayModeManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" />
       </list>
     </option>
   </component>
@@ -146,7 +149,7 @@
       <workItem from="1586944102742" duration="646000" />
       <workItem from="1596542395326" duration="91000" />
       <workItem from="1596628725176" duration="8740000" />
-      <workItem from="1596707027890" duration="9374000" />
+      <workItem from="1596707027890" duration="19630000" />
     </task>
     <servers />
   </component>
@@ -237,10 +240,18 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1637" height="335" key="GridCell.Tab.3.right/0.0.1680.1010@0.0.1680.1010" timestamp="1596709276465" />
+    <state x="649" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597330669927">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="649" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1010@0.0.1680.1010" timestamp="1597330669927" />
     <state x="401" y="242" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1596709327045">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="401" y="242" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1680.1010@0.0.1680.1010" timestamp="1596709327045" />
+    <state x="486" y="103" width="708" height="804" key="find.popup" timestamp="1597326048376">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="486" y="103" width="708" height="804" key="find.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1597326048376" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

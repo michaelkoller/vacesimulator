@@ -1,14 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Cutter : MonoBehaviour
 {
     public static bool currentlyCutting;
     public static Mesh originalMesh;
+    public static RecordObjectPosRot recordObjectPosRot;
+    public static PlayModeManager playModeManager;
 
     public static GameObject Cut(GameObject _originalGameObject, Vector3 _contactPoint, Vector3 _direction, Material _cutMaterial = null, bool fill = true, bool _addRigidbody = false)
     {
+        if (recordObjectPosRot is null)
+        {
+            recordObjectPosRot = GameObject.FindGameObjectWithTag("Manager").GetComponent<RecordObjectPosRot>();
+        }
+        Assert.IsNotNull(recordObjectPosRot); //link the recordobjectrosrot instance to this script
+                                              
+        if (playModeManager is null)
+        {
+            playModeManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<PlayModeManager>();
+        }
+        Assert.IsNotNull(playModeManager); //link the playModeManager instance to this script
+        
         if(currentlyCutting)
         {
             return null;
@@ -124,6 +140,18 @@ public class Cutter : MonoBehaviour
         }
 
         currentlyCutting = false;
+
+        //naming scheme: orig object name (left): append 0
+        //new object name (right): append 1
+        //this creates a binary tree from one object if it is cut multiple times
+        string oldObjectName = String.Copy(_originalGameObject.name);
+        rightGO.name = _originalGameObject.name + "1";
+        _originalGameObject.name += "0";
+
+        if (!playModeManager.playback)
+        {
+            recordObjectPosRot.RecordCut(oldObjectName, _contactPoint, _direction, _originalGameObject, rightGO);
+        }
 
         return rightGO;
     }
