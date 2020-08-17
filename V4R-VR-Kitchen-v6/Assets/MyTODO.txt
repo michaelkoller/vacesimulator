@@ -1,4 +1,8 @@
-﻿My Todos
+﻿Tracker index: 
+playerwithavatar --> steamvrobjects --> tracker --> in inspector: steam vr tracked object, index
+
+
+My Todos
 
 Create Game Startup Manager for setting perform or render mode, file names, etc
 Create a visualization of my table to put down controllers
@@ -39,9 +43,69 @@ ObjectId.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/O
 
 -----
 
-Record cut actions on objects and just recreate the cuts 
-
 Automate file reading for test and testcut files
 
 After a cut, one of the two new Gameobjects still has the old ghost shape (i.e., the original shape before cut)
     --> write function to update ghosts too after cut 
+    
+ Record faucet and oven status
+ 
+ Make hands move in playback mode
+ 
+ Create all Recordings when in playback mode:
+    Ego RGB
+    Object mask
+    Depth
+        How many angles?
+    Ego RGB
+    Ego Object mask
+    Ego Depth
+    
+    Annotation
+        Pose
+        Orientation
+        Bounding box
+            For all rendered objects
+        Object mask color mapping for all objects
+        Predicates
+            Grasp
+            On
+            In
+            (see Rogers email)
+       
+            
+ Manager for replay file parts
+    Set text for record name?
+    Folder Structure:
+    Sample
+        Replay files
+            Pos+Or
+            Cut
+            Faucet
+            Stove
+        Recordings
+            Videos
+                Cam1
+                    RGB
+                    Mask
+                    Depth
+                Cam2
+                ...
+                Ego
+        Annotation
+            PoseOrientation
+            Bounding box
+                For all rendered objects
+            Object mask color mapping for all objects
+            Predicates
+                Grasp
+                On
+                In
+                (see Rogers email)            
+                 
+ Improve Avatar
+    Legs should make steps
+    Hands should not detach from arms
+    Collisions between avatar and furniture?
+         
+Write last recordings too, when recording is stopped (currently only writes every X (200) frames

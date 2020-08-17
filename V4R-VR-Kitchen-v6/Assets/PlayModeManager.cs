@@ -3,25 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 
 public class PlaybackState
 {   
-    public string path;
-    public string pathCut = @"C:\Users\v4rmini\Documents\github\v4r-vr-kitchen-git\V4R-VR-Kitchen-v6\Assets\RecordingsForRender\testcut1.txt"; //TODO automate this
+    public string replayDir;
+    public string pathPO;
+    public string pathCut;
     public int frameNumber;
     public int nextFrameForCutting = -1;
     public float time;
     public float deltaTime;
-    private System.IO.StreamReader reader;
+    private DirectoryInfo di;
+    private FileInfo[] fileInfosPO;
+    private FileInfo[] fileInfosCuts;
+    private StreamReader reader;
+    private int currPathPOfileNumber;
+    private int poFileCount;
     private StreamReader cutReader;
+    public bool playbackFinished;
     
     private Renderer[] allRenderers;
     private GameObject[] allGameObjectsWithRenderer;
     private Dictionary<string, GameObject> gameObjectDict = new Dictionary<string, GameObject>();
-    
-    public PlaybackState(string path)
+
+    public PlaybackState(string replayDir)
     {   
         allRenderers = GameObject.FindObjectsOfType<Renderer>();
         allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
@@ -30,28 +38,56 @@ public class PlaybackState
             allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
             gameObjectDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
         }        
-        this.path = path;
-        this.reader = new StreamReader(this.path);
-        this.cutReader = new StreamReader(this.pathCut);
+        this.replayDir =  replayDir;
+        this.pathPO = replayDir + @"\PositionAndOrientation";
+        this.pathCut = replayDir + @"\Cuts";
+        
+        di = new DirectoryInfo(pathPO);
+        fileInfosPO = di.GetFiles();
+        currPathPOfileNumber = 0;
+        poFileCount = fileInfosPO.Length;
+        Debug.Log("PO "+fileInfosPO[currPathPOfileNumber].FullName);
+        di = new DirectoryInfo(pathCut);
+        fileInfosCuts = di.GetFiles();
+        Debug.Log("Cuts "+fileInfosCuts[currPathPOfileNumber].FullName);
+        
+        GetNextPOFile();
+        //this.reader = new StreamReader(fileInfosPO[currPathPOfileNumber].FullName); // TODO iterate over all the files in dir
+        this.cutReader = new StreamReader(fileInfosCuts[0].FullName);
         //get frame number of first cut
         nextFrameForCutting = int.Parse(cutReader.ReadLine().Trim().Split(' ')[1]);
+        playbackFinished = false;
+    }
 
+    private void GetNextPOFile()
+    {
+        this.reader = new StreamReader(fileInfosPO[currPathPOfileNumber].FullName); // TODO iterate over all the files in dir
+        currPathPOfileNumber++;
     }
 
     public void GetStateOfFrame()
-    {   
-        Debug.Log("Frame "+frameNumber);
+    {
+        if (this.reader.EndOfStream && currPathPOfileNumber < poFileCount)
+        {
+            GetNextPOFile();
+        }
+        else if(this.reader.EndOfStream)
+        {
+            playbackFinished = true;
+            return;
+        }
         string frameNumberString = reader.ReadLine().Trim().Split(' ')[1];
         this.frameNumber = int.Parse(frameNumberString);
         this.time = float.Parse(reader.ReadLine().Trim());
         this.deltaTime = float.Parse(reader.ReadLine().Trim());
-        for (int i = 0; i < allGameObjectsWithRenderer.Length; i++)
+        for (int i = 0; i < gameObjectDict.Count; i++)
         {
             string name = reader.ReadLine().Trim().Split((' '))[0];
             string[] pos = reader.ReadLine().Trim('(').Trim(')').Split(',');
             string[] rot = reader.ReadLine().Trim('(').Trim(')').Split(',');
             float[] posFloat = new float[3];
             float[] rotFloat = new float[4];
+            
             for (int j = 0; j < 3; j++)
             {
                 posFloat[j] = float.Parse(pos[j]);
@@ -81,7 +117,6 @@ public class PlaybackState
             }
             Vector3 contactPointVec3 = new Vector3(contactPointFloat[0],contactPointFloat[1],contactPointFloat[2]);
             Vector3 directionPointVec3 = new Vector3(directionFloat[0],directionFloat[1],directionFloat[2]);
-            Debug.Log("NC " + nameCut);
             Cutter.Cut(gameObjectDict[nameCut], contactPointVec3, directionPointVec3);
             gameObjectDict.Remove(nameCut);
             gameObjectDict.Add(nameCut+"0", GameObject.Find(nameCut+"0") );
@@ -100,21 +135,54 @@ public class PlayModeManager : MonoBehaviour
 {
     private GameObject recording;
     private GameObject recordingBB;
-    private string directory = @"C:\Users\v4rmini\Documents\github\v4r-vr-kitchen-git\V4R-VR-Kitchen-v6\Assets\RecordingsForRender";
-    private DirectoryInfo di;
-    private FileInfo[] fileInfos;
+    public string directory = @"C:\Users\v4rmini\Documents\RecordingsForRender";
+    [HideInInspector]
+    public string sampleDir;
+    private string replayDir;
     public bool playback;
+    public bool useMostRecentRecording;
 
     private PlaybackState ps;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (!playback)
         {
             //Leave everything as it is in the project settings
+            
+            //Create Folder Structures
+            string now = DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss");
+            Debug.Log("DATE "+now); //in this folder everything is saved
+            sampleDir = directory + @"\Sample" + now;
+            Directory.CreateDirectory(sampleDir);
+            replayDir = sampleDir + @"\ReplayFiles";
+            Directory.CreateDirectory(replayDir);
+            string recordingsDir = sampleDir + @"\RecordingsFiles";
+            Directory.CreateDirectory(recordingsDir);
+
+            Directory.CreateDirectory(replayDir + @"\PositionAndOrientation");
+            Directory.CreateDirectory(replayDir + @"\Cuts");
+            Directory.CreateDirectory(replayDir + @"\Faucet");
+            Directory.CreateDirectory(replayDir + @"\Stove");
+
+            string videoDir = recordingsDir + @"\Videos";
+            Directory.CreateDirectory(videoDir);
+            string annotationDir = recordingsDir + @"\Annotations";
+            Directory.CreateDirectory(annotationDir);
+            
+            string[] cameras = new string[2]{"Ego", "Cam1"}; //Add further cameras here
+            foreach (string c in cameras)
+            {
+                Directory.CreateDirectory(videoDir + @"\" + c);
+            }
+
+            Directory.CreateDirectory(annotationDir + @"\PoseAndOrientation");
+            Directory.CreateDirectory(annotationDir + @"\BoundingBox");
+            Directory.CreateDirectory(annotationDir + @"\Colormap");
+            Directory.CreateDirectory(annotationDir + @"\Predicates");
         }
-        else
+        else // if playback
         {    
             //Turn off everything for creating bounding boxes and other frame rendering recording
             //recording = GameObject.Find("Recording");
@@ -122,19 +190,27 @@ public class PlayModeManager : MonoBehaviour
             //recording.SetActive(false);
             //recordingBB.SetActive(false);
             
+            UnityEngine.XR.InputTracking.disablePositionalTracking = true;
+            
             //Adjust physics settings to prepare for playback mode
             Physics.autoSimulation = false;
-            di = new DirectoryInfo(directory);
-            fileInfos = di.GetFiles();
-            ps = new PlaybackState(fileInfos[0].FullName);
+
+            DirectoryInfo sampleFolderDirInfo;
+            //get most recent replay
+            if (useMostRecentRecording)
+            {
+                replayDir = new DirectoryInfo(directory).GetDirectories().OrderByDescending(d=>d.LastWriteTimeUtc).First().ToString();
+                replayDir += @"\ReplayFiles";
+            }
+            ps = new PlaybackState(replayDir);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playback)
-        {
+        if (playback && !ps.playbackFinished)
+        {    
             ps.GetStateOfFrame();
         }
     }

@@ -25,11 +25,11 @@ public class RecordObjectPosRot : MonoBehaviour
     private StringBuilder sbCut;
     string GetPath()
     {
-        return "Assets/RecordingsForRender/test"+ currentFrame.ToString() +".txt";
+        return  playModeManager.sampleDir +@"\ReplayFiles\PositionAndOrientation\PO"+ currentFrame.ToString() +".txt";
     }
     string GetPathCut()
     {
-        return "Assets/RecordingsForRender/testcut"+ currentFrame.ToString() +".txt";
+        return  playModeManager.sampleDir +@"\ReplayFiles\Cuts\Cuts"+ currentFrame.ToString() +".txt";
     }
     
     // Start is called before the first frame update
@@ -100,7 +100,7 @@ public class RecordObjectPosRot : MonoBehaviour
         sbCut.AppendLine(originalGameObjectName);
         sbCut.AppendLine(_contactPoint.ToString("F3"));
         sbCut.AppendLine(_direction.ToString("F3"));
-        File.WriteAllText(pathCut, sbCut.ToString());
+        File.AppendAllText(pathCut, sbCut.ToString());
         sbCut.Clear();
         delGosAfterCut.Add(originalGameObjectName);
         addGosAfterCut.Add(leftGO);

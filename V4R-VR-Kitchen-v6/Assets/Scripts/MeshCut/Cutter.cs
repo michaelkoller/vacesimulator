@@ -149,7 +149,7 @@ public class Cutter : MonoBehaviour
         _originalGameObject.name += "0";
 
         if (!playModeManager.playback)
-        {
+        {   
             recordObjectPosRot.RecordCut(oldObjectName, _contactPoint, _direction, _originalGameObject, rightGO);
         }
 

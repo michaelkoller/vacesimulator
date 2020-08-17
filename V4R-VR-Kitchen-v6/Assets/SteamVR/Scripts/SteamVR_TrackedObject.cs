@@ -95,6 +95,19 @@ namespace Valve.VR
             }
 
             newPosesAction.enabled = true;
+            
+            //https://stackoverflow.com/questions/43184610/how-to-determine-whether-a-steamvr-trackedobject-is-a-vive-controller-or-a-vive
+            var error = ETrackedPropertyError.TrackedProp_Success;
+            for (uint i = 0; i < 16; i++)
+            {
+                var result = new System.Text.StringBuilder((int)64);
+                OpenVR.System.GetStringTrackedDeviceProperty(i, ETrackedDeviceProperty.Prop_RenderModelName_String, result, 64, ref error);
+                if (result.ToString().Contains("tracker"))
+                {
+                    index = (SteamVR_TrackedObject.EIndex)i;
+                    break;
+                }
+            }
         }
 
         void OnDisable()

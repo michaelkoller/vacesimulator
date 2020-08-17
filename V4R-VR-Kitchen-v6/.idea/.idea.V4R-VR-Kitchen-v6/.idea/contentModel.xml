@@ -948,11 +948,6 @@
           <e p="ReadMe.txt" t="Include" />
         </e>
         <e p="PlayModeManager.cs" t="Include" />
-        <e p="RecordingsForRender" t="Include">
-          <e p="test1.txt" t="Include" />
-          <e p="test200.txt" t="Include" />
-          <e p="testcut1.txt" t="Include" />
-        </e>
         <e p="RenderDepth.cs" t="Include" />
         <e p="Resources" t="Include">
           <e p="Shaders" t="Include">
