@@ -43,7 +43,6 @@ ObjectId.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/O
 
 -----
 
-Automate file reading for test and testcut files
 
 After a cut, one of the two new Gameobjects still has the old ghost shape (i.e., the original shape before cut)
     --> write function to update ghosts too after cut 
@@ -76,36 +75,17 @@ After a cut, one of the two new Gameobjects still has the old ghost shape (i.e.,
             
  Manager for replay file parts
     Set text for record name?
-    Folder Structure:
-    Sample
-        Replay files
-            Pos+Or
-            Cut
-            Faucet
-            Stove
-        Recordings
-            Videos
-                Cam1
-                    RGB
-                    Mask
-                    Depth
-                Cam2
-                ...
-                Ego
-        Annotation
-            PoseOrientation
-            Bounding box
-                For all rendered objects
-            Object mask color mapping for all objects
-            Predicates
-                Grasp
-                On
-                In
-                (see Rogers email)            
+     
                  
  Improve Avatar
     Legs should make steps
     Hands should not detach from arms
     Collisions between avatar and furniture?
          
-Write last recordings too, when recording is stopped (currently only writes every X (200) frames
+
+Record Hands
+Change Gloves?
+
+
+In objectid.cs in oncollisionenter
+                //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?

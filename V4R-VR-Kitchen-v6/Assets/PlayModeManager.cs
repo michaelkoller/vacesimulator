@@ -46,16 +46,22 @@ public class PlaybackState
         fileInfosPO = di.GetFiles();
         currPathPOfileNumber = 0;
         poFileCount = fileInfosPO.Length;
-        Debug.Log("PO "+fileInfosPO[currPathPOfileNumber].FullName);
         di = new DirectoryInfo(pathCut);
         fileInfosCuts = di.GetFiles();
-        Debug.Log("Cuts "+fileInfosCuts[currPathPOfileNumber].FullName);
         
         GetNextPOFile();
         //this.reader = new StreamReader(fileInfosPO[currPathPOfileNumber].FullName); // TODO iterate over all the files in dir
         this.cutReader = new StreamReader(fileInfosCuts[0].FullName);
         //get frame number of first cut
-        nextFrameForCutting = int.Parse(cutReader.ReadLine().Trim().Split(' ')[1]);
+        if (!cutReader.EndOfStream)
+        {
+            nextFrameForCutting = int.Parse(cutReader.ReadLine().Trim().Split(' ')[1]);
+        }
+        else
+        {
+            nextFrameForCutting = -1;
+        }
+        
         playbackFinished = false;
     }
 

@@ -110,4 +110,17 @@ public class RecordObjectPosRot : MonoBehaviour
         //allGameObjectsWithRendererDict.Add(rightGO.name, rightGO);
 
     }
+
+    private void FlushRecordings()
+    {
+        File.WriteAllText(path, sb.ToString());
+        sb.Clear();
+        File.AppendAllText(pathCut, sbCut.ToString());
+        sbCut.Clear();
+    }
+    
+    void OnDestroy()
+    {
+       FlushRecordings();
+    }
 }
