@@ -41,6 +41,7 @@ ObjectId:OnCollisionEnter(Collision) (at Assets/Scripts/ObjectId.cs:135)
 UnityException: Transform child out of bounds
 ObjectId.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/ObjectId.cs:133)
 
+
 -----
 
 
@@ -89,3 +90,10 @@ Change Gloves?
 
 In objectid.cs in oncollisionenter
                 //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
+
+
+Record colors of all cut objects in cut map. This must include all intermittent cut objects, too.
+
+In playmodemanager, record mode:
+TODO instantiate this hand, find out how to unpair it from vr input, find out how to move hand and fingers
+

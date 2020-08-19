@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 
 public class PlaybackState
 {   
+  
     public string replayDir;
     public string pathPO;
     public string pathCut;
@@ -43,7 +44,7 @@ public class PlaybackState
         this.pathCut = replayDir + @"\Cuts";
         
         di = new DirectoryInfo(pathPO);
-        fileInfosPO = di.GetFiles();
+        fileInfosPO = di.GetFiles().OrderBy(p => p.CreationTime).ToArray();;
         currPathPOfileNumber = 0;
         poFileCount = fileInfosPO.Length;
         di = new DirectoryInfo(pathCut);
@@ -150,11 +151,18 @@ public class PlayModeManager : MonoBehaviour
 
     private PlaybackState ps;
     
+    public GameObject renderModelPrefab;
+
     // Start is called before the first frame update
     void Awake()
     {
         if (!playback)
         {
+            
+            //TODO instantiate this hand, find out how to unpair it from vr input, find out how to move hand and fingers
+            GameObject renderModelInstance = GameObject.Instantiate(renderModelPrefab);
+            
+            
             //Leave everything as it is in the project settings
             
             //Create Folder Structures
@@ -189,7 +197,9 @@ public class PlayModeManager : MonoBehaviour
             Directory.CreateDirectory(annotationDir + @"\Predicates");
         }
         else // if playback
-        {    
+        {   
+            
+
             //Turn off everything for creating bounding boxes and other frame rendering recording
             //recording = GameObject.Find("Recording");
             //recordingBB = GameObject.Find("RecordingBB");

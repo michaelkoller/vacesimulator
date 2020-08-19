@@ -75,7 +75,7 @@ public class ObjectId : MonoBehaviour
     }
 
     private void MakeGhost()
-    {
+    {   Debug.Log("MAKE GHOST "+this.gameObject.name);
         if (!this.makeGhost)
         {
             return;
@@ -131,23 +131,19 @@ public class ObjectId : MonoBehaviour
         if (Time.time - lastCutTime > cutCooldownAmount && this.cuttingTool && collisionObjectID != null && collisionObjectID.cuttable)
         {   lastCutTime = Time.time;
 
-            foreach (ContactPoint contact in collision.contacts)
-            {
-                GameObject newGO = Cutter.Cut(collision.collider.gameObject, contact.point, this.transform.forward, null, true, true);
-                
-                //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
-                collision.collider.transform.GetChild(0).transform.GetComponent<MeshCollider>().sharedMesh = collision.collider.gameObject.GetComponent<MeshCollider>().sharedMesh;
-                //Debug.Log(collision.collider.gameObject.name);
-                //Debug.Log("child " +collision.collider.gameObject.transform.GetChild(0).gameObject.name);
-                
-                ObjectId newObjectId = newGO.AddComponent<ObjectId>();
-                newObjectId.makeGhost = true;
-                newObjectId.cuttable = true;
-                lastCutTime = Time.time;
-                
-                //ONLY take first contact point per cut
-                break;
-            }
+            Vector3 cutDirection = this.gameObject.transform.rotation * cuttingPlaneNormal;
+            ContactPoint contact = collision.contacts[0]; //This usually has several entries. Just take one, e.g. first
+            GameObject newGO = Cutter.Cut(collision.collider.gameObject, contact.point, cutDirection, null, true, true);
+            
+            //This probably doesn't work. Create ghosts directly in cut
+            //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
+            //line below gives the original gameobject's ghost the new meshcollider
+            collision.collider.transform.GetChild(0).transform.GetComponent<MeshCollider>().sharedMesh = collision.collider.gameObject.GetComponent<MeshCollider>().sharedMesh;
+            
+            ObjectId newObjectId = newGO.AddComponent<ObjectId>();
+            newObjectId.makeGhost = true;
+            newObjectId.cuttable = true;
+            lastCutTime = Time.time;
         }
     }
 }

@@ -152,6 +152,7 @@ public class Cutter : MonoBehaviour
         {   
             recordObjectPosRot.RecordCut(oldObjectName, _contactPoint, _direction, _originalGameObject, rightGO);
         }
+        
 
         return rightGO;
     }

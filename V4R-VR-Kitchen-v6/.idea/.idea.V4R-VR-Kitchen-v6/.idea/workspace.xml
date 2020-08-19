@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9f7b6fa-7b52-4898-b0bb-ace01f26f678" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/MyTODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MyTODO.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/PlayModeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayModeManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/Models/Materials/vr_glove_color_red.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/Models/Materials/vr_glove_color_red.mat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +25,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/FastIK/Scripts/FastIK/FastIKLook.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TrackObjects.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DisplayRecipe.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Attach.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/SetHeadPosition.cs" root0="FORCE_HIGHLIGHTING" />
@@ -49,6 +53,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Depthtest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/RenderModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -69,12 +74,12 @@
         <option value="$PROJECT_DIR$/Assets/FollowVRCam.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/CollisionCut.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" />
         <option value="$PROJECT_DIR$/Assets/SteamVR/Scripts/SteamVR_TrackedObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
         <option value="$PROJECT_DIR$/Assets/PlayModeManager.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
       </list>
     </option>
   </component>
@@ -98,10 +103,10 @@
       <option name="pid" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="9268">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="9268" />
       <method v="2" />
     </configuration>
     <list>
@@ -146,7 +151,8 @@
       <workItem from="1596628725176" duration="8740000" />
       <workItem from="1596707027890" duration="30557000" />
       <workItem from="1597672806449" duration="3924000" />
-      <workItem from="1597760267954" duration="3410000" />
+      <workItem from="1597760267954" duration="4013000" />
+      <workItem from="1597839181080" duration="5653000" />
     </task>
     <servers />
   </component>
@@ -173,38 +179,38 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="294" y="161" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1596707190067" />
-    <state width="1637" height="335" key="GridCell.Tab.0.bottom" timestamp="1597671660336">
+    <state width="1637" height="335" key="GridCell.Tab.0.bottom" timestamp="1597842350161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660336" />
-    <state width="1637" height="335" key="GridCell.Tab.0.center" timestamp="1597671660336">
+    <state width="1637" height="335" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1597842350161" />
+    <state width="1637" height="335" key="GridCell.Tab.0.center" timestamp="1597842350161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660336" />
-    <state width="1637" height="335" key="GridCell.Tab.0.left" timestamp="1597671660336">
+    <state width="1637" height="335" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1597842350161" />
+    <state width="1637" height="335" key="GridCell.Tab.0.left" timestamp="1597842350160">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660336" />
-    <state width="1637" height="335" key="GridCell.Tab.0.right" timestamp="1597671660336">
+    <state width="1637" height="335" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1597842350160" />
+    <state width="1637" height="335" key="GridCell.Tab.0.right" timestamp="1597842350161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660336" />
-    <state width="1637" height="335" key="GridCell.Tab.1.bottom" timestamp="1597671660337">
+    <state width="1637" height="335" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1597842350161" />
+    <state width="1637" height="335" key="GridCell.Tab.1.bottom" timestamp="1597842362058">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.1.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660337" />
-    <state width="1637" height="335" key="GridCell.Tab.1.center" timestamp="1597671660336">
+    <state width="1637" height="335" key="GridCell.Tab.1.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1597842362058" />
+    <state width="1637" height="335" key="GridCell.Tab.1.center" timestamp="1597842362058">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.1.center/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660336" />
-    <state width="1637" height="335" key="GridCell.Tab.1.left" timestamp="1597671660336">
+    <state width="1637" height="335" key="GridCell.Tab.1.center/0.0.1680.1010@0.0.1680.1010" timestamp="1597842362058" />
+    <state width="1637" height="335" key="GridCell.Tab.1.left" timestamp="1597842362058">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.1.left/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660336" />
-    <state width="1637" height="335" key="GridCell.Tab.1.right" timestamp="1597671660337">
+    <state width="1637" height="335" key="GridCell.Tab.1.left/0.0.1680.1010@0.0.1680.1010" timestamp="1597842362058" />
+    <state width="1637" height="335" key="GridCell.Tab.1.right" timestamp="1597842362058">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="335" key="GridCell.Tab.1.right/0.0.1680.1010@0.0.1680.1010" timestamp="1597671660337" />
+    <state width="1637" height="335" key="GridCell.Tab.1.right/0.0.1680.1010@0.0.1680.1010" timestamp="1597842362058" />
     <state width="1637" height="335" key="GridCell.Tab.2.bottom" timestamp="1597671660337">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -245,10 +251,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="649" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1010@0.0.1680.1010" timestamp="1597330669927" />
-    <state x="401" y="242" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1597669413667">
+    <state x="401" y="242" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1597842491949">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="401" y="242" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1680.1010@0.0.1680.1010" timestamp="1597669413667" />
+    <state x="401" y="242" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1680.1010@0.0.1680.1010" timestamp="1597842491949" />
     <state x="486" y="103" width="708" height="804" key="find.popup" timestamp="1597326048376">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
