@@ -95,5 +95,7 @@ In objectid.cs in oncollisionenter
 Record colors of all cut objects in cut map. This must include all intermittent cut objects, too.
 
 In playmodemanager, record mode:
-TODO instantiate this hand, find out how to unpair it from vr input, find out how to move hand and fingers
+So, the hand should be recorded now. Next, instantiate the slim render model (clone), deactivate steam vr scripts and the
+animator, then set the single joints according to the recordings. Note: some joints are probably in local space, not 
+world space.
 

@@ -17,6 +17,11 @@ public class RecordObjectPosRot : MonoBehaviour
     private Renderer[] allRenderers;
     //private GameObject[] allGameObjectsWithRenderer;
     private Dictionary<string, GameObject> allGameObjectsWithRendererDict = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> rightHandDict = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> leftHandDict = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject>[] dictArray;
+    private GameObject leftHandParent;
+    private GameObject rightHandParent;
     private List<string> delGosAfterCut;
     private List<GameObject> addGosAfterCut;
     private StringBuilder sb;
@@ -53,24 +58,72 @@ public class RecordObjectPosRot : MonoBehaviour
             sb = new StringBuilder();
             pathCut = GetPathCut();
             sbCut = new StringBuilder();
+            
+            dictArray = new Dictionary<string, GameObject>[3];
+            dictArray[0] = allGameObjectsWithRendererDict;
+            dictArray[1] = rightHandDict;
+            dictArray[2] = leftHandDict;
+            
         }
     }
-
+    
 
 
     // Update is called once per frame
     void Update()
     {   if(!playback){
+            if (rightHandParent == null)
+            {
+                rightHandParent = GameObject.Find("RightRenderModel Slim(Clone)");
+                if (rightHandParent != null)
+                {
+                    Transform[] rightHandDescendants = rightHandParent.GetComponentsInChildren<Transform>();
+                    foreach (Transform t in rightHandDescendants)
+                    {    
+                        rightHandDict.Add(t.gameObject.name, t.gameObject);
+                    }
+                }
+            }
+
+            if (leftHandParent == null)
+            {
+                leftHandParent = GameObject.Find("LeftRenderModel Slim(Clone)");
+                if (leftHandParent != null)
+                {
+                    Transform[] leftHandDescendants = leftHandParent.GetComponentsInChildren<Transform>();
+                    foreach (Transform t in leftHandDescendants)
+                    {
+                        leftHandDict.Add(t.gameObject.name, t.gameObject);
+                    }
+                }
+            }
+
+
             sb.AppendLine("frame " + currentFrame.ToString());
             sb.AppendLine(Time.time.ToString());
             sb.AppendLine(Time.deltaTime.ToString());
+            
             foreach(KeyValuePair<string,GameObject> goPair in allGameObjectsWithRendererDict)
             {
                 sb.AppendLine(goPair.Key);
                 sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
                 sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
-
+            
+            foreach(KeyValuePair<string,GameObject> goPair in rightHandDict)
+            {
+                sb.AppendLine("right_"+goPair.Key);
+                sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
+                sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
+            }
+            
+            foreach(KeyValuePair<string,GameObject> goPair in leftHandDict)
+            {
+                sb.AppendLine("left_"+goPair.Key);
+                sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
+                sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
+            }
+            
             if (currentFrame % 200 == 0)
             {
                 File.WriteAllText(path, sb.ToString());

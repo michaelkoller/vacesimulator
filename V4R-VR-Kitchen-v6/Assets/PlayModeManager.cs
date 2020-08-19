@@ -158,11 +158,6 @@ public class PlayModeManager : MonoBehaviour
     {
         if (!playback)
         {
-            
-            //TODO instantiate this hand, find out how to unpair it from vr input, find out how to move hand and fingers
-            GameObject renderModelInstance = GameObject.Instantiate(renderModelPrefab);
-            
-            
             //Leave everything as it is in the project settings
             
             //Create Folder Structures
@@ -220,6 +215,12 @@ public class PlayModeManager : MonoBehaviour
             }
             ps = new PlaybackState(replayDir);
         }
+    }
+
+    private void Start()
+    {
+        //TODO instantiate this hand, find out how to unpair it from vr input, find out how to move hand and fingers
+        //GameObject renderModelInstance = GameObject.Instantiate(renderModelPrefab);
     }
 
     // Update is called once per frame

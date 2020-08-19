@@ -75,7 +75,7 @@ public class ObjectId : MonoBehaviour
     }
 
     private void MakeGhost()
-    {   Debug.Log("MAKE GHOST "+this.gameObject.name);
+    {   
         if (!this.makeGhost)
         {
             return;
