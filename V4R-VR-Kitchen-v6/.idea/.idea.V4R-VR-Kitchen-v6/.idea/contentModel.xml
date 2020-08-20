@@ -7,8 +7,6 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="DepthCamScript.cs" t="Include" />
-        <e p="Depthtest.cs" t="Include" />
         <e p="EditorXR" t="Include">
           <e p="Action Maps" t="Include">
             <e p="ProxyAnimatorInput.cs" t="Include" />
@@ -922,7 +920,6 @@
             </e>
           </e>
         </e>
-        <e p="FollowVRCam.cs" t="Include" />
         <e p="FoodAndGrocery" t="Include">
           <e p="Info.txt" t="Include" />
         </e>
@@ -940,15 +937,11 @@
         <e p="Kitchen Asset" t="Include">
           <e p="ReadMe.txt" t="Include" />
         </e>
-        <e p="Manager.cs" t="Include" />
-        <e p="MyGameObjectRecorder.cs" t="Include" />
         <e p="MyTODO.txt" t="Include" />
         <e p="NonConvexMeshCollider" t="Include">
           <e p="NonConvexMeshCollider.cs" t="Include" />
           <e p="ReadMe.txt" t="Include" />
         </e>
-        <e p="PlayModeManager.cs" t="Include" />
-        <e p="RenderDepth.cs" t="Include" />
         <e p="Resources" t="Include">
           <e p="Shaders" t="Include">
             <e p="ObjectID.shader" t="Include" />
@@ -971,9 +964,13 @@
           <e p="BoundBoxByColor.cs" t="Include" />
           <e p="ColorByNumber.cs" t="Include" />
           <e p="ControllerGrabObject.cs" t="Include" />
+          <e p="DepthCamScript.cs" t="Include" />
+          <e p="Depthtest.cs" t="Include" />
           <e p="DisplayRecipe.cs" t="Include" />
+          <e p="FollowVRCam.cs" t="Include" />
           <e p="GasStoveSwitch.cs" t="Include" />
           <e p="GuiPosition.cs" t="Include" />
+          <e p="Manager.cs" t="Include" />
           <e p="MeshCut" t="Include">
             <e p="BackgroundColorChange.cs" t="Include" />
             <e p="CollisionCut.cs" t="Include" />
@@ -983,19 +980,23 @@
             <e p="MeshTriangle.cs" t="Include" />
             <e p="MouseClickCut.cs" t="Include" />
           </e>
+          <e p="MyGameObjectRecorder.cs" t="Include" />
           <e p="ObjectId.cs" t="Include" />
+          <e p="PlayModeManager.cs" t="Include" />
           <e p="RecordObjectPosRot.cs" t="Include" />
           <e p="RecordPlayerMovement.cs" t="Include" />
           <e p="RecordStrings.cs" t="Include" />
+          <e p="RenderDepth.cs" t="Include" />
+          <e p="SetFootToGround.cs" t="Include" />
+          <e p="SetHeadPosition.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
           <e p="storeScreenshot.cs" t="Include" />
           <e p="TapWater.cs" t="Include" />
           <e p="Test.cs" t="Include" />
           <e p="testui.cs" t="Include" />
           <e p="TrackObjects.cs" t="Include" />
+          <e p="UnityRecorderFromScript.cs" t="Include" />
         </e>
-        <e p="SetFootToGround.cs" t="Include" />
-        <e p="SetHeadPosition.cs" t="Include" />
         <e p="Smartphone" t="Include">
           <e p="StandardColorMask.shader" t="Include" />
         </e>
@@ -1325,7 +1326,6 @@
             <e p="Readme.cs" t="Include" />
           </e>
         </e>
-        <e p="UnityRecorderFromScript.cs" t="Include" />
         <e p="V4R_VR_Kitchen" t="Include">
           <e p="depthShader.shader" t="Include" />
         </e>

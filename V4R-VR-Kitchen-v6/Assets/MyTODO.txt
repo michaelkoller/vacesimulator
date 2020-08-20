@@ -83,10 +83,7 @@ After a cut, one of the two new Gameobjects still has the old ghost shape (i.e.,
     Hands should not detach from arms
     Collisions between avatar and furniture?
          
-
-Record Hands
 Change Gloves?
-
 
 In objectid.cs in oncollisionenter
                 //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
@@ -99,3 +96,8 @@ So, the hand should be recorded now. Next, instantiate the slim render model (cl
 animator, then set the single joints according to the recordings. Note: some joints are probably in local space, not 
 world space.
 
+
+Put hand recordings in 2 separate files. dont mess with the regular game objects
+dont put the hand render model in the regular poserot dict during replay
+
+Footsteps

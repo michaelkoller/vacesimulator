@@ -13,6 +13,8 @@ public class RecordObjectPosRot : MonoBehaviour
     int currentFrame = 1;
     private string path;
     private string pathCut;
+    private string pathRightHand;
+    private string pathLeftHand;
     //private GameObject[] allGameObjects;
     private Renderer[] allRenderers;
     //private GameObject[] allGameObjectsWithRenderer;
@@ -28,6 +30,9 @@ public class RecordObjectPosRot : MonoBehaviour
     private PlayModeManager playModeManager;
     private bool playback;
     private StringBuilder sbCut;
+    private StringBuilder sbRightHand;
+    private StringBuilder sbLeftHand;
+    
     string GetPath()
     {
         return  playModeManager.sampleDir +@"\ReplayFiles\PositionAndOrientation\PO"+ currentFrame.ToString() +".txt";
@@ -35,6 +40,16 @@ public class RecordObjectPosRot : MonoBehaviour
     string GetPathCut()
     {
         return  playModeManager.sampleDir +@"\ReplayFiles\Cuts\Cuts"+ currentFrame.ToString() +".txt";
+    }
+    
+    string GetPathRightHand()
+    {
+        return  playModeManager.sampleDir +@"\ReplayFiles\RightHand\rhPO"+ currentFrame.ToString() +".txt";
+    }
+  
+    string GetPathLeftHand()
+    {
+        return  playModeManager.sampleDir +@"\ReplayFiles\LeftHand\lhPO"+ currentFrame.ToString() +".txt";
     }
     
     // Start is called before the first frame update
@@ -58,6 +73,10 @@ public class RecordObjectPosRot : MonoBehaviour
             sb = new StringBuilder();
             pathCut = GetPathCut();
             sbCut = new StringBuilder();
+            pathRightHand = GetPathRightHand();
+            sbRightHand = new StringBuilder();
+            pathLeftHand = GetPathLeftHand();
+            sbLeftHand = new StringBuilder();
             
             dictArray = new Dictionary<string, GameObject>[3];
             dictArray[0] = allGameObjectsWithRendererDict;
@@ -99,6 +118,7 @@ public class RecordObjectPosRot : MonoBehaviour
             }
 
 
+            //regular GOs
             sb.AppendLine("frame " + currentFrame.ToString());
             sb.AppendLine(Time.time.ToString());
             sb.AppendLine(Time.deltaTime.ToString());
@@ -110,25 +130,44 @@ public class RecordObjectPosRot : MonoBehaviour
                 sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
             
+            
+            //right hand
+            sbRightHand.AppendLine("frame " + currentFrame.ToString());
+            sbRightHand.AppendLine(Time.time.ToString());
+            sbRightHand.AppendLine(Time.deltaTime.ToString());
             foreach(KeyValuePair<string,GameObject> goPair in rightHandDict)
             {
-                sb.AppendLine("right_"+goPair.Key);
-                sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
-                sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
+                sbRightHand.AppendLine(goPair.Key);
+                sbRightHand.AppendLine(goPair.Value.transform.position.ToString("F3"));
+                sbRightHand.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
+            sbRightHand.AppendLine("--stop--");
             
+            //left hand
+            sbLeftHand.AppendLine("frame " + currentFrame.ToString());
+            sbLeftHand.AppendLine(Time.time.ToString());
+            sbLeftHand.AppendLine(Time.deltaTime.ToString());
             foreach(KeyValuePair<string,GameObject> goPair in leftHandDict)
             {
-                sb.AppendLine("left_"+goPair.Key);
-                sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
-                sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
+                sbLeftHand.AppendLine(goPair.Key);
+                sbLeftHand.AppendLine(goPair.Value.transform.position.ToString("F3"));
+                sbLeftHand.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
-            
+            sbLeftHand.AppendLine("--stop--");
+
             if (currentFrame % 200 == 0)
             {
                 File.WriteAllText(path, sb.ToString());
                 sb.Clear();
                 path = GetPath();
+                
+                File.WriteAllText(pathRightHand, sbRightHand.ToString());
+                sbRightHand.Clear();
+                pathRightHand = GetPathRightHand();
+                
+                File.WriteAllText(pathLeftHand, sbLeftHand.ToString());
+                sbLeftHand.Clear();
+                pathLeftHand = GetPathLeftHand();
             }
 
             foreach (string s in delGosAfterCut)
@@ -161,7 +200,6 @@ public class RecordObjectPosRot : MonoBehaviour
         //allGameObjectsWithRendererDict.Remove(originalGameObjectName);
         //allGameObjectsWithRendererDict.Add(leftGO.name, leftGO);
         //allGameObjectsWithRendererDict.Add(rightGO.name, rightGO);
-
     }
 
     private void FlushRecordings()
@@ -170,6 +208,10 @@ public class RecordObjectPosRot : MonoBehaviour
         sb.Clear();
         File.AppendAllText(pathCut, sbCut.ToString());
         sbCut.Clear();
+        File.WriteAllText(pathRightHand, sbRightHand.ToString());
+        sbRightHand.Clear();
+        File.WriteAllText(pathLeftHand, sbLeftHand.ToString());
+        sbLeftHand.Clear();
     }
     
     void OnDestroy()
