@@ -143,6 +143,7 @@ public class ObjectId : MonoBehaviour
             ObjectId newObjectId = newGO.AddComponent<ObjectId>();
             newObjectId.makeGhost = true;
             newObjectId.cuttable = true;
+            newObjectId.c = this.c;
             lastCutTime = Time.time;
         }
     }

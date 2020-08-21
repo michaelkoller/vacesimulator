@@ -88,16 +88,32 @@ Change Gloves?
 In objectid.cs in oncollisionenter
                 //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
 
-
-Record colors of all cut objects in cut map. This must include all intermittent cut objects, too.
-
-In playmodemanager, record mode:
-So, the hand should be recorded now. Next, instantiate the slim render model (clone), deactivate steam vr scripts and the
-animator, then set the single joints according to the recordings. Note: some joints are probably in local space, not 
-world space.
-
-
-Put hand recordings in 2 separate files. dont mess with the regular game objects
-dont put the hand render model in the regular poserot dict during replay
-
 Footsteps
+
+cutting: still problems with the ghosts.
+just make a new ghost for the original (left) GO and destroy old one. then the naming is correct, too for the ghost.
+
+Initial Scene Description wrt logical predicates?
+
+Predicates. do them when in replay mode
+
+save stuff in json format?
+use relevant predicates from visual genome dataset
+json_dataset, predicates: ["on", "wear", "has", "next to", "sleep next to", "sit next to", "stand next to", "park next", "walk next to", "above", "behind", "stand behind", "sit behind", "park behind", "in the front of", "under", "stand under", "sit under", "near", "walk to", "walk", "walk past", "in", "below", "beside", "walk beside", "over", "hold", "by", "beneath", "with", "on the top of", "on the left of", "on the right of", "sit on", "ride", "carry", "look", "stand on", "use", "at", "attach to", "cover", "touch", "watch", "against", "inside", "adjacent to", "across", "contain", "drive", "drive on", "taller than", "eat", "park on", "lying on", "pull", "talk", "lean on", "fly", "face", "play with", "sleep on", "outside of", "rest on", "follow", "hit", "feed", "kick", "skate on"]
+
+filtered predicates:
+["on", "wear", "has", "next to", "stand next to", "walk next to", "above", "behind", "stand behind",  "in the front of", "under", "stand under", "near", "walk to", "walk", "walk past", "in", "below", "beside", "walk beside", "over", "hold", "by", "beneath", "with", "on the top of", "on the left of", "on the right of", "carry", "look", "stand on", "use", "at", "attach to", "cover", "touch", "watch", "against", "inside", "adjacent to", "across", "contain", "taller than", "eat", "lying on", "pull", "talk", "lean on", "fly", "face", "play with", "outside of", "rest on", "follow", "hit", "feed", "kick"]
+
+further filter:
+["on", "next to", "above", "behind", "in the front of", "under", "walk", "in", "below", "beside", "hold", "on the top of", "on the left of", "on the right of", "carry", "use", "cover", "touch", "contain", "eat", "pull"]
+
+further filter:
+["on", "next to", "in", "walk", "hold", "use", "cover", "touch", "eat"]
+
+make grasping more intuitive: 
+highlight currently selected object (like it was before), but only make it visible for the ego perspective
+
+check if video screen still works
+create videos
+
+maybe instead of reading cooking instructions --> let speech generator read out loud the cooking instructions?

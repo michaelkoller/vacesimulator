@@ -11,7 +11,8 @@ public class Attach : MonoBehaviour
         {
             other.transform.parent.transform.parent = transform;
         }
-        else if (other.tag != "ChildDontReattach" && !other.name.Contains("Ghost"))        {
+        else if (other.tag != "ChildDontReattach" && !other.name.Contains("Ghost") && !other.name.Contains("Sphere") 
+                 && !other.name.Contains("finger") && !other.name.Contains("thumb"))       {
             other.gameObject.transform.parent = transform;
         }
     }
@@ -22,7 +23,8 @@ public class Attach : MonoBehaviour
         {
             other.transform.parent.transform.parent = null;
         }
-        else if (other.tag != "ChildDontReattach" && !other.name.Contains("Ghost"))        {
+        else if (other.tag != "ChildDontReattach" && !other.name.Contains("Ghost") && !other.name.Contains("Sphere") 
+                 && !other.name.Contains("finger") && !other.name.Contains("thumb"))       {
             other.gameObject.transform.parent = null;
         }
     }
@@ -33,7 +35,8 @@ public class Attach : MonoBehaviour
         {
             other.transform.parent.transform.parent = transform;
         }
-        else if (other.tag != "ChildDontReattach" && !other.name.Contains("Ghost"))        {
+        else if (other.tag != "ChildDontReattach" && !other.name.Contains("Ghost") && !other.name.Contains("Sphere") 
+                 && !other.name.Contains("finger") && !other.name.Contains("thumb"))       {
             other.gameObject.transform.parent = transform;
         }
     }

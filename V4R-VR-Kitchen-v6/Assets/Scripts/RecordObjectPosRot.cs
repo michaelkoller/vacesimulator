@@ -15,6 +15,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private string pathCut;
     private string pathRightHand;
     private string pathLeftHand;
+    private string pathColorMap;
     //private GameObject[] allGameObjects;
     private Renderer[] allRenderers;
     //private GameObject[] allGameObjectsWithRenderer;
@@ -32,6 +33,8 @@ public class RecordObjectPosRot : MonoBehaviour
     private StringBuilder sbCut;
     private StringBuilder sbRightHand;
     private StringBuilder sbLeftHand;
+    private StringBuilder sbColorMap;
+    
     
     string GetPath()
     {
@@ -52,6 +55,11 @@ public class RecordObjectPosRot : MonoBehaviour
         return  playModeManager.sampleDir +@"\ReplayFiles\LeftHand\lhPO"+ currentFrame.ToString() +".txt";
     }
     
+    string GetPathColorMap()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Colormap\colormap"+ currentFrame.ToString() +".txt";
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -61,14 +69,6 @@ public class RecordObjectPosRot : MonoBehaviour
         delGosAfterCut = new List<string>();
         if (!playback)
         {
-            //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
-            allRenderers = FindObjectsOfType<Renderer>();
-            //allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
-            for (int i = 0; i < allRenderers.Length; i++)
-            {
-                //allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
-                allGameObjectsWithRendererDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
-            }
             path = GetPath();
             sb = new StringBuilder();
             pathCut = GetPathCut();
@@ -77,6 +77,26 @@ public class RecordObjectPosRot : MonoBehaviour
             sbRightHand = new StringBuilder();
             pathLeftHand = GetPathLeftHand();
             sbLeftHand = new StringBuilder();
+            pathColorMap = GetPathColorMap();
+            sbColorMap = new StringBuilder();
+            
+            //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
+            allRenderers = FindObjectsOfType<Renderer>();
+            //allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
+            for (int i = 0; i < allRenderers.Length; i++)
+            {
+                //allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
+                allGameObjectsWithRendererDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
+            }
+
+            ObjectId[] objectIds = FindObjectsOfType<ObjectId>();
+            foreach(ObjectId objectId in objectIds)
+            {
+                sbColorMap.AppendLine(objectId.objectName);
+                sbColorMap.AppendLine(objectId.c.ToString());
+            }
+            File.WriteAllText(pathColorMap, sbColorMap.ToString());
+            sbColorMap.Clear();
             
             dictArray = new Dictionary<string, GameObject>[3];
             dictArray[0] = allGameObjectsWithRendererDict;

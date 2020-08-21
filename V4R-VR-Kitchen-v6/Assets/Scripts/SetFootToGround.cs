@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SetFootToGround : MonoBehaviour
@@ -14,44 +16,57 @@ public class SetFootToGround : MonoBehaviour
     private Vector3 anchorLeft;
     private float stepThreshold;
     private float stopThreshold;
-    private bool currentlyStepping;
+    private float leadStepSize;
+    private bool currentlySteppingTrail;
+    private bool currentlySteppingLead;
     private Vector3 leftFootProjection;
     private bool stepWithLeftFoot;
-    private Vector3 targetFootPosition;
+    private Vector3 targetRightFootPosition;
+    private Vector3 anchorRight;
+    private Vector3 rightFootProjection;
+    
     void Start()
     {
         anchorLeft = leftFootTarget.transform.position;
+        anchorRight = rightFootTarget.transform.position;
         stepThreshold = 0.3f;
         stopThreshold = 0.05f;
-        currentlyStepping = false;
-        stepWithLeftFoot = true;
+        leadStepSize = 0.3f;
+        currentlySteppingTrail = false;
+        currentlySteppingLead = false;
+        stepWithLeftFoot = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         leftFootProjection = new Vector3(leftUpLeg.transform.position.x, 0.05f, leftUpLeg.transform.position.z);
-        rightFootTarget.transform.position = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
+        rightFootProjection = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
+        
+        //Old way, just set feet to ground level
+        //rightFootTarget.transform.position = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
 
+        
 
         if (!stepWithLeftFoot) //hind leg
-        {
+        {    
+            //trailing leg
             if (Vector3.Distance(anchorLeft, leftFootProjection) > stepThreshold)
             {
-                currentlyStepping = true;
+                currentlySteppingTrail = true;
             }
 
             if (Vector3.Distance(leftFootProjection, leftFootTarget.transform.position) < stopThreshold)
             {
-                if (currentlyStepping)
+                if (currentlySteppingTrail)
                 {
                     anchorLeft = leftFootTarget.transform.position;
                 }
 
-                currentlyStepping = false;
+                currentlySteppingTrail = false;
             }
 
-            if (currentlyStepping)
+            if (currentlySteppingTrail)
             {
                 leftFootTarget.transform.position =
                     Vector3.Lerp(leftFootTarget.transform.position, leftFootProjection, 0.1f);
@@ -59,33 +74,47 @@ public class SetFootToGround : MonoBehaviour
             else
             {
                 leftFootTarget.transform.position = anchorLeft;
-            }
-        }
-        else //front leg
-        {
-            if (Vector3.Distance(leftFootProjection, leftFootTarget.transform.position) > stopThreshold)
-            {
-                currentlyStepping = true;
-                targetFootPosition = anchorLeft + ((0.3f * (leftFootProjection - anchorLeft))/ Vector3.Distance(leftFootProjection, anchorLeft));
-            }
-            if (Vector3.Distance(anchorLeft, leftFootProjection) > stepThreshold)
-            {
-                if (currentlyStepping)
-                {
-                    anchorLeft = targetFootPosition;
-                }
-                currentlyStepping = false;
             }
             
-            if (currentlyStepping)
+            //leading leg
+            
+            //reset anchor in beginning of scene
+            if (Vector3.Distance(anchorRight, rightFootTarget.transform.position) > 1.0f)
             {
-                leftFootTarget.transform.position =
-                    Vector3.Lerp(leftFootTarget.transform.position, leftFootProjection, 0.1f);
+                anchorRight = rightFootProjection;
+            }            
+            
+            if (Vector3.Distance(anchorRight, rightFootProjection) > stopThreshold)
+            {
+                currentlySteppingLead = true;
             }
-            else
+
+            if (Vector3.Distance(targetRightFootPosition, rightFootTarget.transform.position) <= stopThreshold)
             {
-                leftFootTarget.transform.position = anchorLeft;
+                if (currentlySteppingLead)
+                {
+                    anchorRight = rightFootTarget.transform.position;
+                }
+                currentlySteppingLead = false;
+            }
+
+            if (currentlySteppingLead)
+            {
+                targetRightFootPosition =  (leadStepSize * (rightFootProjection - anchorRight))/Vector3.Distance(rightFootProjection, anchorRight);
+                targetRightFootPosition = anchorRight + new Vector3(targetRightFootPosition.x, 0.0f, targetRightFootPosition.z);
+                rightFootTarget.transform.position =
+                    Vector3.Lerp(rightFootTarget.transform.position, targetRightFootPosition, 0.1f);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.8f);
+        Gizmos.DrawCube(targetRightFootPosition, new Vector3(0.1f, 0.1f, 0.1f));    
+        Gizmos.color = new Color(0, 0, 1, 0.8f);
+
+        Gizmos.DrawCube(anchorRight, new Vector3(0.1f, 0.1f, 0.1f));
+
     }
 }
