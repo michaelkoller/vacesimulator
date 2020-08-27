@@ -34,8 +34,11 @@ public class RecordObjectPosRot : MonoBehaviour
     private StringBuilder sbRightHand;
     private StringBuilder sbLeftHand;
     private StringBuilder sbColorMap;
-    
-    
+    private StringBuilder sbParticleSystems;
+    private ParticleSystem [] particleSystems;
+    private Dictionary<string, ParticleSystem> particleSystemDict;
+    private string pathParticles;
+
     string GetPath()
     {
         return  playModeManager.sampleDir +@"\ReplayFiles\PositionAndOrientation\PO"+ currentFrame.ToString() +".txt";
@@ -60,6 +63,11 @@ public class RecordObjectPosRot : MonoBehaviour
         return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Colormap\colormap"+ currentFrame.ToString() +".txt";
     }
     
+    string GetPathParticles()
+    {
+        return  playModeManager.sampleDir +@"\ReplayFiles\Particles\particles"+ currentFrame.ToString() +".txt";
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +87,9 @@ public class RecordObjectPosRot : MonoBehaviour
             sbLeftHand = new StringBuilder();
             pathColorMap = GetPathColorMap();
             sbColorMap = new StringBuilder();
+            pathParticles = GetPathParticles();
+            sbParticleSystems = new StringBuilder();
+            
             
             //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
@@ -102,6 +113,14 @@ public class RecordObjectPosRot : MonoBehaviour
             dictArray[0] = allGameObjectsWithRendererDict;
             dictArray[1] = rightHandDict;
             dictArray[2] = leftHandDict;
+            
+            particleSystems = FindObjectsOfType<ParticleSystem>();
+            particleSystemDict = new Dictionary<string, ParticleSystem>();
+            foreach(ParticleSystem ps in particleSystems)
+            {
+                particleSystemDict.Add(ps.gameObject.name, ps);
+                Debug.Log("PARTICLE " + ps.gameObject.name);
+            }
             
         }
     }
@@ -174,6 +193,16 @@ public class RecordObjectPosRot : MonoBehaviour
                 sbLeftHand.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
             sbLeftHand.AppendLine("--stop--");
+            
+            sbParticleSystems.AppendLine("frame " + currentFrame.ToString());
+            sbParticleSystems.AppendLine(Time.time.ToString());
+            sbParticleSystems.AppendLine(Time.deltaTime.ToString());
+            
+            foreach(KeyValuePair<string,ParticleSystem> psPair in particleSystemDict)
+            {
+                sbParticleSystems.AppendLine(psPair.Key);
+                sbParticleSystems.AppendLine(psPair.Value.emission.rateOverTime.constant.ToString());
+            }
 
             if (currentFrame % 200 == 0)
             {
@@ -188,6 +217,10 @@ public class RecordObjectPosRot : MonoBehaviour
                 File.WriteAllText(pathLeftHand, sbLeftHand.ToString());
                 sbLeftHand.Clear();
                 pathLeftHand = GetPathLeftHand();
+                
+                File.WriteAllText(pathParticles, sbParticleSystems.ToString());
+                sbParticleSystems.Clear();
+                pathParticles = GetPathParticles();
             }
 
             foreach (string s in delGosAfterCut)
@@ -232,6 +265,8 @@ public class RecordObjectPosRot : MonoBehaviour
         sbRightHand.Clear();
         File.WriteAllText(pathLeftHand, sbLeftHand.ToString());
         sbLeftHand.Clear();
+        File.WriteAllText(pathParticles, sbParticleSystems.ToString());
+        sbParticleSystems.Clear();    
     }
     
     void OnDestroy()

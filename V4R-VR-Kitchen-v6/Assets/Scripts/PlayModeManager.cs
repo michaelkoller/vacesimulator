@@ -17,6 +17,7 @@ public class PlaybackState
     public string pathCut;
     public string pathRightHand;
     public string pathLeftHand;
+    public string pathParticles;
     public int frameNumber;
     public int nextFrameForCutting = -1;
     public float time;
@@ -24,18 +25,22 @@ public class PlaybackState
     private DirectoryInfo di;
     private DirectoryInfo diRightHand;
     private DirectoryInfo diLeftHand;
+    private DirectoryInfo diParticles;
     private FileInfo[] fileInfosPO;
     private FileInfo[] fileInfosCuts;
     private FileInfo[] fileInfosRightHand;
     private FileInfo[] fileInfosLeftHand;
+    private FileInfo[] fileInfosParticles;
     private StreamReader reader;
     private int currPathPOfileNumber;
     private int poFileCount;
     private StreamReader cutReader;
     private StreamReader readerRightHand;
     private StreamReader readerLeftHand;
+    private StreamReader readerParticles;
     private Dictionary<string, GameObject> rightHandDict = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> leftHandDict = new Dictionary<string, GameObject>();
+    private Dictionary<string, ParticleSystem> particleSystemDict = new Dictionary<string, ParticleSystem>();
     private GameObject leftHandParent;
     private GameObject rightHandParent;
     public bool playbackFinished;
@@ -60,6 +65,7 @@ public class PlaybackState
         this.pathCut = replayDir + @"\Cuts";
         pathRightHand = replayDir + @"\RightHand";
         pathLeftHand = replayDir + @"\LeftHand";
+        pathParticles = replayDir + @"\Particles";
         
         di = new DirectoryInfo(pathPO);
         diRightHand = new DirectoryInfo(pathRightHand);
@@ -71,7 +77,9 @@ public class PlaybackState
         poFileCount = fileInfosPO.Length;
         di = new DirectoryInfo(pathCut);
         fileInfosCuts = di.GetFiles();
-        
+        diParticles = new DirectoryInfo(pathParticles);
+        fileInfosParticles = diParticles.GetFiles().OrderBy(p => p.CreationTime).ToArray();;
+
         GetNextPOFile();
         cutReader = new StreamReader(fileInfosCuts[0].FullName); //there is only one cut file per sample
         //get frame number of first cut
@@ -98,6 +106,12 @@ public class PlaybackState
         {
             leftHandDict.Add(t.gameObject.name, t.gameObject);
         }
+        
+        ParticleSystem[] particleSystems = GameObject.FindObjectsOfType<ParticleSystem>();
+        foreach(ParticleSystem ps in particleSystems)
+        {
+            particleSystemDict.Add(ps.gameObject.name, ps);
+        }
 
         playbackFinished = false;
     }
@@ -107,6 +121,7 @@ public class PlaybackState
         this.reader = new StreamReader(fileInfosPO[currPathPOfileNumber].FullName);
         readerRightHand = new StreamReader(fileInfosRightHand[currPathPOfileNumber].FullName);
         readerLeftHand = new StreamReader(fileInfosLeftHand[currPathPOfileNumber].FullName);
+        readerParticles = new StreamReader(fileInfosParticles[currPathPOfileNumber].FullName);
         currPathPOfileNumber++;
     }
 
@@ -215,6 +230,20 @@ public class PlaybackState
             }
         }
         
+        //Particles
+        //TODO this solution currently doesn't handle slower replay times. Look if this is ok, when you stop time when you render videos.
+        frameNumberString = readerParticles.ReadLine().Trim().Split(' ')[1];
+        this.frameNumber = int.Parse(frameNumberString); //Watch out for problems if these numbers don't match in the regular obj, righthand, lefthand
+        this.time = float.Parse(readerParticles.ReadLine().Trim());
+        this.deltaTime = float.Parse(readerParticles.ReadLine().Trim());
+        for (int i = 0; i < particleSystemDict.Count; i++)
+        {
+            string name = readerParticles.ReadLine().Trim();
+            float emissionRate = float.Parse(readerParticles.ReadLine().Trim());
+            ParticleSystem.EmissionModule em = particleSystemDict[name].emission;
+            em.rateOverTime = new ParticleSystem.MinMaxCurve(emissionRate);
+        }
+        
         //Cuts
         while ((nextFrameForCutting == frameNumber) && !cutReader.EndOfStream)
         {
@@ -289,8 +318,7 @@ public class PlayModeManager : MonoBehaviour
 
             Directory.CreateDirectory(replayDir + @"\PositionAndOrientation");
             Directory.CreateDirectory(replayDir + @"\Cuts");
-            Directory.CreateDirectory(replayDir + @"\Faucet");
-            Directory.CreateDirectory(replayDir + @"\Stove");
+            Directory.CreateDirectory(replayDir + @"\Particles");
             Directory.CreateDirectory(replayDir + @"\RightHand");
             Directory.CreateDirectory(replayDir + @"\LeftHand");
 

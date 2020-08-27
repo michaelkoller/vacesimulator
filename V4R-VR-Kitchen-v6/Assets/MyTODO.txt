@@ -117,3 +117,6 @@ check if video screen still works
 create videos
 
 maybe instead of reading cooking instructions --> let speech generator read out loud the cooking instructions?
+
+Particles
+The current solution currently doesn't handle slower replay times. Look if this is ok, when you stop time when you render videos.
