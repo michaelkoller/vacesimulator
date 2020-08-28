@@ -40,14 +40,15 @@ public class SetFootToGround : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        leftFootProjection = new Vector3(leftUpLeg.transform.position.x, 0.05f, leftUpLeg.transform.position.z);
-        rightFootProjection = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
+        //leftFootProjection = new Vector3(leftUpLeg.transform.position.x, 0.05f, leftUpLeg.transform.position.z);
+        //rightFootProjection = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
         
         //Old way, just set feet to ground level
-        //rightFootTarget.transform.position = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
+        rightFootTarget.transform.position = new Vector3(rightUpLeg.transform.position.x, 0.05f, rightUpLeg.transform.position.z);
+        leftFootTarget.transform.position = new Vector3(leftUpLeg.transform.position.x, 0.05f, leftUpLeg.transform.position.z);
 
         
-
+/*
         if (!stepWithLeftFoot) //hind leg
         {    
             //trailing leg
@@ -105,7 +106,7 @@ public class SetFootToGround : MonoBehaviour
                 rightFootTarget.transform.position =
                     Vector3.Lerp(rightFootTarget.transform.position, targetRightFootPosition, 0.1f);
             }
-        }
+        }*/
     }
 
     private void OnDrawGizmos()

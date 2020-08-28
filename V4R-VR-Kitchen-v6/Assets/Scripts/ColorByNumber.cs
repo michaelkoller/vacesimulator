@@ -122,10 +122,10 @@ public class ColorByNumber : MonoBehaviour {
         cam = GetComponent<Camera>();
         objectIds = FindObjectsOfType<ObjectId>();
         Array.Sort(objectIds,delegate(ObjectId x, ObjectId y) { return x.id.CompareTo(y.id); });
-
+        
         for (int i = 0; i < objectIds.Length; i++)
         {
-            Debug.Log(objectIds[i].id + " " + objectIds[i].objectName);
+            Debug.Log("CBN " + objectIds[i].id + " " + objectIds[i].objectName);
         }
         
         //for bound boxes
@@ -136,7 +136,6 @@ public class ColorByNumber : MonoBehaviour {
         {
             //boundingBoxes[i] = (GameObject) Instantiate(Resources.Load("BBPrefab"));
             //boundingBoxes[i].transform.SetParent(vidCapCanvas.transform, false);
-            
             boundingBoxCubes[i]= (GameObject) Instantiate(Resources.Load("BBCubePrefab"));
             boundingBoxCubes[i].transform.SetParent(bbCubeCam.transform, false);
             boundingBoxCubes[i].GetComponent<MeshRenderer>().material.color = new Color(objectIds[i].c.r, objectIds[i].c.g, objectIds[i].c.b / 256.0f, 0.4f);
@@ -184,7 +183,7 @@ public class ColorByNumber : MonoBehaviour {
         //     //simon says: per frame per object save transform, mesh filter parameters (i.e. reference on mesh) + renderer (material + lighting settings)
         //     
         // }
-        fixedUpdateCounter++;
+        //fixedUpdateCounter++;
         // Debug.Log("Measured " + (Time.time - dt)); //something sets the fixedDeltaTime to 0.0111111... ~ 90Hz
         // dt = Time.time;
         // Debug.Log("Fixed "+ Time.fixedDeltaTime);
@@ -193,8 +192,6 @@ public class ColorByNumber : MonoBehaviour {
 
     private void Update()
     {
-       
-        
         for (int i = 0; i < objectIds.Length; i++)
         {
             if(objectIds[i].xMax != int.MinValue && objectIds[i].xMin != int.MaxValue && objectIds[i].yMax != int.MinValue && objectIds[i].yMin != int.MaxValue){
@@ -419,8 +416,7 @@ public class ColorByNumber : MonoBehaviour {
         
         output.Dispose();
         input.Dispose();
-
-
+        
         UnsetupIDMaterials();
     }
 }

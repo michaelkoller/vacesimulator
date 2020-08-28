@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine.iOS;
 using Valve.VR;
+using Object = System.Object;
 
 
 public class PlaybackState
@@ -147,6 +148,9 @@ public class PlaybackState
             string name = reader.ReadLine().Trim().Split((' '))[0];
             string[] pos = reader.ReadLine().Trim('(').Trim(')').Split(',');
             string[] rot = reader.ReadLine().Trim('(').Trim(')').Split(',');
+            //Debug.Log(i);
+            //Debug.Log(pos);
+            //Debug.Log(rot);
             float[] posFloat = new float[3];
             float[] rotFloat = new float[4];
             
@@ -172,8 +176,7 @@ public class PlaybackState
         {
             string name = readerRightHand.ReadLine().Trim();
             if (name == "--stop--")
-            {    Debug.Log("Right "+i + " "+ name);
-                break;
+            { break;
             }
             string[] pos = readerRightHand.ReadLine().Trim('(').Trim(')').Split(',');
             string[] rot = readerRightHand.ReadLine().Trim('(').Trim(')').Split(',');
@@ -206,7 +209,6 @@ public class PlaybackState
             string name = readerLeftHand.ReadLine().Trim();
             if (name == "--stop--")
             {
-                Debug.Log("Left "+i + " "+ name);
                 break;
             }
             string[] pos = readerLeftHand.ReadLine().Trim('(').Trim(')').Split(',');
@@ -276,16 +278,19 @@ public class PlaybackState
     }
 }
 
+
+
 public class PlayModeManager : MonoBehaviour
 {
-    private GameObject recording;
-    private GameObject recordingBB;
+    public GameObject recording;
+    public GameObject recordingBB;
     public string directory = @"C:\Users\v4rmini\Documents\RecordingsForRender";
     [HideInInspector]
     public string sampleDir;
     private string replayDir;
     public bool playback;
     public bool useMostRecentRecording;
+    private string colorMapPath;
 
     private PlaybackState ps;
     
@@ -298,7 +303,7 @@ public class PlayModeManager : MonoBehaviour
     private SkinnedMeshRenderer skinnedMeshRendererRightHand;
     private SkinnedMeshRenderer skinnedMeshRendererLeftHand;
     private bool steamHandsInvisible = false;
-
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -356,19 +361,58 @@ public class PlayModeManager : MonoBehaviour
             //get most recent replay
             if (useMostRecentRecording)
             {
-                replayDir = new DirectoryInfo(directory).GetDirectories().OrderByDescending(d=>d.LastWriteTimeUtc).First().ToString();
-                replayDir += @"\ReplayFiles";
+                sampleDir = new DirectoryInfo(directory).GetDirectories().OrderByDescending(d=>d.LastWriteTimeUtc).First().ToString();
+                replayDir = sampleDir + @"\ReplayFiles";
+                colorMapPath = sampleDir + @"\RecordingsFiles\Annotations\Colormap\colormap1.txt";
             }
             
             //This is the hand model without the vr input script and animator
             leftRenderModelInstance = GameObject.Instantiate(leftRenderModelPrefab);
             rightRenderModelInstance = GameObject.Instantiate(rightRenderModelPrefab);
+            //leftRenderModelInstance.gameObject.name = "LeftHand";
+            //rightRenderModelInstance.gameObject.name = "RightHand";
             Destroy(leftRenderModelInstance.GetComponentInChildren<SteamVR_Behaviour_Skeleton>());
             Destroy(rightRenderModelInstance.GetComponentInChildren<SteamVR_Behaviour_Skeleton>());
             Destroy(rightRenderModelInstance.GetComponentInChildren<Animator>());
             Destroy(leftRenderModelInstance.GetComponentInChildren<Animator>());
-            string[] excludes = new String[]{"vr_glove_right_slim"};
+
+            string[] excludes = new String[]{"vr_glove_right_slim", "vr_glove_left_slim"};
             ps = new PlaybackState(replayDir, excludes, rightRenderModelInstance, leftRenderModelInstance);
+
+            recordingBB.SetActive(true);
+            recording.SetActive(true);
+        }
+    }
+
+    private void Start()
+    {
+        if (playback)
+        {
+            //set all object ids in replay mode to the recorded ones
+            StreamReader colorMapReader = new StreamReader(colorMapPath);
+            while (!colorMapReader.EndOfStream)
+            {
+                string objName = colorMapReader.ReadLine();
+                char[] arr = {'R', 'G', 'B', 'A', '('};
+                string color = colorMapReader.ReadLine().Trim(arr).Trim(')');
+                string[] colors = color.Split(',');
+                float[] colorsf = new float[4];
+                for (int i = 0; i < 4; i++)
+                {
+                    colorsf[i] = float.Parse(colors[i]);
+                }
+
+                int intid = int.Parse(colorMapReader.ReadLine().Trim());
+                //Debug.Log("OBJNAME " + objName);
+                GameObject g = GameObject.Find(objName);
+                ObjectId oid = g.GetComponent<ObjectId>();
+                oid.c = new Color(colorsf[0], colorsf[1], colorsf[2], colorsf[3]);
+                oid.objectName = objName;
+                oid.id = intid;
+            }
+            
+            CopyComponent<ObjectId>(steamVRleftHand.GetComponent<ObjectId>(), leftRenderModelInstance);
+            CopyComponent<ObjectId>(steamVRrightHand.GetComponent<ObjectId>(), rightRenderModelInstance);
         }
     }
 
@@ -403,6 +447,19 @@ public class PlayModeManager : MonoBehaviour
                 }
             }
         }
+    }
+    
+    //https://answers.unity.com/questions/458207/copy-a-component-at-runtime.html
+    T CopyComponent<T>(T original, GameObject destination) where T : Component
+    {
+        System.Type type = original.GetType();
+        Component copy = destination.AddComponent(type);
+        System.Reflection.FieldInfo[] fields = type.GetFields();
+        foreach (System.Reflection.FieldInfo field in fields)
+        {
+            field.SetValue(copy, field.GetValue(original));
+        }
+        return copy as T;
     }
 
     // Update is called once per frame

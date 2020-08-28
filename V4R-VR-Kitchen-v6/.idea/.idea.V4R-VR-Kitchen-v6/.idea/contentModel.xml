@@ -984,7 +984,6 @@
           <e p="ObjectId.cs" t="Include" />
           <e p="PlayModeManager.cs" t="Include" />
           <e p="RecordObjectPosRot.cs" t="Include" />
-          <e p="RecordPlayerMovement.cs" t="Include" />
           <e p="RecordStrings.cs" t="Include" />
           <e p="RenderDepth.cs" t="Include" />
           <e p="SetFootToGround.cs" t="Include" />

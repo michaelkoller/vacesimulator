@@ -40,8 +40,11 @@ public class ObjectId : MonoBehaviour
         //objectType = PrefabUtility.GetCorrespondingObjectFromSource(this.gameObject).name;
         c = new Color();
         c.r = id%10 *0.1f;
+        c.r = (float) (Math.Round((double) c.r, 3));
         c.g = id%100 * 0.01f;
+        c.g = (float) (Math.Round((double) c.g, 3));
         c.b = id*0.00390625f;
+        c.b = (float) (Math.Round((double) c.b, 3));
         c.a = 1.0f;
         xMax = int.MinValue;
         xMin = int.MaxValue;

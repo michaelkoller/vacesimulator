@@ -105,6 +105,7 @@ public class RecordObjectPosRot : MonoBehaviour
             {
                 sbColorMap.AppendLine(objectId.objectName);
                 sbColorMap.AppendLine(objectId.c.ToString());
+                sbColorMap.AppendLine(objectId.id.ToString());
             }
             File.WriteAllText(pathColorMap, sbColorMap.ToString());
             sbColorMap.Clear();
@@ -271,6 +272,9 @@ public class RecordObjectPosRot : MonoBehaviour
     
     void OnDestroy()
     {
-       FlushRecordings();
+        if (!playModeManager.playback)
+        {
+            FlushRecordings();
+        }
     }
 }
