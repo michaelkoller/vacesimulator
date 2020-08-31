@@ -127,3 +127,7 @@ möglichkeiten:
 -- orginal objectids löschen in playmodemanager
 -- orginal objectids herausfiltern in colorbynumber
 -- schauen, ob in colorbynumber nicht auch die materials der neuen hände verwendet werden müssen.
+
+
+The bounding box cubes don't have the right names attached, but in general have ok positions. Where is the mixup?
+Can handle multiple materials now, but still with name mixup. occurs around id #132

@@ -108,14 +108,4 @@ public class SetFootToGround : MonoBehaviour
             }
         }*/
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.8f);
-        Gizmos.DrawCube(targetRightFootPosition, new Vector3(0.1f, 0.1f, 0.1f));    
-        Gizmos.color = new Color(0, 0, 1, 0.8f);
-
-        Gizmos.DrawCube(anchorRight, new Vector3(0.1f, 0.1f, 0.1f));
-
-    }
 }

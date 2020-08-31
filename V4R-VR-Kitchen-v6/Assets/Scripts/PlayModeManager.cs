@@ -49,7 +49,7 @@ public class PlaybackState
     private Renderer[] allRenderers;
     private GameObject[] allGameObjectsWithRenderer;
     private Dictionary<string, GameObject> gameObjectDict = new Dictionary<string, GameObject>();
-
+    
     public PlaybackState(string replayDir, string[] excludeFromPOFileGOs, GameObject rightHandParent, GameObject leftHandParent)
     { allRenderers = GameObject.FindObjectsOfType<Renderer>();
         allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
@@ -304,6 +304,10 @@ public class PlayModeManager : MonoBehaviour
     private SkinnedMeshRenderer skinnedMeshRendererLeftHand;
     private bool steamHandsInvisible = false;
     
+    private Dictionary<string, string> colorToNameDict = new Dictionary<string, string>();
+    public bool initialized = false;
+
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -381,6 +385,8 @@ public class PlayModeManager : MonoBehaviour
 
             recordingBB.SetActive(true);
             recording.SetActive(true);
+            initialized = true;
+
         }
     }
 
@@ -395,6 +401,7 @@ public class PlayModeManager : MonoBehaviour
                 string objName = colorMapReader.ReadLine();
                 char[] arr = {'R', 'G', 'B', 'A', '('};
                 string color = colorMapReader.ReadLine().Trim(arr).Trim(')');
+                colorToNameDict.Add(color, objName);
                 string[] colors = color.Split(',');
                 float[] colorsf = new float[4];
                 for (int i = 0; i < 4; i++)
@@ -413,6 +420,11 @@ public class PlayModeManager : MonoBehaviour
             
             CopyComponent<ObjectId>(steamVRleftHand.GetComponent<ObjectId>(), leftRenderModelInstance);
             CopyComponent<ObjectId>(steamVRrightHand.GetComponent<ObjectId>(), rightRenderModelInstance);
+
+            leftRenderModelInstance.tag = "LeftHandReplay";
+            rightRenderModelInstance.tag = "RightHandReplay";
+
+            initialized = true;
         }
     }
 

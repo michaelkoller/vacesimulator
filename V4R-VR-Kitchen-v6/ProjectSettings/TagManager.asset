@@ -22,6 +22,8 @@ TagManager:
   - DepthCamera
   - TestCamera
   - Manager
+  - LeftHandReplay
+  - RightHandReplay
   layers:
   - Default
   - TransparentFX

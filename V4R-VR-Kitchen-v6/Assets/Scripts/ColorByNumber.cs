@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine.UIElements;
 using Unity.Burst;
@@ -62,7 +63,8 @@ public class ColorByNumber : MonoBehaviour {
 
     public string screenshotPath;
     private MeshRenderer[] renderers;
-    private List<Material> originalMaterials;
+    private List<Material> originalMaterials; //actually don't need this anymore, because bbs now can handle objs with multiple materials
+    private List<Material[]> originalMaterialArrays;
     Camera cam;
     public ObjectId[] objectIds;
     public float deltaTimeBoundBoxUpdate = 0.1f;
@@ -75,7 +77,7 @@ public class ColorByNumber : MonoBehaviour {
     private Rect bbox;
     private Canvas vidCapCanvas;
     private GameObject[] trackObjects;
-    private GameObject[] boundingBoxes;
+    //private GameObject[] boundingBoxes;
     private GameObject[] staticTrackObjects;
     private GameObject[] staticBoundingBoxes;
     public GameObject bbDisp;
@@ -114,20 +116,21 @@ public class ColorByNumber : MonoBehaviour {
     public Material leftHandMat;
     public Material rightHandMat;
     private bool handSetupDone = false;
+    private bool arrayOrdered = false;
+
+    private PlayModeManager playModeManager;
     
     
     private Texture2D screenShot;
     private void Start()
     {
         cam = GetComponent<Camera>();
+        playModeManager = GameObject.FindWithTag("Manager").GetComponent<PlayModeManager>();
         objectIds = FindObjectsOfType<ObjectId>();
+        objectIds = objectIds.Where(objId => objId.gameObject.tag != "LeftHand").ToArray();
+        objectIds = objectIds.Where(objId => objId.gameObject.tag != "RightHand").ToArray();
         Array.Sort(objectIds,delegate(ObjectId x, ObjectId y) { return x.id.CompareTo(y.id); });
-        
-        for (int i = 0; i < objectIds.Length; i++)
-        {
-            Debug.Log("CBN " + objectIds[i].id + " " + objectIds[i].objectName);
-        }
-        
+
         //for bound boxes
         //vidCapCanvas = GameObject.FindGameObjectWithTag("VideoCaptureCanvas").GetComponent<Canvas>();
         //boundingBoxes = new GameObject[objectIds.Length];
@@ -139,6 +142,7 @@ public class ColorByNumber : MonoBehaviour {
             boundingBoxCubes[i]= (GameObject) Instantiate(Resources.Load("BBCubePrefab"));
             boundingBoxCubes[i].transform.SetParent(bbCubeCam.transform, false);
             boundingBoxCubes[i].GetComponent<MeshRenderer>().material.color = new Color(objectIds[i].c.r, objectIds[i].c.g, objectIds[i].c.b / 256.0f, 0.4f);
+            boundingBoxCubes[i].name = "BBCubePrefab_" + objectIds[i].objectName+ "_id"+objectIds[i].id;
         }
 
         int width = cam.targetTexture.width;
@@ -207,8 +211,9 @@ public class ColorByNumber : MonoBehaviour {
                 
                 //bbCube
                 //only use camTexHeight as factor!
+                Debug.Log(i + " " + boundingBoxCubes[i].name + " " + objectIds[i].objectName);
                 boundingBoxCubes[i].transform.localPosition = new Vector3(((objectIds[i].xMax + objectIds[i].xMin)*0.5f /camTexHeight) - 0.66f, ((objectIds[i].yMax + objectIds[i].yMin)*0.5f/camTexHeight)  - 0.5f,1.0f);
-                boundingBoxCubes[i].transform.localScale = new Vector3((objectIds[i].xMax - objectIds[i].xMin)/(float)camTexHeight, (objectIds[i].yMax - objectIds[i].yMin)/(float)camTexHeight,1.0f);
+                boundingBoxCubes[i].transform.localScale = new Vector3((objectIds[i].xMax - objectIds[i].xMin)/(float)camTexHeight, (objectIds[i].yMax - objectIds[i].yMin)/(float)camTexHeight,0.001f);
                 boundingBoxCubes[i].SetActive(true);
             }
             else
@@ -226,25 +231,25 @@ public class ColorByNumber : MonoBehaviour {
 
     bool SetHandRefs()
     {
-        GameObject leftHandGo = GameObject.FindGameObjectWithTag("LeftHand");
+        GameObject leftHandGo = GameObject.FindGameObjectWithTag("LeftHandReplay");
         smrLeftHand = leftHandGo.transform.GetComponentInChildren<SkinnedMeshRenderer>();
         if (smrLeftHand == null)
         {
             return false;
         }
         leftHandMat = new Material(smrLeftHand.material); 
-        Hand leftHand = leftHandGo.transform.GetComponent<Hand>();
-        leftHand.mainRenderModel.SetControllerVisibility(false, permanent:true);
+        //Hand leftHand = leftHandGo.transform.GetComponent<Hand>();
+        //leftHand.mainRenderModel.SetControllerVisibility(false, permanent:true);
         
-        GameObject rightHandGo = GameObject.FindGameObjectWithTag("RightHand");
+        GameObject rightHandGo = GameObject.FindGameObjectWithTag("RightHandReplay");
         smrRightHand = rightHandGo.transform.GetComponentInChildren<SkinnedMeshRenderer>();
         if (smrRightHand == null)
         {
             return false;
         }
         rightHandMat = new Material(smrRightHand.material); 
-        Hand rightHand = rightHandGo.transform.GetComponent<Hand>();
-        rightHand.mainRenderModel.SetControllerVisibility(false, permanent:true);
+        //Hand rightHand = rightHandGo.transform.GetComponent<Hand>();
+        //rightHand.mainRenderModel.SetControllerVisibility(false, permanent:true);
         return true;
     }
 
@@ -254,6 +259,7 @@ public class ColorByNumber : MonoBehaviour {
     void SetupIDMaterials()
     {
         originalMaterials = new List<Material>();
+        originalMaterialArrays = new List<Material[]>();
         leftHandMaterials = new List<Material>();
         rightHandMaterials = new List<Material>();
         //setup the materials
@@ -264,6 +270,7 @@ public class ColorByNumber : MonoBehaviour {
             
             ObjectId id = renderer.gameObject.GetComponentInParent<ObjectId>();
             originalMaterials.Add(renderer.material);
+            originalMaterialArrays.Add(renderer.materials);
 
             if (!handSetupDone)
             {
@@ -290,9 +297,15 @@ public class ColorByNumber : MonoBehaviour {
                 }
                 else
                 {
-                    renderer.material = materials[id.id];
-                }
+                    //renderer.material = materials[id.id];   //CHANGE THIS BACK IF PROBLEM WITH RENDERER OCCURS
+                    Material[] newMats = new Material[renderer.materials.Length];
+                    for (int j = 0; j < renderer.materials.Length; j++)
+                    {
+                        newMats[j] = materials[id.id];
+                    }
+                    renderer.materials = newMats;
 
+                }
             }
             else
             {
@@ -308,7 +321,8 @@ public class ColorByNumber : MonoBehaviour {
         for (int i=0;i<renderers.Length;i++)
         {
             Renderer renderer = renderers[i];
-            renderer.material = originalMaterials[i];
+            //renderer.material = originalMaterials[i]; //CHANGE THIS BACK IF PROBLEM WITH RENDERER OCCURS
+            renderer.materials = originalMaterialArrays[i];
         }
         eyebrow.material = eyebrowMaterial;
         eyelashes.material = eyelashesMaterial;
