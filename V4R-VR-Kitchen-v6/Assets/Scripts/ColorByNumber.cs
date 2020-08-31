@@ -211,7 +211,7 @@ public class ColorByNumber : MonoBehaviour {
                 
                 //bbCube
                 //only use camTexHeight as factor!
-                Debug.Log(i + " " + boundingBoxCubes[i].name + " " + objectIds[i].objectName);
+                //Debug.Log(i + " " + boundingBoxCubes[i].name + " " + objectIds[i].objectName);
                 boundingBoxCubes[i].transform.localPosition = new Vector3(((objectIds[i].xMax + objectIds[i].xMin)*0.5f /camTexHeight) - 0.66f, ((objectIds[i].yMax + objectIds[i].yMin)*0.5f/camTexHeight)  - 0.5f,1.0f);
                 boundingBoxCubes[i].transform.localScale = new Vector3((objectIds[i].xMax - objectIds[i].xMin)/(float)camTexHeight, (objectIds[i].yMax - objectIds[i].yMin)/(float)camTexHeight,0.001f);
                 boundingBoxCubes[i].SetActive(true);

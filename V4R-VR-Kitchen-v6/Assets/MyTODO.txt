@@ -121,13 +121,7 @@ maybe instead of reading cooking instructions --> let speech generator read out 
 Particles
 The current solution currently doesn't handle slower replay times. Look if this is ok, when you stop time when you render videos.
 
-Beim Playback mit video screens: in colorbynumber script: 
-l124: lefthand, righthand sind doppelt. vllcht deshalb fehler. beim replay schauen, dass nur die neue rechte u linke hand verwendet wird. 
-möglichkeiten:
--- orginal objectids löschen in playmodemanager
--- orginal objectids herausfiltern in colorbynumber
--- schauen, ob in colorbynumber nicht auch die materials der neuen hände verwendet werden müssen.
-
-
 The bounding box cubes don't have the right names attached, but in general have ok positions. Where is the mixup?
 Can handle multiple materials now, but still with name mixup. occurs around id #132
+
+Weiter bei Storeas in playmodemanager

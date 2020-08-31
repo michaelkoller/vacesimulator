@@ -153,7 +153,6 @@ public class PlaybackState
             //Debug.Log(rot);
             float[] posFloat = new float[3];
             float[] rotFloat = new float[4];
-            
             for (int j = 0; j < 3; j++)
             {
                 posFloat[j] = float.Parse(pos[j]);
@@ -279,11 +278,11 @@ public class PlaybackState
 }
 
 
-
 public class PlayModeManager : MonoBehaviour
 {
     public GameObject recording;
     public GameObject recordingBB;
+    public GameObject recordingDepth;
     public string directory = @"C:\Users\v4rmini\Documents\RecordingsForRender";
     [HideInInspector]
     public string sampleDir;
@@ -291,6 +290,7 @@ public class PlayModeManager : MonoBehaviour
     public bool playback;
     public bool useMostRecentRecording;
     private string colorMapPath;
+    private ColorByNumber colorByNumber;
 
     private PlaybackState ps;
     
@@ -311,8 +311,11 @@ public class PlayModeManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        colorByNumber = FindObjectOfType<ColorByNumber>();
         if (!playback)
-        {
+        {   recordingBB.SetActive(false);
+            recording.SetActive(false);
+            recordingDepth.SetActive(false);
             //Leave everything as it is in the project settings
             
             //Create Folder Structures
@@ -380,11 +383,18 @@ public class PlayModeManager : MonoBehaviour
             Destroy(rightRenderModelInstance.GetComponentInChildren<Animator>());
             Destroy(leftRenderModelInstance.GetComponentInChildren<Animator>());
 
+            
+            recordingBB.SetActive(false);
+            recording.SetActive(false);
+            recordingDepth.SetActive(false);
+            
             string[] excludes = new String[]{"vr_glove_right_slim", "vr_glove_left_slim"};
             ps = new PlaybackState(replayDir, excludes, rightRenderModelInstance, leftRenderModelInstance);
 
             recordingBB.SetActive(true);
             recording.SetActive(true);
+            recordingDepth.SetActive(true);
+            
             initialized = true;
 
         }
@@ -481,6 +491,11 @@ public class PlayModeManager : MonoBehaviour
         {
             MakeOrigHandsInvisible();
             ps.GetStateOfFrame();
+            
+            //Write Video Files
+            colorByNumber.StoreAs(recording.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false); 
+            colorByNumber.StoreAs(cam.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false); 
+            colorByNumber.StoreAs(cam.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false); 
         }
     }
 }
