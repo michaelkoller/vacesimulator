@@ -493,9 +493,7 @@ public class PlayModeManager : MonoBehaviour
             ps.GetStateOfFrame();
             
             //Write Video Files
-            colorByNumber.StoreAs(recording.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false); 
-            colorByNumber.StoreAs(cam.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false); 
-            colorByNumber.StoreAs(cam.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false); 
+            colorByNumber.StoreAllAs(sampleDir+@"\RecordingsFiles\Videos\Cam1\", ps.frameNumber);
         }
     }
 }

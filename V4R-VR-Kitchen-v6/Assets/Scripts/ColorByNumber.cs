@@ -8,10 +8,10 @@ using UnityEngine.UIElements;
 using Unity.Burst;
 using Unity.Jobs;
 using Unity.Collections;
+using UnityEditor.Media;
 using Valve.VR.InteractionSystem;
 
 public class ColorByNumber : MonoBehaviour {
-   
     
     [BurstCompile(CompileSynchronously = true)]
     struct CalcBBs : IJob
@@ -65,7 +65,10 @@ public class ColorByNumber : MonoBehaviour {
     private MeshRenderer[] renderers;
     private List<Material> originalMaterials; //actually don't need this anymore, because bbs now can handle objs with multiple materials
     private List<Material[]> originalMaterialArrays;
-    Camera cam;
+    public Camera cam;
+    public Camera rgbCam;
+    public Camera rgbCamNoBB;
+    public Camera depthCam;
     public ObjectId[] objectIds;
     public float deltaTimeBoundBoxUpdate = 0.1f;
     public float lastTime = 0;
@@ -124,7 +127,7 @@ public class ColorByNumber : MonoBehaviour {
     private Texture2D screenShot;
     private void Start()
     {
-        cam = GetComponent<Camera>();
+        //cam = GetComponent<Camera>();
         playModeManager = GameObject.FindWithTag("Manager").GetComponent<PlayModeManager>();
         objectIds = FindObjectsOfType<ObjectId>();
         objectIds = objectIds.Where(objId => objId.gameObject.tag != "LeftHand").ToArray();
@@ -194,8 +197,42 @@ public class ColorByNumber : MonoBehaviour {
         
     }
 
-    private void Update()
+    public void StoreAllAs(string path, int frameNo)
     {
+        StoreAs(cam.targetTexture, "segmentation-" + frameNo +  ".jpg", false);
+        StoreAs(rgbCamNoBB.targetTexture, "rgb-" + frameNo +  ".jpg", false);
+        StoreAs(depthCam.targetTexture, "depth-" + frameNo +  ".jpg", false);
+        /*
+        var videoAttr = new VideoTrackAttributes
+        {
+            frameRate = new MediaRational(30),
+            width = 1600,
+            height = 1200,
+            includeAlpha = false
+        };
+
+        var audioAttr = new AudioTrackAttributes
+        {
+            sampleRate = new MediaRational(48000),
+            channelCount = 1,
+            language = "en"
+        };
+        
+        MediaEncoder me = new MediaEncoder(path+@"\testmovie.mp4", videoAttr, audioAttr);
+        int width = rgbCamNoBB.targetTexture.width;
+        int height = rgbCamNoBB.targetTexture.height;
+        RenderTexture old = RenderTexture.active;
+        RenderTexture.active = rgbCamNoBB.targetTexture;
+        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
+        screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        me.AddFrame(screenShot);
+        RenderTexture.active = old ;
+        me.Dispose();
+        */
+    }
+    
+    private void Update()
+    {     
         for (int i = 0; i < objectIds.Length; i++)
         {
             if(objectIds[i].xMax != int.MinValue && objectIds[i].xMin != int.MaxValue && objectIds[i].yMax != int.MinValue && objectIds[i].yMin != int.MaxValue){
