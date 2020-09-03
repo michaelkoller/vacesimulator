@@ -5,8 +5,83 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-
 //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
+
+
+[System.Serializable]
+public class PositionAndRotationFrameArr
+{
+    public string type = "position_and_rotation_frame_arr";
+    public string recipe = "";
+    public string creation_time = "";
+    public List<PositionAndRotationFrame> positionAndRotationFrameArr = new List<PositionAndRotationFrame>();
+}
+
+[System.Serializable]
+public class PositionAndRotationFrame
+{
+    public string type = "position_and_rotation_frame";
+    public int frame_number = 0;
+    public float time = 0.0f;
+    public float delta_time = 0.0f;
+    public List<ObjectPosition> objectPositionAndRotationArr = new List<ObjectPosition>();
+}
+
+[System.Serializable]
+public class ObjectPosition
+{
+    public string type = "object_pos";
+    public string name = "";
+    public float posX = 0.0f;
+    public float posY = 0.0f;
+    public float posZ = 0.0f;
+    public float angX = 0.0f;
+    public float angY = 0.0f;
+    public float angZ = 0.0f;
+}
+
+
+[System.Serializable]
+public class ColormapJSON
+{
+    public List<ColormapEntryJSON> object_colors = new List<ColormapEntryJSON>();
+}
+
+[System.Serializable]
+public class ColormapEntryJSON
+{
+    public string name = "";
+    public float r = 0.0f;
+    public float g = 0.0f;
+    public float b = 0.0f;
+    public float a = 0.0f;
+    public int id_no = -1;
+}
+
+
+[System.Serializable]
+public class BbFrameArray
+{
+    public List<BbFrame> bb_frame_arr = new List<BbFrame>();
+}
+
+[System.Serializable]
+public class BbFrame
+{
+    public int frame_number = -1;
+    public List<BbObject> bb_obect_arr = new List<BbObject>();
+}
+
+[System.Serializable]
+public class BbObject
+{
+    public string name = "";
+    public int id_no = -1;
+    public int x_max = -1;
+    public int x_min = -1;
+    public int y_max = -1;
+    public int y_min = -1;
+}
 
 public class RecordObjectPosRot : MonoBehaviour
 {
@@ -16,6 +91,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private string pathRightHand;
     private string pathLeftHand;
     private string pathColorMap;
+    private string pathPosRotJSON;
     //private GameObject[] allGameObjects;
     private Renderer[] allRenderers;
     //private GameObject[] allGameObjectsWithRenderer;
@@ -38,7 +114,13 @@ public class RecordObjectPosRot : MonoBehaviour
     private ParticleSystem [] particleSystems;
     private Dictionary<string, ParticleSystem> particleSystemDict;
     private string pathParticles;
+    private PositionAndRotationFrameArr posRotFrameArr;
 
+    public static void SaveIntoJson<T>(string path, T jsonstruct){
+        string jsonstructstring = JsonUtility.ToJson(jsonstruct);
+        System.IO.File.WriteAllText(path, jsonstructstring);
+    }
+    
     string GetPath()
     {
         return  playModeManager.sampleDir +@"\ReplayFiles\PositionAndOrientation\PO"+ currentFrame.ToString() +".txt";
@@ -62,10 +144,19 @@ public class RecordObjectPosRot : MonoBehaviour
     {
         return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Colormap\colormap"+ currentFrame.ToString() +".txt";
     }
+    string GetPathColorMapJSON()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Colormap\colormap.json";
+    }
     
     string GetPathParticles()
     {
         return  playModeManager.sampleDir +@"\ReplayFiles\Particles\particles"+ currentFrame.ToString() +".txt";
+    }
+    
+    string GetPosRotJSONPath()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\PoseAndOrientation\position_orientation_"+ currentFrame.ToString() + ".json";
     }
     
     // Start is called before the first frame update
@@ -89,8 +180,10 @@ public class RecordObjectPosRot : MonoBehaviour
             sbColorMap = new StringBuilder();
             pathParticles = GetPathParticles();
             sbParticleSystems = new StringBuilder();
+            pathPosRotJSON = GetPosRotJSONPath();
             
-            
+            posRotFrameArr = new PositionAndRotationFrameArr();
+
             //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
             //allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
@@ -99,6 +192,8 @@ public class RecordObjectPosRot : MonoBehaviour
                 //allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
                 allGameObjectsWithRendererDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
             }
+            
+            ColormapJSON cm = new ColormapJSON();
 
             ObjectId[] objectIds = FindObjectsOfType<ObjectId>();
             foreach(ObjectId objectId in objectIds)
@@ -106,9 +201,20 @@ public class RecordObjectPosRot : MonoBehaviour
                 sbColorMap.AppendLine(objectId.objectName);
                 sbColorMap.AppendLine(objectId.c.ToString());
                 sbColorMap.AppendLine(objectId.id.ToString());
+                
+                ColormapEntryJSON cme = new ColormapEntryJSON();
+                cme.name = objectId.objectName;
+                cme.r = objectId.c.r;
+                cme.g = objectId.c.g;
+                cme.b = objectId.c.b;
+                cme.a = objectId.c.a;
+                cme.id_no = objectId.id;
+                cm.object_colors.Add(cme);
             }
             File.WriteAllText(pathColorMap, sbColorMap.ToString());
             sbColorMap.Clear();
+
+            SaveIntoJson<ColormapJSON>(GetPathColorMapJSON(), cm);
             
             dictArray = new Dictionary<string, GameObject>[3];
             dictArray[0] = allGameObjectsWithRendererDict;
@@ -156,8 +262,28 @@ public class RecordObjectPosRot : MonoBehaviour
                     }
                 }
             }
-
-
+            
+            //JSON
+            PositionAndRotationFrame posRotFrame = new PositionAndRotationFrame();
+            posRotFrameArr.positionAndRotationFrameArr.Add(posRotFrame);
+            posRotFrame.frame_number = currentFrame;
+            posRotFrame.time = Time.time;
+            posRotFrame.delta_time = Time.deltaTime;
+            
+            foreach(KeyValuePair<string,GameObject> goPair in allGameObjectsWithRendererDict)
+            {
+                ObjectPosition op = new ObjectPosition();
+                op.name = goPair.Key;
+                op.posX = goPair.Value.transform.position.x;
+                op.posY = goPair.Value.transform.position.y;
+                op.posZ = goPair.Value.transform.position.z;
+                op.angX = goPair.Value.transform.eulerAngles.x;
+                op.angY = goPair.Value.transform.eulerAngles.y;
+                op.angZ = goPair.Value.transform.eulerAngles.z;
+                posRotFrame.objectPositionAndRotationArr.Add(op);
+            }
+            
+            
             //regular GOs
             sb.AppendLine("frame " + currentFrame.ToString());
             sb.AppendLine(Time.time.ToString());
@@ -222,6 +348,11 @@ public class RecordObjectPosRot : MonoBehaviour
                 File.WriteAllText(pathParticles, sbParticleSystems.ToString());
                 sbParticleSystems.Clear();
                 pathParticles = GetPathParticles();
+                
+                SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
+                posRotFrameArr = new PositionAndRotationFrameArr();
+                pathPosRotJSON = GetPosRotJSONPath();
+
             }
 
             foreach (string s in delGosAfterCut)
@@ -268,6 +399,8 @@ public class RecordObjectPosRot : MonoBehaviour
         sbLeftHand.Clear();
         File.WriteAllText(pathParticles, sbParticleSystems.ToString());
         sbParticleSystems.Clear();    
+        
+        SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
     }
     
     void OnDestroy()

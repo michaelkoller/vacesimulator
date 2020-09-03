@@ -147,6 +147,7 @@ public class Cutter : MonoBehaviour
         string oldObjectName = String.Copy(_originalGameObject.name);
         rightGO.name = _originalGameObject.name + "1";
         _originalGameObject.name += "0";
+        _originalGameObject.GetComponent<ObjectId>().objectName += "0";
 
         if (!playModeManager.playback)
         {   

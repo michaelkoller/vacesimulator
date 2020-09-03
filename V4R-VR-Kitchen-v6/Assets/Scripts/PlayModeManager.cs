@@ -10,6 +10,8 @@ using Valve.VR;
 using Object = System.Object;
 
 
+
+
 public class PlaybackState
 {   
   
@@ -307,6 +309,8 @@ public class PlayModeManager : MonoBehaviour
     private Dictionary<string, string> colorToNameDict = new Dictionary<string, string>();
     public bool initialized = false;
 
+    private BbFrameArray bbFrameArray;
+    private string bbSavePath;
     
     // Start is called before the first frame update
     void Awake()
@@ -395,15 +399,16 @@ public class PlayModeManager : MonoBehaviour
             recording.SetActive(true);
             recordingDepth.SetActive(true);
             
+            bbFrameArray = new BbFrameArray();
+            bbSavePath = sampleDir + @"\RecordingsFiles\Annotations\BoundingBox\bounding_box_1.json";
             initialized = true;
-
         }
     }
 
     private void Start()
     {
         if (playback)
-        {
+        {    
             //set all object ids in replay mode to the recorded ones
             StreamReader colorMapReader = new StreamReader(colorMapPath);
             while (!colorMapReader.EndOfStream)
@@ -491,9 +496,46 @@ public class PlayModeManager : MonoBehaviour
         {
             MakeOrigHandsInvisible();
             ps.GetStateOfFrame();
-            
+
             //Write Video Files
-            colorByNumber.StoreAllAs(sampleDir+@"\RecordingsFiles\Videos\Cam1\", ps.frameNumber);
+            colorByNumber.StoreAllAs(sampleDir + @"\RecordingsFiles\Videos\Cam1\", ps.frameNumber);
+
+            //save bounding boxes for each frame
+            BbFrame bbf = new BbFrame();
+            bbFrameArray.bb_frame_arr.Add(bbf);
+            for (int i = 0; i < colorByNumber.objectIds.Length; i++)
+            {
+                if (colorByNumber.objectIds[i].xMax != int.MinValue &&
+                    colorByNumber.objectIds[i].xMin != int.MaxValue &&
+                    colorByNumber.objectIds[i].yMax != int.MinValue && 
+                    colorByNumber.objectIds[i].yMin != int.MaxValue)
+                {
+                    BbObject bbo = new BbObject();
+                    bbo.name = colorByNumber.objectIds[i].objectName;
+                    bbo.id_no = colorByNumber.objectIds[i].id;
+                    bbo.x_max = colorByNumber.objectIds[i].xMax;
+                    bbo.x_min = colorByNumber.objectIds[i].xMin;
+                    bbo.y_max = colorByNumber.objectIds[i].yMax;
+                    bbo.y_min = colorByNumber.objectIds[i].yMin;
+                    bbf.bb_obect_arr.Add(bbo);
+                }
+            }
+
+            if (ps.frameNumber % 200 == 0)
+            {
+
+                RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
+                bbSavePath = sampleDir + @"\RecordingsFiles\Annotations\BoundingBox\bounding_box_" +
+                             ps.frameNumber.ToString() + ".json";
+            }
+        }
+    }
+    
+    void OnDestroy()
+    {
+        if (playback)
+        {
+            RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
         }
     }
 }

@@ -1,27 +1,11 @@
-﻿Tracker index: 
-playerwithavatar --> steamvrobjects --> tracker --> in inspector: steam vr tracked object, index
-
-
+﻿
 My Todos
+     
 
-Create Game Startup Manager for setting perform or render mode, file names, etc
-Create a visualization of my table to put down controllers
-Record status of some interactable objects (water faucet, stove flames)
-Replay mode
-Handle cutting of objects for recording and replay     
-Handle multiple text files (when 1 ends the next should be read in)
-put each recording (i.e. multiple text files) into one new folder
 Handle end of recording
 Link the start record command to the record button on controller
 make recording mode be startable from script
-look up saving of new whole gameobjects with mesh and stuff
-    https://answers.unity.com/questions/1644912/how-can-i-save-the-gameobject-to-file-and-load-it.html
-    https://unitycoder.com/blog/2013/01/26/save-mesh-created-by-script-in-editor-playmode/
-    https://www.raywenderlich.com/3169311-runtime-mesh-manipulation-with-unity#toc-anchor-017
     
-create datastructure that handles cut objects (i.e. tree for each object that has ever been cut)
-
-
 fix handling of cut objects
     the newly cut objects cannot be picked up
     do new and old objects after cut have correct colliders etc?
@@ -46,38 +30,8 @@ ObjectId.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/O
 
 
 After a cut, one of the two new Gameobjects still has the old ghost shape (i.e., the original shape before cut)
-    --> write function to update ghosts too after cut 
-    
- Record faucet and oven status
- 
- Make hands move in playback mode
- 
- Create all Recordings when in playback mode:
-    Ego RGB
-    Object mask
-    Depth
-        How many angles?
-    Ego RGB
-    Ego Object mask
-    Ego Depth
-    
-    Annotation
-        Pose
-        Orientation
-        Bounding box
-            For all rendered objects
-        Object mask color mapping for all objects
-        Predicates
-            Grasp
-            On
-            In
-            (see Rogers email)
-       
-            
- Manager for replay file parts
-    Set text for record name?
-     
-                 
+    --> write function to update ghosts too after cut       
+                            
  Improve Avatar
     Legs should make steps
     Hands should not detach from arms
@@ -110,6 +64,13 @@ further filter:
 further filter:
 ["on", "next to", "in", "walk", "hold", "use", "cover", "touch", "eat"]
 
+ROGER:
+on, above, in, cutting, holding moving
+cutting: read the cuts replay file
+holding: record when hands grasp action is used
+moving: compare last frame to current frame. if position and rot diff > threshold then object is moving. use recording file
+
+
 make grasping more intuitive: 
 highlight currently selected object (like it was before), but only make it visible for the ego perspective
 
@@ -123,3 +84,12 @@ The current solution currently doesn't handle slower replay times. Look if this 
 
 The bounding box cubes don't have the right names attached, but in general have ok positions. Where is the mixup?
 Can handle multiple materials now, but still with name mixup. occurs around id #132
+
+
+see if bounding boxes break when cutting --> yes, rightgo(?) shows up with a black texture on segmentation screen
+in colorbynumber, access allGameObjectsWithRendererDict in recordobjectposrot. allGameObjectsWithRendererDict has all current objects with renderer.
+
+
+start and stop the recording and playback via function call and not via start/awake/update
+
+in recording mode: stockt, wenn die json files geschrieben werden.

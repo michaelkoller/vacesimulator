@@ -123,7 +123,6 @@ public class ColorByNumber : MonoBehaviour {
 
     private PlayModeManager playModeManager;
     
-    
     private Texture2D screenShot;
     private void Start()
     {
@@ -232,7 +231,7 @@ public class ColorByNumber : MonoBehaviour {
     }
     
     private void Update()
-    {     
+    {   
         for (int i = 0; i < objectIds.Length; i++)
         {
             if(objectIds[i].xMax != int.MinValue && objectIds[i].xMin != int.MaxValue && objectIds[i].yMax != int.MinValue && objectIds[i].yMin != int.MaxValue){
@@ -397,6 +396,8 @@ public class ColorByNumber : MonoBehaviour {
         screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         StoreAs(screenShot,filename,exr);
         RenderTexture.active = old;
+        Destroy(screenShot);
+        screenShot = null;
     }
 
     void StoreAs(Texture2D tex,string filename,bool exr)
