@@ -9,6 +9,7 @@ using Unity.Burst;
 using Unity.Jobs;
 using Unity.Collections;
 using UnityEditor.Media;
+using UnityEngine.iOS;
 using Valve.VR.InteractionSystem;
 
 public class ColorByNumber : MonoBehaviour {
@@ -32,11 +33,16 @@ public class ColorByNumber : MonoBehaviour {
                 for (int x = 0; x < width; x += 1)
                 {
                     Color32 c = pixel[y*width + x];
-                    int ind = c.b;
-                    
+                    //int ind = (int)Mathf.Round(c.b);// simons variant
+                    int ind = (int)Mathf.Round(c.b);// simons variant
+
+                    // int ind = (int) (c.b * 100f); //TODO hier und in object id --> richtige Farbzuweisung machen 
+                    // ind += (int) (c.g * 10f);
+                    // ind += (int) (c.r);
+
                     if (ind != 0)
                     {
-                        MinMax mm = bbs[ind];
+                        MinMax mm = bbs[ind-1];
                         if (mm.xMax < x)
                         {
                             mm.xMax = x;
@@ -49,12 +55,12 @@ public class ColorByNumber : MonoBehaviour {
                         {
                             mm.yMax = y;
                         }
-                        if (bbs[ind].yMin > y)
+                        if (mm.yMin > y)
                         {
                             mm.yMin = y;
                         }
 
-                        bbs[ind] = mm;
+                        bbs[ind-1] = mm;
                     }
                 }
             }
@@ -129,7 +135,7 @@ public class ColorByNumber : MonoBehaviour {
         //cam = GetComponent<Camera>();
         playModeManager = GameObject.FindWithTag("Manager").GetComponent<PlayModeManager>();
         objectIds = FindObjectsOfType<ObjectId>();
-        objectIds = objectIds.Where(objId => objId.gameObject.tag != "LeftHand").ToArray();
+        objectIds = objectIds.Where(objId => objId.gameObject.tag != "LeftHand").ToArray(); //this excludes the non-playback hands. for playback there is another set of hands instantiated.
         objectIds = objectIds.Where(objId => objId.gameObject.tag != "RightHand").ToArray();
         Array.Sort(objectIds,delegate(ObjectId x, ObjectId y) { return x.id.CompareTo(y.id); });
 
@@ -348,7 +354,6 @@ public class ColorByNumber : MonoBehaviour {
                 renderer.material = materials[0];
             }
         }
-        
     }
     
     void UnsetupIDMaterials()

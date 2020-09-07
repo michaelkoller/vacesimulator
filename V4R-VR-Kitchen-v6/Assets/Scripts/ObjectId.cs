@@ -38,14 +38,27 @@ public class ObjectId : MonoBehaviour
         classId++;
         objectName = gameObject.name;
         //objectType = PrefabUtility.GetCorrespondingObjectFromSource(this.gameObject).name;
-        c = new Color();
-        c.r = id%10 *0.1f;
-        c.r = (float) (Math.Round((double) c.r, 3));
-        c.g = id%100 * 0.01f;
-        c.g = (float) (Math.Round((double) c.g, 3));
-        c.b = id*0.00390625f;
-        c.b = (float) (Math.Round((double) c.b, 3));
-        c.a = 1.0f;
+        c = new Color32();
+        // c.r = id%10 *0.1f;
+        // c.r = (float) (Math.Round((double) c.r, 11));
+        // c.g = id%100 * 0.01f;
+        // c.g = (float) (Math.Round((double) c.g, 11));
+        // c.b = id * 0.00392156862f; //old value: 0.00390625f; 
+        // c.b = (float) (Math.Round((double) c.b, 11));
+
+        // int colorMapping = id;
+        // c.r = (colorMapping % 10);
+        // colorMapping /= 10;
+        // c.g = (colorMapping % 10);
+        // colorMapping /= 10;
+        // c.b = (colorMapping % 10);
+
+        c.r = (id*31) % 255;
+        c.g = (id*63) % 255;
+        c.b = id;
+        
+        c.a = 255;
+        
         xMax = int.MinValue;
         xMin = int.MaxValue;
         yMax = int.MinValue;
@@ -137,16 +150,6 @@ public class ObjectId : MonoBehaviour
             Vector3 cutDirection = this.gameObject.transform.rotation * cuttingPlaneNormal;
             ContactPoint contact = collision.contacts[0]; //This usually has several entries. Just take one, e.g. first
             GameObject newGO = Cutter.Cut(collision.collider.gameObject, contact.point, cutDirection, null, true, true);
-            
-            //This probably doesn't work. Create ghosts directly in cut
-            //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
-            //line below gives the original gameobject's ghost the new meshcollider
-            collision.collider.transform.GetChild(0).transform.GetComponent<MeshCollider>().sharedMesh = collision.collider.gameObject.GetComponent<MeshCollider>().sharedMesh;
-            
-            ObjectId newObjectId = newGO.AddComponent<ObjectId>();
-            newObjectId.makeGhost = true;
-            newObjectId.cuttable = true;
-            newObjectId.c = this.c;
             lastCutTime = Time.time;
         }
     }

@@ -93,3 +93,6 @@ in colorbynumber, access allGameObjectsWithRendererDict in recordobjectposrot. a
 start and stop the recording and playback via function call and not via start/awake/update
 
 in recording mode: stockt, wenn die json files geschrieben werden.
+--> schreibe json files, wenn in playback mode?
+
+schneiden --> greifen --> schneiden: greifen geht dann nicht mehr.  (mit out of bounds exception --> ghost ist kein child, daher findet cut() den ghost nicht)
