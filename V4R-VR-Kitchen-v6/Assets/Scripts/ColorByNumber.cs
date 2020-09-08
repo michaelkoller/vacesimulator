@@ -14,7 +14,7 @@ using Valve.VR.InteractionSystem;
 
 public class ColorByNumber : MonoBehaviour {
     
-    [BurstCompile(CompileSynchronously = true)]
+    //[BurstCompile(CompileSynchronously = true)] //TODO Reenable after debugging
     struct CalcBBs : IJob
     {
         public int width;
@@ -34,7 +34,7 @@ public class ColorByNumber : MonoBehaviour {
                 {
                     Color32 c = pixel[y*width + x];
                     //int ind = (int)Mathf.Round(c.b);// simons variant
-                    int ind = (int)Mathf.Round(c.b);// simons variant
+                    int ind = Mathf.RoundToInt(c.b);// simons variant
 
                     // int ind = (int) (c.b * 100f); //TODO hier und in object id --> richtige Farbzuweisung machen 
                     // ind += (int) (c.g * 10f);
@@ -138,7 +138,7 @@ public class ColorByNumber : MonoBehaviour {
         objectIds = objectIds.Where(objId => objId.gameObject.tag != "LeftHand").ToArray(); //this excludes the non-playback hands. for playback there is another set of hands instantiated.
         objectIds = objectIds.Where(objId => objId.gameObject.tag != "RightHand").ToArray();
         Array.Sort(objectIds,delegate(ObjectId x, ObjectId y) { return x.id.CompareTo(y.id); });
-
+        
         //for bound boxes
         //vidCapCanvas = GameObject.FindGameObjectWithTag("VideoCaptureCanvas").GetComponent<Canvas>();
         //boundingBoxes = new GameObject[objectIds.Length];
@@ -149,14 +149,15 @@ public class ColorByNumber : MonoBehaviour {
             //boundingBoxes[i].transform.SetParent(vidCapCanvas.transform, false);
             boundingBoxCubes[i]= (GameObject) Instantiate(Resources.Load("BBCubePrefab"));
             boundingBoxCubes[i].transform.SetParent(bbCubeCam.transform, false);
-            boundingBoxCubes[i].GetComponent<MeshRenderer>().material.color = new Color(objectIds[i].c.r, objectIds[i].c.g, objectIds[i].c.b / 256.0f, 0.4f);
+            boundingBoxCubes[i].GetComponent<MeshRenderer>().material.color = new Color32(objectIds[i].c.r, objectIds[i].c.g, objectIds[i].c.b, 100);
             boundingBoxCubes[i].name = "BBCubePrefab_" + objectIds[i].objectName+ "_id"+objectIds[i].id;
         }
 
         int width = cam.targetTexture.width;
         int height = cam.targetTexture.height;
-        screenShot = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
+        screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
         shaderPropertyIndex = Shader.PropertyToID("_Index");
+        shaderPropertyColor = Shader.PropertyToID("_Color");
         //print(shaderPropertyIndex);
         camTexHeight = cam.targetTexture.height;
         camTexWidth = cam.targetTexture.width;
@@ -166,6 +167,7 @@ public class ColorByNumber : MonoBehaviour {
         {
             materials[i] = new Material(shader);
             materials[i].SetInt(shaderPropertyIndex, i);
+            //materials[i].SetColor(shaderPropertyColor, Color.black);//objectIds[i].c); //TODO maybe this does nothing??
         }
 
         eyebrowMaterial = new Material(eyebrow.material);
@@ -228,7 +230,7 @@ public class ColorByNumber : MonoBehaviour {
         int height = rgbCamNoBB.targetTexture.height;
         RenderTexture old = RenderTexture.active;
         RenderTexture.active = rgbCamNoBB.targetTexture;
-        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
+        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
         screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         me.AddFrame(screenShot);
         RenderTexture.active = old ;
@@ -297,6 +299,7 @@ public class ColorByNumber : MonoBehaviour {
 
     public Shader shader;
     private int shaderPropertyIndex;
+    private int shaderPropertyColor;
     private Material[] materials;
     void SetupIDMaterials()
     {
@@ -397,7 +400,7 @@ public class ColorByNumber : MonoBehaviour {
         int height = rt.height;
         RenderTexture old = RenderTexture.active;
         RenderTexture.active = rt;
-        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
+        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
         screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         StoreAs(screenShot,filename,exr);
         RenderTexture.active = old;

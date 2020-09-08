@@ -5,47 +5,15 @@ My Todos
 Handle end of recording
 Link the start record command to the record button on controller
 make recording mode be startable from script
-    
-fix handling of cut objects
-    the newly cut objects cannot be picked up
-    do new and old objects after cut have correct colliders etc?
-
-when cutting:
-sometimes no ObjectID script is attached to a newly created object. Then also no grasp ghost is created and the object isn't interactable.
-(in Cutter.cs script)
-(error in objectID.cs: maybe the error here leads to not instantiating objectID.cs
-cucumber_10
-UnityEngine.Debug:Log(Object)
-ObjectId:OnCollisionEnter(Collision) (at Assets/Scripts/ObjectId.cs:134)
-
-child cucumber_1Ghost
-UnityEngine.Debug:Log(Object)
-ObjectId:OnCollisionEnter(Collision) (at Assets/Scripts/ObjectId.cs:135)
-
-UnityException: Transform child out of bounds
-ObjectId.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/ObjectId.cs:133)
-
-
------
-
-
-After a cut, one of the two new Gameobjects still has the old ghost shape (i.e., the original shape before cut)
-    --> write function to update ghosts too after cut       
                             
- Improve Avatar
+Improve Avatar
     Legs should make steps
     Hands should not detach from arms
     Collisions between avatar and furniture?
          
 Change Gloves?
 
-In objectid.cs in oncollisionenter
-                //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
-
 Footsteps
-
-cutting: still problems with the ghosts.
-just make a new ghost for the original (left) GO and destroy old one. then the naming is correct, too for the ghost.
 
 Initial Scene Description wrt logical predicates?
 
@@ -74,25 +42,14 @@ moving: compare last frame to current frame. if position and rot diff > threshol
 make grasping more intuitive: 
 highlight currently selected object (like it was before), but only make it visible for the ego perspective
 
-check if video screen still works
 create videos
 
 maybe instead of reading cooking instructions --> let speech generator read out loud the cooking instructions?
 
-Particles
-The current solution currently doesn't handle slower replay times. Look if this is ok, when you stop time when you render videos.
-
 The bounding box cubes don't have the right names attached, but in general have ok positions. Where is the mixup?
 Can handle multiple materials now, but still with name mixup. occurs around id #132
-
-
-see if bounding boxes break when cutting --> yes, rightgo(?) shows up with a black texture on segmentation screen
-in colorbynumber, access allGameObjectsWithRendererDict in recordobjectposrot. allGameObjectsWithRendererDict has all current objects with renderer.
-
 
 start and stop the recording and playback via function call and not via start/awake/update
 
 in recording mode: stockt, wenn die json files geschrieben werden.
 --> schreibe json files, wenn in playback mode?
-
-schneiden --> greifen --> schneiden: greifen geht dann nicht mehr.  (mit out of bounds exception --> ghost ist kein child, daher findet cut() den ghost nicht)

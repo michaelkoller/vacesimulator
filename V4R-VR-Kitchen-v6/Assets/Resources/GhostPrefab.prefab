@@ -254,7 +254,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  restoreOriginalParent: 0
+  restoreOriginalParent: 1
   onPickUp:
     m_PersistentCalls:
       m_Calls: []

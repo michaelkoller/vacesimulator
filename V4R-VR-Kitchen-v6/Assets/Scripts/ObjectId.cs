@@ -13,13 +13,12 @@ public class ObjectId : MonoBehaviour
     public int id;
     public string objectName;
     public string objectType;
-    public Color c;
+    public Color32 c;
     public int xMax;
     public int xMin;
     public int yMax;
     public int yMin;
     public bool makeGhost = true;
-
     public bool cuttable;
 
     public bool cuttingTool;
@@ -27,7 +26,7 @@ public class ObjectId : MonoBehaviour
     public Vector3 cuttingPlaneNormal = Vector3.zero;
     
     //ghost for grabbing
-    private List<GameObject> ghosts;
+    public List<GameObject> ghosts;
 
     private float cutCooldownAmount = 0.5f;
     private float lastCutTime = 0.0f;
@@ -40,11 +39,11 @@ public class ObjectId : MonoBehaviour
         //objectType = PrefabUtility.GetCorrespondingObjectFromSource(this.gameObject).name;
         c = new Color32();
         // c.r = id%10 *0.1f;
-        // c.r = (float) (Math.Round((double) c.r, 11));
+        // c.r = (float) (Math.Round((double) c.r, 3));
         // c.g = id%100 * 0.01f;
-        // c.g = (float) (Math.Round((double) c.g, 11));
+        // c.g = (float) (Math.Round((double) c.g, 3));
         // c.b = id * 0.00392156862f; //old value: 0.00390625f; 
-        // c.b = (float) (Math.Round((double) c.b, 11));
+        // c.b = (float) (Math.Round((double) c.b, 3));
 
         // int colorMapping = id;
         // c.r = (colorMapping % 10);
@@ -52,12 +51,12 @@ public class ObjectId : MonoBehaviour
         // c.g = (colorMapping % 10);
         // colorMapping /= 10;
         // c.b = (colorMapping % 10);
-
-        c.r = (id*31) % 255;
-        c.g = (id*63) % 255;
-        c.b = id;
+        //
+        c.r = (byte)((id*31) % 256);
+        c.g = (byte)((id*63) % 256);
+        c.b = (byte)id;
         
-        c.a = 255;
+        c.a = 1;
         
         xMax = int.MinValue;
         xMin = int.MaxValue;
@@ -111,6 +110,7 @@ public class ObjectId : MonoBehaviour
             cfgJoing.connectedBody = transform.GetComponent<Rigidbody>();
             MeshCollider mC = ghost.GetComponent<MeshCollider>();
             mC.sharedMesh = mcs[i].sharedMesh;
+            ghosts.Add(ghost);
         }
     }
 

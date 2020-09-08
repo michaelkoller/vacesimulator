@@ -51,10 +51,10 @@ public class ColormapJSON
 public class ColormapEntryJSON
 {
     public string name = "";
-    public float r = 0.0f;
-    public float g = 0.0f;
-    public float b = 0.0f;
-    public float a = 0.0f;
+    public byte r = 0;
+    public byte g = 0;
+    public byte b = 0;
+    public byte a = 0;
     public int id_no = -1;
 }
 

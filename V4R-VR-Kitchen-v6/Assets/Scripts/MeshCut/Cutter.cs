@@ -157,12 +157,15 @@ public class Cutter : MonoBehaviour
         //This probably doesn't work. Create ghosts directly in cut
         //TODO Not all objects have this apparently? or maybe ghosts are queried for children, which they dont have?
         //line below gives the original gameobject's ghost the new meshcollider
-        _originalGameObject.transform.GetChild(0).transform.GetComponent<MeshCollider>().sharedMesh = _originalGameObject.GetComponent<MeshCollider>().sharedMesh;
-
+        
+        //old way of getting ghosts
+        //_originalGameObject.transform.GetChild(0).transform.GetComponent<MeshCollider>().sharedMesh = _originalGameObject.GetComponent<MeshCollider>().sharedMesh;
+        ObjectId origObjectId = _originalGameObject.GetComponent<ObjectId>();
+        origObjectId.ghosts[0].transform.GetComponent<MeshCollider>().sharedMesh = _originalGameObject.GetComponent<MeshCollider>().sharedMesh;
+        
         ObjectId rightGoObjectId = rightGO.AddComponent<ObjectId>();
         rightGoObjectId.makeGhost = true;
         rightGoObjectId.cuttable = true;
-        ObjectId origObjectId = _originalGameObject.GetComponent<ObjectId>();
         rightGoObjectId.c = origObjectId.c;
         rightGoObjectId.id = origObjectId.id;
         
