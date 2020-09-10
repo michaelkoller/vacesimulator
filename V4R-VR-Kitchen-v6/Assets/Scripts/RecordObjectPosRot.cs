@@ -51,10 +51,10 @@ public class ColormapJSON
 public class ColormapEntryJSON
 {
     public string name = "";
-    public float r = 0;
-    public float g = 0;
-    public float b = 0;
-    public float a = 0;
+    public float r = 0f;
+    public float g = 0f;
+    public float b = 0f;
+    public float a = 0f;
     public int id_no = -1;
 }
 
@@ -83,6 +83,39 @@ public class BbObject
     public int y_min = -1;
 }
 
+[System.Serializable]
+public class CutRecord
+{
+    public int frame = -1;
+    public string name = "";
+    public float contact_point_x = 0f;
+    public float contact_point_y = 0f;
+    public float contact_point_z = 0f;
+    public float cut_direction_x = 0f;
+    public float cut_direction_y = 0f;
+    public float cut_direction_z = 0f;
+}
+
+[System.Serializable]
+public class CutRecords
+{
+    public List<CutRecord> cuts = new List<CutRecord>();
+}
+
+[System.Serializable]
+public class GraspRecord
+{
+    public int frame = -1;
+    public string grasp_type = ""; //grasp / release
+    public string grasped_object = "";
+    public string hand = "";
+}
+
+[System.Serializable]
+public class GraspRecords
+{
+    public List<GraspRecord> grasps = new List<GraspRecord>();
+}
 public class RecordObjectPosRot : MonoBehaviour
 {
     int currentFrame = 1;
@@ -115,6 +148,8 @@ public class RecordObjectPosRot : MonoBehaviour
     private Dictionary<string, ParticleSystem> particleSystemDict;
     private string pathParticles;
     private PositionAndRotationFrameArr posRotFrameArr;
+    private CutRecords jsonCuts;
+    private GraspRecords jsonGrasps;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -128,6 +163,16 @@ public class RecordObjectPosRot : MonoBehaviour
     string GetPathCut()
     {
         return  playModeManager.sampleDir +@"\ReplayFiles\Cuts\Cuts"+ currentFrame.ToString() +".txt";
+    }
+    
+    string GetPathCutJSON()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\cuts.json";
+    }
+    
+    string GetPathGraspJSON()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\grasps.json";
     }
     
     string GetPathRightHand()
@@ -183,7 +228,9 @@ public class RecordObjectPosRot : MonoBehaviour
             pathPosRotJSON = GetPosRotJSONPath();
             
             posRotFrameArr = new PositionAndRotationFrameArr();
-
+            jsonCuts = new CutRecords();
+            jsonGrasps = new GraspRecords();
+            
             //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
             //allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
@@ -228,6 +275,8 @@ public class RecordObjectPosRot : MonoBehaviour
                 particleSystemDict.Add(ps.gameObject.name, ps);
                 Debug.Log("PARTICLE " + ps.gameObject.name);
             }
+            
+            
             
         }
     }
@@ -382,9 +431,30 @@ public class RecordObjectPosRot : MonoBehaviour
         delGosAfterCut.Add(originalGameObjectName);
         addGosAfterCut.Add(leftGO);
         addGosAfterCut.Add(rightGO);
+        CutRecord jsonCut = new CutRecord();
+        jsonCut.frame = currentFrame;
+        jsonCut.name = originalGameObjectName;
+        jsonCut.contact_point_x = _contactPoint.x;
+        jsonCut.contact_point_y = _contactPoint.y;
+        jsonCut.contact_point_z = _contactPoint.z;
+        jsonCut.cut_direction_x = _direction.x;
+        jsonCut.cut_direction_y = _direction.y;
+        jsonCut.cut_direction_z = _direction.z;
+        jsonCuts.cuts.Add(jsonCut);
+        
         //allGameObjectsWithRendererDict.Remove(originalGameObjectName);
         //allGameObjectsWithRendererDict.Add(leftGO.name, leftGO);
         //allGameObjectsWithRendererDict.Add(rightGO.name, rightGO);
+    }
+
+    public void RecordGrasp(string gameObjectName, string handName, string graspType)
+    {
+        GraspRecord jsonGrasp = new GraspRecord();
+        jsonGrasp.frame = currentFrame;
+        jsonGrasp.grasp_type = graspType;
+        jsonGrasp.grasped_object = gameObjectName;
+        jsonGrasp.hand = handName;
+        jsonGrasps.grasps.Add(jsonGrasp);
     }
 
     private void FlushRecordings()
@@ -401,6 +471,8 @@ public class RecordObjectPosRot : MonoBehaviour
         sbParticleSystems.Clear();    
         
         SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
+        SaveIntoJson<CutRecords>(GetPathCutJSON(), jsonCuts);
+        SaveIntoJson<GraspRecords>(GetPathGraspJSON(), jsonGrasps);
     }
     
     void OnDestroy()

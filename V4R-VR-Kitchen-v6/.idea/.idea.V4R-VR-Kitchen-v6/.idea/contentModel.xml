@@ -934,6 +934,7 @@
             <e p="ToonLitTransparent.shader" t="Include" />
           </e>
         </e>
+        <e p="InPredicate.cs" t="Include" />
         <e p="Kitchen Asset" t="Include">
           <e p="ReadMe.txt" t="Include" />
         </e>
@@ -969,6 +970,7 @@
           <e p="DisplayRecipe.cs" t="Include" />
           <e p="FollowVRCam.cs" t="Include" />
           <e p="GasStoveSwitch.cs" t="Include" />
+          <e p="GraspMessage.cs" t="Include" />
           <e p="GuiPosition.cs" t="Include" />
           <e p="Manager.cs" t="Include" />
           <e p="MeshCut" t="Include">

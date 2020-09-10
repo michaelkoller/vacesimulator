@@ -112,6 +112,7 @@ public class ObjectId : MonoBehaviour
             cfgJoing.connectedBody = transform.GetComponent<Rigidbody>();
             MeshCollider mC = ghost.GetComponent<MeshCollider>();
             mC.sharedMesh = mcs[i].sharedMesh;
+            ghost.AddComponent<GraspMessage>();
             ghosts.Add(ghost);
         }
     }

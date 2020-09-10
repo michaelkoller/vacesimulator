@@ -33,10 +33,19 @@ further filter:
 ["on", "next to", "in", "walk", "hold", "use", "cover", "touch", "eat"]
 
 ROGER:
-on, above, in, cutting, holding moving
+on, above, in, cutting, holding, moving
 cutting: read the cuts replay file
-holding: record when hands grasp action is used
+holding: record when hands grasp action is used TODO how about drawers? the table drawers work with the attachmessage script, but the sink door doesn't
 moving: compare last frame to current frame. if position and rot diff > threshold then object is moving. use recording file
+
+mit script cupboard predicates:
+ontriggerenter/exit erfasst prädikat "in"
+im ersten frame werden anscheinen auch alle enters getriggered, die bereits in den kästen sind. damit kann man vllcht den initial state erfassen
+cupboard predicates müssen noch auf andere kästen gegeben weren (im prefab!)
+auch auf pfannen und töpfe?
+wie mache ich "on"?
+schauen, ob alle game objects mit objectid auch einen collider haben, damit InPredicate triggern kann
+-->es haben noch nicht alle gegenstände, zb im schrank, objectids
 
 
 make grasping more intuitive: 
@@ -50,3 +59,5 @@ start and stop the recording and playback via function call and not via start/aw
 
 in recording mode: stockt, wenn die json files geschrieben werden.
 --> schreibe json files, wenn in playback mode?
+
+Aus bildern videos machen

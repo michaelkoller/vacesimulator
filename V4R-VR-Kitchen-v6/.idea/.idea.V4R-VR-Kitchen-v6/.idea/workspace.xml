@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9f7b6fa-7b52-4898-b0bb-ace01f26f678" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/MyTODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MyTODO.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/ObjectID.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Shaders/ObjectID.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ColorByNumber.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ColorByNumber.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayModeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayModeManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/V4R_VR_Kitchen/Interactable_Cabinet_Up Variant.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/V4R_VR_Kitchen/Interactable_Cabinet_Up Variant.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +25,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TrackObjects.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DisplayRecipe.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Attach.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/InPredicate.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TapWater.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoundBoxByColor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RenderDepth.cs" root0="FORCE_HIGHLIGHTING" />
@@ -36,9 +37,11 @@
     <setting file="file://$PROJECT_DIR$/Assets/Resources/Shaders/ObjectID.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.recorder@2.0.3-preview.1/Editor/Sources/RecorderWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/HandPhysics.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GraspMessage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ColorByNumber.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.recorder@2.0.3-preview.1/Tests/Runtime/RecorderControllerTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GasStoveSwitch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SetFootToGround.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/V4R_VR_Kitchen/depthShader.shader" root0="FORCE_HIGHLIGHTING" />
@@ -76,13 +79,17 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/TapWater.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SetFootToGround.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RenderDepth.cs" />
-        <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
         <option value="$PROJECT_DIR$/Assets/Resources/Shaders/ObjectID.shader" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayModeManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ColorByNumber.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/AttachMessageTest.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
+        <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GraspMessage.cs" />
+        <option value="$PROJECT_DIR$/Assets/CupboardPredicates.cs" />
+        <option value="$PROJECT_DIR$/Assets/InPredicate.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
       </list>
     </option>
@@ -169,7 +176,7 @@
       <workItem from="1599208595993" duration="3587000" />
       <workItem from="1599479430332" duration="12188000" />
       <workItem from="1599562960469" duration="13542000" />
-      <workItem from="1599727158989" duration="7532000" />
+      <workItem from="1599727158989" duration="17434000" />
     </task>
     <servers />
   </component>
@@ -319,10 +326,10 @@
           <line>630</line>
           <properties documentPath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" initialLine="630">
             <startOffsets>
-              <option value="27931" />
+              <option value="27962" />
             </startOffsets>
             <endOffsets>
-              <option value="27975" />
+              <option value="28006" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />
