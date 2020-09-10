@@ -418,17 +418,17 @@ public class PlayModeManager : MonoBehaviour
                 string color = colorMapReader.ReadLine().Trim(arr).Trim(')');
                 colorToNameDict.Add(color, objName);
                 string[] colors = color.Split(',');
-                int[] colorsf = new int[4];
+                float[] colorsf = new float[4];
                 for (int i = 0; i < 4; i++)
                 {
-                    colorsf[i] = int.Parse(colors[i]);
+                    colorsf[i] = float.Parse(colors[i]);
                 }
 
                 int intid = int.Parse(colorMapReader.ReadLine().Trim());
                 //Debug.Log("OBJNAME " + objName);
                 GameObject g = GameObject.Find(objName);
                 ObjectId oid = g.GetComponent<ObjectId>();
-                oid.c = new Color32((byte)colorsf[0], (byte)colorsf[1], (byte)colorsf[2], (byte)colorsf[3]);
+                oid.c = new Color(colorsf[0], colorsf[1], colorsf[2], colorsf[3]);
                 oid.objectName = objName;
                 oid.id = intid;
             }

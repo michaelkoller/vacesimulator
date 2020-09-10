@@ -46,9 +46,6 @@ create videos
 
 maybe instead of reading cooking instructions --> let speech generator read out loud the cooking instructions?
 
-The bounding box cubes don't have the right names attached, but in general have ok positions. Where is the mixup?
-Can handle multiple materials now, but still with name mixup. occurs around id #132
-
 start and stop the recording and playback via function call and not via start/awake/update
 
 in recording mode: stockt, wenn die json files geschrieben werden.

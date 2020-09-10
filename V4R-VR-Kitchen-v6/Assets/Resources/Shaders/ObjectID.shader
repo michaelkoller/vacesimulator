@@ -42,11 +42,13 @@
             
             float4 frag (v2f i) : SV_Target
             {
+
+                
                 // sample the texture
                 float4 col;
-                col.x = _Index%10 *0.1f;
-                col.y = _Index%100 * 0.01;
-                col.z = _Index*0.00390625f;
+                col.x = _Index%10 *0.1f; //simons variant
+                col.y = _Index%100 * 0.01f; //simons variant
+                col.z = _Index*0.00390625f; //simons variant
                 // col.x = (_Index %256) * (1.0f/255.0f)
                 // col.y = (_Index /256) * (1.0f/255.0f)
                 col.w = 1.0f;

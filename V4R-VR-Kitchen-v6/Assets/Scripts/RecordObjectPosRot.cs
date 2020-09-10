@@ -51,10 +51,10 @@ public class ColormapJSON
 public class ColormapEntryJSON
 {
     public string name = "";
-    public byte r = 0;
-    public byte g = 0;
-    public byte b = 0;
-    public byte a = 0;
+    public float r = 0;
+    public float g = 0;
+    public float b = 0;
+    public float a = 0;
     public int id_no = -1;
 }
 
@@ -199,7 +199,7 @@ public class RecordObjectPosRot : MonoBehaviour
             foreach(ObjectId objectId in objectIds)
             {
                 sbColorMap.AppendLine(objectId.objectName);
-                sbColorMap.AppendLine(objectId.c.ToString());
+                sbColorMap.AppendLine(objectId.c.r.ToString("G17")+", "+objectId.c.g.ToString("G17")+", "+objectId.c.b.ToString("G17") +", "+objectId.c.a.ToString("G17"));
                 sbColorMap.AppendLine(objectId.id.ToString());
                 
                 ColormapEntryJSON cme = new ColormapEntryJSON();

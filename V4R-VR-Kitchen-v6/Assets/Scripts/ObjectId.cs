@@ -13,7 +13,7 @@ public class ObjectId : MonoBehaviour
     public int id;
     public string objectName;
     public string objectType;
-    public Color32 c;
+    public Color c;
     public int xMax;
     public int xMin;
     public int yMax;
@@ -37,7 +37,7 @@ public class ObjectId : MonoBehaviour
         classId++;
         objectName = gameObject.name;
         //objectType = PrefabUtility.GetCorrespondingObjectFromSource(this.gameObject).name;
-        c = new Color32();
+        c = new Color();
         // c.r = id%10 *0.1f;
         // c.r = (float) (Math.Round((double) c.r, 3));
         // c.g = id%100 * 0.01f;
@@ -45,6 +45,10 @@ public class ObjectId : MonoBehaviour
         // c.b = id * 0.00392156862f; //old value: 0.00390625f; 
         // c.b = (float) (Math.Round((double) c.b, 3));
 
+        c.r = id%10 *0.1f; //simons variant
+        c.g = id%100 * 0.01f; //simons variant
+        c.b = id*0.00390625f; //simons variant
+        c.a = 1f;
         // int colorMapping = id;
         // c.r = (colorMapping % 10);
         // colorMapping /= 10;
@@ -52,11 +56,9 @@ public class ObjectId : MonoBehaviour
         // colorMapping /= 10;
         // c.b = (colorMapping % 10);
         //
-        c.r = (byte)((id*31) % 256);
-        c.g = (byte)((id*63) % 256);
-        c.b = (byte)id;
-        
-        c.a = 1;
+        // c.r = (byte)((id*31) % 256);
+        // c.g = (byte)((id*63) % 256);
+        // c.b = (byte)id;
         
         xMax = int.MinValue;
         xMin = int.MaxValue;

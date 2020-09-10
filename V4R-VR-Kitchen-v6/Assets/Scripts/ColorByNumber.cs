@@ -19,22 +19,22 @@ public class ColorByNumber : MonoBehaviour {
     {
         public int width;
         public int height;
-        public NativeArray<Color32> pixel;
+        public NativeArray<Color> pixel;
 
         [NativeDisableParallelForRestriction]
         public NativeArray<MinMax> bbs;
         
         // The code actually running on the job
         public void Execute()
-        {
+        {   //Debug.Log(pixel[0].ToString("G17"));
             // Move the positions based on delta time and velocity
             for (int y = 0; y < height; y += 1)
             {
                 for (int x = 0; x < width; x += 1)
                 {
-                    Color32 c = pixel[y*width + x];
+                    Color c = pixel[y*width + x];
                     //int ind = (int)Mathf.Round(c.b);// simons variant
-                    int ind = Mathf.RoundToInt(c.b);// simons variant
+                    int ind = Mathf.RoundToInt(c.b * 256f);// simons variant
 
                     // int ind = (int) (c.b * 100f); //TODO hier und in object id --> richtige Farbzuweisung machen 
                     // ind += (int) (c.g * 10f);
@@ -149,16 +149,15 @@ public class ColorByNumber : MonoBehaviour {
             //boundingBoxes[i].transform.SetParent(vidCapCanvas.transform, false);
             boundingBoxCubes[i]= (GameObject) Instantiate(Resources.Load("BBCubePrefab"));
             boundingBoxCubes[i].transform.SetParent(bbCubeCam.transform, false);
-            boundingBoxCubes[i].GetComponent<MeshRenderer>().material.color = new Color32(objectIds[i].c.r, objectIds[i].c.g, objectIds[i].c.b, 100);
+            boundingBoxCubes[i].GetComponent<MeshRenderer>().material.color = new Color(objectIds[i].c.r, objectIds[i].c.g, objectIds[i].c.b, 0.4f);
             boundingBoxCubes[i].name = "BBCubePrefab_" + objectIds[i].objectName+ "_id"+objectIds[i].id;
         }
 
         int width = cam.targetTexture.width;
         int height = cam.targetTexture.height;
-        screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        screenShot = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
         shaderPropertyIndex = Shader.PropertyToID("_Index");
-        shaderPropertyColor = Shader.PropertyToID("_Color");
-        //print(shaderPropertyIndex);
+        //print(shaderPropertyIndex); 
         camTexHeight = cam.targetTexture.height;
         camTexWidth = cam.targetTexture.width;
         
@@ -167,7 +166,6 @@ public class ColorByNumber : MonoBehaviour {
         {
             materials[i] = new Material(shader);
             materials[i].SetInt(shaderPropertyIndex, i);
-            //materials[i].SetColor(shaderPropertyColor, Color.black);//objectIds[i].c); //TODO maybe this does nothing??
         }
 
         eyebrowMaterial = new Material(eyebrow.material);
@@ -179,63 +177,11 @@ public class ColorByNumber : MonoBehaviour {
         shoesMaterial = new Material(shoes.material);
     }
 
-
-    private void FixedUpdate()
-    {
-        // if (fixedUpdateCounter % 3 == 0)
-        // {
-        //     // StoreAs(cam.targetTexture, "segmentation-" + fixedUpdateCounter.ToString() + ".jpg", false);  
-        //     
-        //     //deactivate bbs?
-        //     //StoreAs(bbCubeCam.targetTexture, "regular-" + fixedUpdateCounter.ToString() + ".jpg", false);
-        //     //reactivate bbs?
-        //     //oder neue camera rendern
-        //     
-        //     //position + rotation + andere status eigenschaften
-        //     //renderer speichern: materials + meshes + lighting setting
-        //     //save all obj in all frames as single scriptable object
-        //     //simon says: per frame per object save transform, mesh filter parameters (i.e. reference on mesh) + renderer (material + lighting settings)
-        //     
-        // }
-        //fixedUpdateCounter++;
-        // Debug.Log("Measured " + (Time.time - dt)); //something sets the fixedDeltaTime to 0.0111111... ~ 90Hz
-        // dt = Time.time;
-        // Debug.Log("Fixed "+ Time.fixedDeltaTime);
-        
-    }
-
     public void StoreAllAs(string path, int frameNo)
     {
         StoreAs(cam.targetTexture, "segmentation-" + frameNo +  ".jpg", false);
         StoreAs(rgbCamNoBB.targetTexture, "rgb-" + frameNo +  ".jpg", false);
         StoreAs(depthCam.targetTexture, "depth-" + frameNo +  ".jpg", false);
-        /*
-        var videoAttr = new VideoTrackAttributes
-        {
-            frameRate = new MediaRational(30),
-            width = 1600,
-            height = 1200,
-            includeAlpha = false
-        };
-
-        var audioAttr = new AudioTrackAttributes
-        {
-            sampleRate = new MediaRational(48000),
-            channelCount = 1,
-            language = "en"
-        };
-        
-        MediaEncoder me = new MediaEncoder(path+@"\testmovie.mp4", videoAttr, audioAttr);
-        int width = rgbCamNoBB.targetTexture.width;
-        int height = rgbCamNoBB.targetTexture.height;
-        RenderTexture old = RenderTexture.active;
-        RenderTexture.active = rgbCamNoBB.targetTexture;
-        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        me.AddFrame(screenShot);
-        RenderTexture.active = old ;
-        me.Dispose();
-        */
     }
     
     private void Update()
@@ -243,31 +189,12 @@ public class ColorByNumber : MonoBehaviour {
         for (int i = 0; i < objectIds.Length; i++)
         {
             if(objectIds[i].xMax != int.MinValue && objectIds[i].xMin != int.MaxValue && objectIds[i].yMax != int.MinValue && objectIds[i].yMin != int.MaxValue){
-                //Rect bbox = new Rect(objectIds[i].xMin, objectIds[i].yMin, objectIds[i].xMax - objectIds[i].xMin,
-                //    objectIds[i].yMax - objectIds[i].yMin);
-                //RectTransform rt = boundingBoxes[i].GetComponent<RectTransform>();
-                // rt.anchoredPosition = bbox.position;
-                // rt.sizeDelta = bbox.size;
-                // UnityEngine.UI.Image img = boundingBoxes[i].GetComponent<UnityEngine.UI.Image>();
-                // Color col = objectIds[i].c;
-                // col.a = 0.0f; //turn on again
-                // img.color = col;
-                
-                //bbCube
-                //only use camTexHeight as factor!
-                //Debug.Log(i + " " + boundingBoxCubes[i].name + " " + objectIds[i].objectName);
                 boundingBoxCubes[i].transform.localPosition = new Vector3(((objectIds[i].xMax + objectIds[i].xMin)*0.5f /camTexHeight) - 0.66f, ((objectIds[i].yMax + objectIds[i].yMin)*0.5f/camTexHeight)  - 0.5f,1.0f);
                 boundingBoxCubes[i].transform.localScale = new Vector3((objectIds[i].xMax - objectIds[i].xMin)/(float)camTexHeight, (objectIds[i].yMax - objectIds[i].yMin)/(float)camTexHeight,0.001f);
                 boundingBoxCubes[i].SetActive(true);
             }
             else
             {
-                // UnityEngine.UI.Image img = boundingBoxes[i].GetComponent<UnityEngine.UI.Image>();
-                // Color col = objectIds[i].c;
-                // col.a = 0.0f;
-                // img.color = col;
-                
-                //bbCube
                 boundingBoxCubes[i].SetActive(false);
             }
         }
@@ -299,7 +226,6 @@ public class ColorByNumber : MonoBehaviour {
 
     public Shader shader;
     private int shaderPropertyIndex;
-    private int shaderPropertyColor;
     private Material[] materials;
     void SetupIDMaterials()
     {
@@ -380,7 +306,7 @@ public class ColorByNumber : MonoBehaviour {
         if(handSetupDone) smrRightHand.material = rightHandMat;
     }
 
-    Color32[] GetColors(RenderTexture tex)
+    Color[] GetColors(RenderTexture tex)
     {
         int width = tex.width;
         int height = tex.height;
@@ -389,7 +315,7 @@ public class ColorByNumber : MonoBehaviour {
         
         screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         //Destroy(rt);
-        Color32[] colors = screenShot.GetPixels32();
+        Color[] colors = screenShot.GetPixels();
         RenderTexture.active = old;
         return colors;
     }
@@ -400,7 +326,7 @@ public class ColorByNumber : MonoBehaviour {
         int height = rt.height;
         RenderTexture old = RenderTexture.active;
         RenderTexture.active = rt;
-        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
         screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         StoreAs(screenShot,filename,exr);
         RenderTexture.active = old;
@@ -441,10 +367,10 @@ public class ColorByNumber : MonoBehaviour {
     ;
     private void OnPostRender()
     {
-        Color32[] colors = GetColors(cam.targetTexture);
+        Color[] colors = GetColors(cam.targetTexture);
       
         var output = new NativeArray<MinMax>(objectIds.Length, Allocator.TempJob);
-        var input = new NativeArray<Color32>(colors, Allocator.TempJob);
+        var input = new NativeArray<Color>(colors, Allocator.TempJob);
         for (int i = 0; i < output.Length; i++)
         {
             var mm = new MinMax();
