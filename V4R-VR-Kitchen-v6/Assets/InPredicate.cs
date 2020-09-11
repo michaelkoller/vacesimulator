@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class InPredicate : MonoBehaviour
 {
+    private RecordObjectPosRot recordObjectPosRot; 
     // Start is called before the first frame update
     void Start()
     {
-        
+        recordObjectPosRot = GameObject.FindGameObjectWithTag("Manager").GetComponent<RecordObjectPosRot>();
     }
 
     // Update is called once per frame
@@ -22,6 +23,7 @@ public class InPredicate : MonoBehaviour
         if (other.GetComponent<ObjectId>())
         {
             Debug.Log(other.name + " ENTERED " + this.name);
+            recordObjectPosRot.RecordInPredicate(other.name, this.name, "entered");
         }
     }
     
@@ -30,6 +32,7 @@ public class InPredicate : MonoBehaviour
         if (other.GetComponent<ObjectId>())
         {
             Debug.Log(other.name + " LEFT " + this.name);
+            recordObjectPosRot.RecordInPredicate(other.name, this.name, "left");
         }
     }
 }

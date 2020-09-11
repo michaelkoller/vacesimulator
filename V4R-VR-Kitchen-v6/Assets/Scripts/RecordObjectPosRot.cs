@@ -116,6 +116,21 @@ public class GraspRecords
 {
     public List<GraspRecord> grasps = new List<GraspRecord>();
 }
+
+[System.Serializable]
+public class InPredicateRecord
+{
+    public int frame = -1;
+    public string inside_object = "";
+    public string container_object = "";
+    public string relation_type = ""; //entered or left
+}
+
+[System.Serializable]
+public class InPredicateRecords
+{
+    public List<InPredicateRecord> inPredicateRecords = new List<InPredicateRecord>();
+}
 public class RecordObjectPosRot : MonoBehaviour
 {
     int currentFrame = 1;
@@ -150,6 +165,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private PositionAndRotationFrameArr posRotFrameArr;
     private CutRecords jsonCuts;
     private GraspRecords jsonGrasps;
+    private InPredicateRecords jsonInPredicates;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -173,6 +189,11 @@ public class RecordObjectPosRot : MonoBehaviour
     string GetPathGraspJSON()
     {
         return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\grasps.json";
+    }
+    
+    string GetPathInJSON()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\in.json";
     }
     
     string GetPathRightHand()
@@ -230,6 +251,7 @@ public class RecordObjectPosRot : MonoBehaviour
             posRotFrameArr = new PositionAndRotationFrameArr();
             jsonCuts = new CutRecords();
             jsonGrasps = new GraspRecords();
+            jsonInPredicates = new InPredicateRecords();
             
             //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
@@ -457,6 +479,16 @@ public class RecordObjectPosRot : MonoBehaviour
         jsonGrasps.grasps.Add(jsonGrasp);
     }
 
+    public void RecordInPredicate(string insideObject, string containerObject, string relationType) //relationType: entered or left
+    {
+        InPredicateRecord jsonInPredicate = new InPredicateRecord();
+        jsonInPredicate.frame = currentFrame;
+        jsonInPredicate.inside_object = insideObject;
+        jsonInPredicate.container_object = containerObject;
+        jsonInPredicate.relation_type = relationType;
+        jsonInPredicates.inPredicateRecords.Add(jsonInPredicate);
+    }
+
     private void FlushRecordings()
     {
         File.WriteAllText(path, sb.ToString());
@@ -473,6 +505,7 @@ public class RecordObjectPosRot : MonoBehaviour
         SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
         SaveIntoJson<CutRecords>(GetPathCutJSON(), jsonCuts);
         SaveIntoJson<GraspRecords>(GetPathGraspJSON(), jsonGrasps);
+        SaveIntoJson<InPredicateRecords>(GetPathInJSON(), jsonInPredicates);
     }
     
     void OnDestroy()

@@ -290,6 +290,8 @@ GameObject:
   - component: {fileID: 6898638473069533220}
   - component: {fileID: 6848588227759180734}
   - component: {fileID: 568757275}
+  - component: {fileID: 2384710496809937392}
+  - component: {fileID: -3099954476476061066}
   m_Layer: 12
   m_Name: Interactable_Fridge
   m_TagString: StaticTrackObject
@@ -388,12 +390,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   objectName: 
+  objectType: 
   c: {r: 0, g: 0, b: 0, a: 0}
   xMax: 0
   xMin: 0
   yMax: 0
   yMin: 0
   makeGhost: 0
+  cuttable: 0
+  cuttingTool: 0
+  cuttingPlaneNormal: {x: 0, y: 0, z: 0}
+  ghosts: []
+--- !u!114 &2384710496809937392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911817232316404962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790451f5d00a65c40b8dd3488a5099c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &-3099954476476061066
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911817232316404962}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.54000014, y: 1.7778, z: 0.55000013}
+  m_Center: {x: 0, y: 0.889, z: 0}
 --- !u!1 &6912588250531484176
 GameObject:
   m_ObjectHideFlags: 0

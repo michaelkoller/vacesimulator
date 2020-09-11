@@ -34,8 +34,8 @@ further filter:
 
 ROGER:
 on, above, in, cutting, holding, moving
-cutting: read the cuts replay file
-holding: record when hands grasp action is used TODO how about drawers? the table drawers work with the attachmessage script, but the sink door doesn't
+cutting: read the cuts replay file --DONE
+holding: record when hands grasp action is used --DONE
 moving: compare last frame to current frame. if position and rot diff > threshold then object is moving. use recording file
 
 mit script cupboard predicates:
@@ -44,8 +44,7 @@ im ersten frame werden anscheinen auch alle enters getriggered, die bereits in d
 cupboard predicates müssen noch auf andere kästen gegeben weren (im prefab!)
 auch auf pfannen und töpfe?
 wie mache ich "on"?
-schauen, ob alle game objects mit objectid auch einen collider haben, damit InPredicate triggern kann
--->es haben noch nicht alle gegenstände, zb im schrank, objectids
+schauen, ob alle game objects mit objectid auch einen collider haben, damit InPredicate triggern kann --> wine glass und andere objects, die mit dem "colliders" script concave colliders machen zb.
 
 
 make grasping more intuitive: 
@@ -61,3 +60,7 @@ in recording mode: stockt, wenn die json files geschrieben werden.
 --> schreibe json files, wenn in playback mode?
 
 Aus bildern videos machen
+
+Bug: Schranktüren können beim ersten mal nur über den handgriffcollider bewegt werden, danach aber über die ganze schranktür
+
+Release mode statt Debug mode!

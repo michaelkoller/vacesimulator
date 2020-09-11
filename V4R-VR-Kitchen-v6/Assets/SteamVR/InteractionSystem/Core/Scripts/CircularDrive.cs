@@ -246,8 +246,10 @@ namespace Valve.VR.InteractionSystem
             bool isGrabEnding = hand.IsGrabbingWithType(grabbedWithType) == false;
 
             if (grabbedWithType == GrabTypes.None && startingGrabType != GrabTypes.None)
-            {
-                grabbedWithType = startingGrabType;
+            {   //Debug.Log("START IN CIRC DRIVE " + this.gameObject.name);
+	            this.SendMessage("OnAttachedToCircularDrive", hand, SendMessageOptions.DontRequireReceiver);
+	            
+	            grabbedWithType = startingGrabType;
                 // Trigger was just pressed
                 lastHandProjected = ComputeToTransformProjected( hand.hoverSphereTransform );
 
@@ -265,7 +267,8 @@ namespace Valve.VR.InteractionSystem
                 hand.HideGrabHint();
 			}
             else if (grabbedWithType != GrabTypes.None && isGrabEnding)
-			{
+			{   //Debug.Log("end IN CIRC DRIVE " + this.gameObject.name);
+				this.SendMessage("OnDetachedFromCircularDrive", hand, SendMessageOptions.DontRequireReceiver);
 				// Trigger was just released
 				if ( hoverLock )
 				{

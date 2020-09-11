@@ -5274,6 +5274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emmisionRate: 400
+  tapWaterParticles: {fileID: 0}
 --- !u!114 &2044718980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5288,12 +5289,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   objectName: 
+  objectType: 
   c: {r: 0, g: 0, b: 0, a: 0}
   xMax: 0
   xMin: 0
   yMax: 0
   yMin: 0
   makeGhost: 1
+  cuttable: 0
+  cuttingTool: 0
+  cuttingPlaneNormal: {x: 0, y: 0, z: 0}
+  ghosts: []
 --- !u!1 &132247617288733144
 GameObject:
   m_ObjectHideFlags: 0
@@ -5400,6 +5406,8 @@ GameObject:
   - component: {fileID: 109794919482691464}
   - component: {fileID: 85709880089908566}
   - component: {fileID: 1738607404}
+  - component: {fileID: -4086442299036675004}
+  - component: {fileID: -6177684045020300225}
   m_Layer: 12
   m_Name: Interactable_Kitchen_Sink
   m_TagString: StaticTrackObject
@@ -5498,9 +5506,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   objectName: 
+  objectType: 
   c: {r: 0, g: 0, b: 0, a: 0}
   xMax: 0
   xMin: 0
   yMax: 0
   yMin: 0
   makeGhost: 0
+  cuttable: 0
+  cuttingTool: 0
+  cuttingPlaneNormal: {x: 0, y: 0, z: 0}
+  ghosts: []
+--- !u!65 &-4086442299036675004
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132338431977612202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.86329997, z: 0.625}
+  m_Center: {x: 0, y: 0.43145, z: 0}
+--- !u!114 &-6177684045020300225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132338431977612202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790451f5d00a65c40b8dd3488a5099c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
