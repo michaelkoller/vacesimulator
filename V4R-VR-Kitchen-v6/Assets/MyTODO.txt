@@ -64,3 +64,5 @@ Aus bildern videos machen
 Bug: Schranktüren können beim ersten mal nur über den handgriffcollider bewegt werden, danach aber über die ganze schranktür
 
 Release mode statt Debug mode!
+
+obj w colliders register when on top of containers 

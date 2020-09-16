@@ -22,7 +22,6 @@ public class InPredicate : MonoBehaviour
     {
         if (other.GetComponent<ObjectId>())
         {
-            Debug.Log(other.name + " ENTERED " + this.name);
             recordObjectPosRot.RecordInPredicate(other.name, this.name, "entered");
         }
     }
@@ -31,7 +30,6 @@ public class InPredicate : MonoBehaviour
     {
         if (other.GetComponent<ObjectId>())
         {
-            Debug.Log(other.name + " LEFT " + this.name);
             recordObjectPosRot.RecordInPredicate(other.name, this.name, "left");
         }
     }

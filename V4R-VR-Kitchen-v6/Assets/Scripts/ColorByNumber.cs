@@ -178,7 +178,7 @@ public class ColorByNumber : MonoBehaviour {
     }
 
     public void StoreAllAs(string path, int frameNo)
-    {
+    {   
         StoreAs(cam.targetTexture, "segmentation-" + frameNo +  ".jpg", false);
         StoreAs(rgbCamNoBB.targetTexture, "rgb-" + frameNo +  ".jpg", false);
         StoreAs(depthCam.targetTexture, "depth-" + frameNo +  ".jpg", false);
@@ -321,7 +321,7 @@ public class ColorByNumber : MonoBehaviour {
     }
 
     void StoreAs(RenderTexture rt,string filename,bool exr)
-    {
+    {    
         int width = rt.width;
         int height = rt.height;
         RenderTexture old = RenderTexture.active;

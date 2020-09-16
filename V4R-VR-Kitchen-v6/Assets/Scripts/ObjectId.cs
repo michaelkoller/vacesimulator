@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
@@ -68,27 +69,15 @@ public class ObjectId : MonoBehaviour
     private void Start()
     {   
         this.MakeGhost();
-        
-        /*if (!makeGhost)
+
+        //Add convex trigger meshcolliders to all gameobjects with nonconvex collider scripts
+        //for correct handling of "in" predicate
+        if (GetComponent<NonConvexMeshCollider>())
         {
-            return;
+            MeshCollider mc = this.gameObject.AddComponent<MeshCollider>();
+            mc.convex = true;
+            mc.isTrigger = true;
         }
-        ghosts = new List<GameObject>();
-        MeshCollider[] mcs = GetComponentsInChildren<MeshCollider>();
-        for (int i = 0; i < mcs.Length; i++)
-        {
-            GameObject ghost = (GameObject) Instantiate(Resources.Load("GhostPrefab"));
-            ghost.transform.position = mcs[i].transform.position;
-            ghost.transform.localScale = mcs[i].transform.localScale;
-            ghost.transform.rotation = mcs[i].transform.rotation;
-            ghost.transform.SetParent(mcs[i].gameObject.transform);
-            ghost.name = mcs[i].gameObject.name + "Ghost";
-            ConfigurableJoint cfgJoing = ghost.GetComponent<ConfigurableJoint>();
-            //cfgJoing.connectedBody = mcs[i].transform.GetComponent<Rigidbody>();
-            cfgJoing.connectedBody = transform.GetComponent<Rigidbody>();
-            MeshCollider mC = ghost.GetComponent<MeshCollider>();
-            mC.sharedMesh = mcs[i].sharedMesh;
-        }*/
     }
 
     private void MakeGhost()

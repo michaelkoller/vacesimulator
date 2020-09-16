@@ -11,7 +11,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5998001, y: 0.72129995, z: 0.30600005}
+  m_Size: {x: 0.5798001, y: 0.7012999, z: 0.2860001}
   m_Center: {x: 0, y: 0.35944995, z: 0}
 --- !u!114 &830044218042253045
 MonoBehaviour:
@@ -41,6 +41,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7689201843795151713, guid: 1c1a9990e64023b459f38f768d76e528,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.716
       objectReference: {fileID: 0}
     - target: {fileID: 7684568981461553475, guid: 1c1a9990e64023b459f38f768d76e528,
         type: 3}

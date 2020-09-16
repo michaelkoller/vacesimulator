@@ -295,11 +295,7 @@ public class RecordObjectPosRot : MonoBehaviour
             foreach(ParticleSystem ps in particleSystems)
             {
                 particleSystemDict.Add(ps.gameObject.name, ps);
-                Debug.Log("PARTICLE " + ps.gameObject.name);
             }
-            
-            
-            
         }
     }
     
