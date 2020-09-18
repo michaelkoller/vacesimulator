@@ -66,3 +66,21 @@ Bug: Schranktüren können beim ersten mal nur über den handgriffcollider beweg
 Release mode statt Debug mode!
 
 obj w colliders register when on top of containers 
+
+in topcabinet:
+die ghosts von tassen sind zu groß
+die ghosts von gläsern sind nach oben versetzt
+milk-ghost viel zu groß
+--> todo ghosts sizes and positions checken
+coffee_machine_ghost
+
+potato, bun_1 disappears when being cut
+
+https://deparkes.co.uk/2018/01/05/create-video-images-ffmpeg/
+cmd to screenshots, where the ffmpeg.exe file is too, then:
+ffmpeg -framerate 30 -i rgb-%d.jpg -codec copy video.avi
+download ffmpeg from https://www.gyan.dev/ffmpeg/builds/
+link from: http://ffmpeg.org/download.html#build-windows
+
+use the recorded deltatime in the replay files to calculate when to take pictures in the record mode s.t. the image is in the correct speed and actually smooth
+but then: recording files numbers wont match the video sequence numbers...

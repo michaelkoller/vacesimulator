@@ -943,6 +943,7 @@
           <e p="NonConvexMeshCollider.cs" t="Include" />
           <e p="ReadMe.txt" t="Include" />
         </e>
+        <e p="OnPredicate.cs" t="Include" />
         <e p="Resources" t="Include">
           <e p="Shaders" t="Include">
             <e p="ObjectID.shader" t="Include" />

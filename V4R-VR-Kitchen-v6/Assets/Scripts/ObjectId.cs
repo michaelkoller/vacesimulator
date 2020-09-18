@@ -78,6 +78,8 @@ public class ObjectId : MonoBehaviour
             mc.convex = true;
             mc.isTrigger = true;
         }
+
+        this.gameObject.AddComponent<OnPredicate>();
     }
 
     private void MakeGhost()
