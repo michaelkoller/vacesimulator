@@ -108,24 +108,6 @@ public class ObjectId : MonoBehaviour
         }
     }
 
-    private void UpdateGhostMesh()
-    {
-
-    }
-
-    public void Update()
-    {
-        // if (gameObject.name == "Can")
-        // {
-        //     //Debug.Log(gameObject.transform.position);
-        //     Component c = GetComponent<Transform>();
-        //     Debug.Log(c.GetType());
-        //     FieldInfo[] f = c.GetType().GetFields();
-        //     Debug.Log(f[0]);
-        //     //f[0].SetValue(c, new Vector3(1.0f, 1.0f, 1.0f));
-        // }
-    }
-    
     void OnDrawGizmosSelected()
     {
         if (cuttingPlaneNormal != Vector3.zero)

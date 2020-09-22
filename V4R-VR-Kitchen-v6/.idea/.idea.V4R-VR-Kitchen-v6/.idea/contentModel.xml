@@ -7,6 +7,9 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="SetupConcaveObjectsEditor.cs" t="Include" />
+        </e>
         <e p="EditorXR" t="Include">
           <e p="Action Maps" t="Include">
             <e p="ProxyAnimatorInput.cs" t="Include" />
@@ -991,6 +994,7 @@
           <e p="RenderDepth.cs" t="Include" />
           <e p="SetFootToGround.cs" t="Include" />
           <e p="SetHeadPosition.cs" t="Include" />
+          <e p="SetupConcaveObjects.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
           <e p="storeScreenshot.cs" t="Include" />
           <e p="TapWater.cs" t="Include" />
@@ -1292,6 +1296,7 @@
           <e p="SteamVR_Input_ActionSets.cs" t="Include" />
           <e p="SteamVR_Input_Initialization.cs" t="Include" />
         </e>
+        <e p="TestGetDisComp.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />

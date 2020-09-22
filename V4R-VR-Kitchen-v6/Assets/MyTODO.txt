@@ -84,3 +84,18 @@ link from: http://ffmpeg.org/download.html#build-windows
 
 use the recorded deltatime in the replay files to calculate when to take pictures in the record mode s.t. the image is in the correct speed and actually smooth
 but then: recording files numbers wont match the video sequence numbers...
+
+all concave collider objects must be set up like saucepan_big_1
+
+test on other env: 
+Relay Policy Learning: Solving Long-Horizon Tasksvia Imitation and Reinforcement Learning by Gupta '19
+kitchen env with robot arm
+
+some objects in top cabinet have 2 ghosts?
+
+pot_1: transform is falling down along y axis (but the actual visible go is colliding correctly with floor)
+also, the ghost is too high after the first grasp
+
+Bad interaction between convex trigger mesh collider and the disabled meshcollider for the ghost?
+
+teacup
