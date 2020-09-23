@@ -90,8 +90,9 @@ public class ObjectId : MonoBehaviour
         }
         ghosts = new List<GameObject>();
         MeshCollider[] mcs = GetComponentsInChildren<MeshCollider>();
+        //MeshCollider[] mcs = new MeshCollider[1]{GetComponent<MeshCollider>()};
         for (int i = 0; i < mcs.Length; i++)
-        {
+        {   if(!mcs[i].enabled) continue; //ignore the Colliders from nonconvexcollider scripts
             GameObject ghost = (GameObject) Instantiate(Resources.Load("GhostPrefab"));
             ghost.transform.position = mcs[i].transform.position;
             ghost.transform.localScale = mcs[i].transform.localScale;

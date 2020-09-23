@@ -43,7 +43,6 @@ ontriggerenter/exit erfasst prädikat "in"
 im ersten frame werden anscheinen auch alle enters getriggered, die bereits in den kästen sind. damit kann man vllcht den initial state erfassen
 cupboard predicates müssen noch auf andere kästen gegeben weren (im prefab!)
 auch auf pfannen und töpfe?
-wie mache ich "on"?
 schauen, ob alle game objects mit objectid auch einen collider haben, damit InPredicate triggern kann --> wine glass und andere objects, die mit dem "colliders" script concave colliders machen zb.
 
 
@@ -68,9 +67,6 @@ Release mode statt Debug mode!
 obj w colliders register when on top of containers 
 
 in topcabinet:
-die ghosts von tassen sind zu groß
-die ghosts von gläsern sind nach oben versetzt
-milk-ghost viel zu groß
 --> todo ghosts sizes and positions checken
 coffee_machine_ghost
 
@@ -96,6 +92,10 @@ some objects in top cabinet have 2 ghosts?
 pot_1: transform is falling down along y axis (but the actual visible go is colliding correctly with floor)
 also, the ghost is too high after the first grasp
 
-Bad interaction between convex trigger mesh collider and the disabled meshcollider for the ghost?
+check all objects in scene that are somehow nested --> is objectid on correct object etc.
+e.g. milk?
 
-teacup
+do a test recipe........
+
+put all video, pictures, objectposition scripts etc in the right sample folder
+translate objectposition into json
