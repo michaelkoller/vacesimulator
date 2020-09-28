@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
 
@@ -131,6 +133,22 @@ public class InPredicateRecords
 {
     public List<InPredicateRecord> inPredicateRecords = new List<InPredicateRecord>();
 }
+
+[System.Serializable]
+public class OnPredicateRecord
+{
+    public int frame = -1;
+    public string top_object = "";
+    public string bottom_object = "";
+    public string relation_type = ""; //start_touching or end_touching
+}
+
+[System.Serializable]
+public class OnPredicateRecords
+{
+    public List<OnPredicateRecord> onPredicateRecords = new List<OnPredicateRecord>();
+}
+
 public class RecordObjectPosRot : MonoBehaviour
 {
     int currentFrame = 1;
@@ -166,6 +184,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private CutRecords jsonCuts;
     private GraspRecords jsonGrasps;
     private InPredicateRecords jsonInPredicates;
+    private OnPredicateRecords jsonOnPredicates;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -194,6 +213,11 @@ public class RecordObjectPosRot : MonoBehaviour
     string GetPathInJSON()
     {
         return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\in.json";
+    }
+    
+    string GetPathOnJSON()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\on.json";
     }
     
     string GetPathRightHand()
@@ -227,7 +251,7 @@ public class RecordObjectPosRot : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-    {
+    {   Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
         playModeManager = GetComponent<PlayModeManager>();
         playback = playModeManager.playback;
         addGosAfterCut = new List<GameObject>();
@@ -252,6 +276,7 @@ public class RecordObjectPosRot : MonoBehaviour
             jsonCuts = new CutRecords();
             jsonGrasps = new GraspRecords();
             jsonInPredicates = new InPredicateRecords();
+            jsonOnPredicates = new OnPredicateRecords();
             
             //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
@@ -268,7 +293,8 @@ public class RecordObjectPosRot : MonoBehaviour
             foreach(ObjectId objectId in objectIds)
             {
                 sbColorMap.AppendLine(objectId.objectName);
-                sbColorMap.AppendLine(objectId.c.r.ToString("G17")+", "+objectId.c.g.ToString("G17")+", "+objectId.c.b.ToString("G17") +", "+objectId.c.a.ToString("G17"));
+                sbColorMap.AppendLine(objectId.c.r.ToString("G17")+", "+objectId.c.g.ToString("G17") 
+                                      +", "+objectId.c.b.ToString("G17") +", "+objectId.c.a.ToString("G17"));
                 sbColorMap.AppendLine(objectId.id.ToString());
                 
                 ColormapEntryJSON cme = new ColormapEntryJSON();
@@ -359,7 +385,7 @@ public class RecordObjectPosRot : MonoBehaviour
             foreach(KeyValuePair<string,GameObject> goPair in allGameObjectsWithRendererDict)
             {
                 sb.AppendLine(goPair.Key);
-                sb.AppendLine(goPair.Value.transform.position.ToString("F3"));
+                sb.AppendLine(goPair.Value.transform.position.ToString("F3") );
                 sb.AppendLine(goPair.Value.transform.eulerAngles.ToString("F3"));
             }
             
@@ -484,7 +510,16 @@ public class RecordObjectPosRot : MonoBehaviour
         jsonInPredicate.relation_type = relationType;
         jsonInPredicates.inPredicateRecords.Add(jsonInPredicate);
     }
-
+    
+    public void RecordOnPredicate(string topObject, string bottomObject, string relationType) //relationType: start_touching or end_touching 
+    {
+        OnPredicateRecord jsonOnPredicate = new OnPredicateRecord();
+        jsonOnPredicate.frame = currentFrame;
+        jsonOnPredicate.top_object = topObject;
+        jsonOnPredicate.bottom_object = bottomObject;
+        jsonOnPredicate.relation_type = relationType;
+        jsonOnPredicates.onPredicateRecords.Add(jsonOnPredicate);
+    }
     private void FlushRecordings()
     {
         File.WriteAllText(path, sb.ToString());
@@ -502,6 +537,7 @@ public class RecordObjectPosRot : MonoBehaviour
         SaveIntoJson<CutRecords>(GetPathCutJSON(), jsonCuts);
         SaveIntoJson<GraspRecords>(GetPathGraspJSON(), jsonGrasps);
         SaveIntoJson<InPredicateRecords>(GetPathInJSON(), jsonInPredicates);
+        SaveIntoJson<OnPredicateRecords>(GetPathOnJSON(), jsonOnPredicates);
     }
     
     void OnDestroy()

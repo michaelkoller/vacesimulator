@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using UnityEngine.iOS;
 using Valve.VR;
 using Object = System.Object;
@@ -150,11 +152,10 @@ public class PlaybackState
             string name = reader.ReadLine().Trim().Split((' '))[0];
             string[] pos = reader.ReadLine().Trim('(').Trim(')').Split(',');
             string[] rot = reader.ReadLine().Trim('(').Trim(')').Split(',');
-            //Debug.Log(i);
-            //Debug.Log(pos);
-            //Debug.Log(rot);
+
             float[] posFloat = new float[3];
             float[] rotFloat = new float[4];
+
             for (int j = 0; j < 3; j++)
             {
                 posFloat[j] = float.Parse(pos[j]);
@@ -163,6 +164,12 @@ public class PlaybackState
             {
                 rotFloat[j] = float.Parse(rot[j]);
             }
+//            if (name == "big_spoon_1")
+//            {
+//                Debug.Log(i);
+//                Debug.Log(posFloat[0] + " " + posFloat[1] + " " + posFloat[2]);
+//                Debug.Log(rot);
+//            }
             this.gameObjectDict[name].transform.position = new Vector3(posFloat[0],posFloat[1],posFloat[2]);
             this.gameObjectDict[name].transform.eulerAngles = new Vector3(rotFloat[0],rotFloat[1],rotFloat[2]);
         }
@@ -285,10 +292,11 @@ public class PlayModeManager : MonoBehaviour
     public GameObject recording;
     public GameObject recordingBB;
     public GameObject recordingDepth;
-    public string directory = @"C:\Users\v4rmini\Documents\RecordingsForRender";
+    public string directory; // = @"C:\Users\v4rmini\Documents\RecordingsForRender";
     [HideInInspector]
     public string sampleDir;
     private string replayDir;
+    private string recordingsDir;
     public bool playback;
     public bool useMostRecentRecording;
     private string colorMapPath;
@@ -314,10 +322,12 @@ public class PlayModeManager : MonoBehaviour
     
     // Start is called before the first frame update
     void Awake()
-    {
+    {   Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
         colorByNumber = FindObjectOfType<ColorByNumber>();
         if (!playback)
-        {   recordingBB.SetActive(false);
+        {
+            StartCoroutine(StopPhysicsForSecondsCoroutine());
+            recordingBB.SetActive(false);
             recording.SetActive(false);
             recordingDepth.SetActive(false);
             //Leave everything as it is in the project settings
@@ -329,7 +339,7 @@ public class PlayModeManager : MonoBehaviour
             Directory.CreateDirectory(sampleDir);
             replayDir = sampleDir + @"\ReplayFiles";
             Directory.CreateDirectory(replayDir);
-            string recordingsDir = sampleDir + @"\RecordingsFiles";
+            recordingsDir = sampleDir + @"\RecordingsFiles";
             Directory.CreateDirectory(recordingsDir);
 
             Directory.CreateDirectory(replayDir + @"\PositionAndOrientation");
@@ -531,10 +541,24 @@ public class PlayModeManager : MonoBehaviour
         }
     }
     
+    IEnumerator StopPhysicsForSecondsCoroutine()
+    {
+        Physics.autoSimulation = false;
+        //Print the time of when the function is first called.
+        Debug.Log("Turned off physics at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for X seconds.
+        yield return new WaitForSeconds(1);
+
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Turned on physics at timestamp : " + Time.time);
+        Physics.autoSimulation = true;
+    }
+    
     void OnDestroy()
     {
         if (playback)
-        {
+        {   
             RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
         }
     }

@@ -103,8 +103,9 @@ public class OnPredicate : MonoBehaviour
                 if (otherObjectId != null && otherObjectId == hit.transform.gameObject.GetComponentInParent<ObjectId>() && !currentlyOnList.Contains(otherObjectId))
                 {
                     currentlyOnList.Add(otherObjectId);
-                    string n = thisObjectId != null? thisObjectId. objectName : this.gameObject.name; 
-                    Debug.Log(n + " is on " + otherObjectId.objectName);
+                    string n = thisObjectId != null? thisObjectId. objectName : this.gameObject.name;
+                    recordObjectPosRot.RecordOnPredicate(n,otherObjectId.objectName, "start_touching");
+                    //Debug.Log(n + " is on " + otherObjectId.objectName);
                     break;
                 }
             }
@@ -118,7 +119,8 @@ public class OnPredicate : MonoBehaviour
         if (currentlyOnList.Contains(otherObjectId))
         {
             currentlyOnList.Remove(otherObjectId);
-            Debug.Log(thisObjectId.objectName + " is not anymore on " + otherObjectId.objectName);
+            //Debug.Log(thisObjectId.objectName + " is not anymore on " + otherObjectId.objectName);
+            recordObjectPosRot.RecordOnPredicate(thisObjectId.objectName,otherObjectId.objectName, "end_touching");
         }
     }
 }

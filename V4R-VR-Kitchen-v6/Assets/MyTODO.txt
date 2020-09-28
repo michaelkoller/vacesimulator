@@ -99,3 +99,19 @@ do a test recipe........
 
 put all video, pictures, objectposition scripts etc in the right sample folder
 translate objectposition into json
+
+todo get mpii2 cooking dataset stuff from work
+and then turn on "displayrecipe" script again
+
+test bounding boxes in json on video files 
+
+let objects start at a physically stable position (and not let them fall from above no the table surface for example)
+
+problem with bun and potato: CONTINUE HERE TUE 29
+no mesh after cutting
+
+make better workflow:
+start and stop recording in play mode via button
+give options for replay: immediate after record finish or batch mode for all samples in a dir?
+create video after replay
+scene restart necessary when change between record and render mode?

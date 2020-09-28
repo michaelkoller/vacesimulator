@@ -134,6 +134,8 @@ public class ColorByNumber : MonoBehaviour {
     {
         //cam = GetComponent<Camera>();
         playModeManager = GameObject.FindWithTag("Manager").GetComponent<PlayModeManager>();
+        screenshotPath = playModeManager.sampleDir +
+                         @"\RecordingsFiles\Videos\Cam1\";
         objectIds = FindObjectsOfType<ObjectId>();
         objectIds = objectIds.Where(objId => objId.gameObject.tag != "LeftHand").ToArray(); //this excludes the non-playback hands. for playback there is another set of hands instantiated.
         objectIds = objectIds.Where(objId => objId.gameObject.tag != "RightHand").ToArray();
