@@ -94,7 +94,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/GraspMessage.cs" />
         <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/CircularDrive.cs" />
         <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Hand.cs" />
-        <option value="$PROJECT_DIR$/Assets/InPredicate.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Attach.cs" />
         <option value="$PROJECT_DIR$/Assets/TestGetDisComp.cs" />
         <option value="$PROJECT_DIR$/Assets/SetupConcaveObjects.cs" />
@@ -104,9 +103,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ColorByNumber.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
-        <option value="$PROJECT_DIR$/Assets/OnPredicate.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayModeManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScenePhysicsTool.cs" />
+        <option value="$PROJECT_DIR$/Assets/OnPredicate.cs" />
+        <option value="$PROJECT_DIR$/Assets/InPredicate.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
       </list>
     </option>
@@ -211,7 +211,10 @@
       <workItem from="1600945539711" duration="74000" />
       <workItem from="1601028645182" duration="605000" />
       <workItem from="1601116254676" duration="2983000" />
-      <workItem from="1601286059245" duration="13816000" />
+      <workItem from="1601286059245" duration="14069000" />
+      <workItem from="1601371839776" duration="1440000" />
+      <workItem from="1601556400718" duration="3767000" />
+      <workItem from="1602076271237" duration="3653000" />
     </task>
     <servers />
   </component>

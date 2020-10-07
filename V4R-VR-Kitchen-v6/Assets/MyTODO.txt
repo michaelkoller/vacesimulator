@@ -7,17 +7,13 @@ Link the start record command to the record button on controller
 make recording mode be startable from script
                             
 Improve Avatar
-    Legs should make steps
+    Legs should make Footsteps
     Hands should not detach from arms
     Collisions between avatar and furniture?
          
 Change Gloves?
 
-Footsteps
-
 Initial Scene Description wrt logical predicates?
-
-Predicates. do them when in replay mode
 
 save stuff in json format?
 use relevant predicates from visual genome dataset
@@ -48,11 +44,7 @@ schauen, ob alle game objects mit objectid auch einen collider haben, damit InPr
 
 make grasping more intuitive: 
 highlight currently selected object (like it was before), but only make it visible for the ego perspective
-
-create videos
-
-maybe instead of reading cooking instructions --> let speech generator read out loud the cooking instructions?
-
+,m
 start and stop the recording and playback via function call and not via start/awake/update
 
 in recording mode: stockt, wenn die json files geschrieben werden.
@@ -105,13 +97,29 @@ and then turn on "displayrecipe" script again
 
 test bounding boxes in json on video files 
 
-let objects start at a physically stable position (and not let them fall from above no the table surface for example)
-
-problem with bun and potato: CONTINUE HERE TUE 29
-no mesh after cutting
-
 make better workflow:
 start and stop recording in play mode via button
 give options for replay: immediate after record finish or batch mode for all samples in a dir?
 create video after replay
 scene restart necessary when change between record and render mode?
+
+avatar kopf verrückt --> in cmu compliant skeleton den Head transform aus origin setzen
+
+initial scene into owl file for protege? eigentlich nicht. Dynamische infos werden ja eigentlich in die problem instance geschrieben.
+es sollte frame 1 der jeweiligen prädikat-recordings benutzt werden können um alle anfangsprädikate für das planning problem bereitstellen zu können.
+ 
+
+------------------------------------
+Workflow during recording
+------------------------------------
+
+- start executable
+- show status for vr equipment
+- start scene, prompt to choose recipe
+- choose recipe
+- start recording
+- perform recipe following the instructions on display
+- stop recording
+- choose render now or later
+- choose exit or new recipe
+- if new recipe reset kitchen
