@@ -185,6 +185,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private GraspRecords jsonGrasps;
     private InPredicateRecords jsonInPredicates;
     private OnPredicateRecords jsonOnPredicates;
+    public Dictionary<string, int> onPredicateStatusDict;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -256,6 +257,7 @@ public class RecordObjectPosRot : MonoBehaviour
         playback = playModeManager.playback;
         addGosAfterCut = new List<GameObject>();
         delGosAfterCut = new List<string>();
+        onPredicateStatusDict = new Dictionary<string, int>();
         if (!playback)
         {
             path = GetPath();
@@ -513,12 +515,49 @@ public class RecordObjectPosRot : MonoBehaviour
     
     public void RecordOnPredicate(string topObject, string bottomObject, string relationType) //relationType: start_touching or end_touching 
     {
-        OnPredicateRecord jsonOnPredicate = new OnPredicateRecord();
-        jsonOnPredicate.frame = currentFrame;
-        jsonOnPredicate.top_object = topObject;
-        jsonOnPredicate.bottom_object = bottomObject;
-        jsonOnPredicate.relation_type = relationType;
-        jsonOnPredicates.onPredicateRecords.Add(jsonOnPredicate);
+        string key = topObject + " " + bottomObject;
+        bool record = false;
+        if (relationType == "start_touching")
+        {
+            if (!onPredicateStatusDict.ContainsKey(key))
+            {
+                onPredicateStatusDict.Add(key, 1);
+                record = true;
+            }else if (onPredicateStatusDict[key] == 0)
+            {
+                onPredicateStatusDict[key] += 1;
+                record = true;
+            }
+            else
+            {
+                onPredicateStatusDict[key] += 1;
+            }
+        }else if (relationType == "end_touching")
+        {
+            if (!onPredicateStatusDict.ContainsKey(key))
+            {
+                Debug.LogError("OnPredicateDict Counting Error");
+            }
+            else if(onPredicateStatusDict[key] == 1)
+            {
+                onPredicateStatusDict[key] = 0;
+                record = true;
+            }
+            else
+            {
+                onPredicateStatusDict[key] -= 1;
+            }
+            
+        }
+        if (record)
+        {
+            OnPredicateRecord jsonOnPredicate = new OnPredicateRecord();
+            jsonOnPredicate.frame = currentFrame;
+            jsonOnPredicate.top_object = topObject;
+            jsonOnPredicate.bottom_object = bottomObject;
+            jsonOnPredicate.relation_type = relationType;
+            jsonOnPredicates.onPredicateRecords.Add(jsonOnPredicate);
+        }
     }
     private void FlushRecordings()
     {

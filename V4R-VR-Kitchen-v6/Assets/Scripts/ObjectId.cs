@@ -74,9 +74,22 @@ public class ObjectId : MonoBehaviour
         //for correct handling of "in" predicate
         if (GetComponent<NonConvexMeshCollider>())
         {
-            MeshCollider mc = this.gameObject.AddComponent<MeshCollider>();
-            mc.convex = true;
-            mc.isTrigger = true;
+            MeshCollider[] mcs = GetComponents<MeshCollider>();
+            bool correctMeshColliderFound = false;
+            foreach (MeshCollider mc in mcs)
+            {
+                if (mc.convex && mc.isTrigger)
+                {
+                    correctMeshColliderFound = true;
+                }
+            }
+            if (!correctMeshColliderFound)
+            {
+                MeshCollider mc = gameObject.AddComponent<MeshCollider>();
+                mc.convex = true;
+                mc.isTrigger = true;
+            }
+
         }
 
         this.gameObject.AddComponent<OnPredicate>();

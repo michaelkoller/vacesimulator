@@ -938,7 +938,6 @@
             <e p="ToonLitTransparent.shader" t="Include" />
           </e>
         </e>
-        <e p="InPredicate.cs" t="Include" />
         <e p="Kitchen Asset" t="Include">
           <e p="ReadMe.txt" t="Include" />
         </e>
@@ -947,7 +946,7 @@
           <e p="NonConvexMeshCollider.cs" t="Include" />
           <e p="ReadMe.txt" t="Include" />
         </e>
-        <e p="OnPredicate.cs" t="Include" />
+        <e p="PredicateTests.cs" t="Include" />
         <e p="Resources" t="Include">
           <e p="Shaders" t="Include">
             <e p="ObjectID.shader" t="Include" />
@@ -968,6 +967,7 @@
           <e p="ActionsTest.cs" t="Include" />
           <e p="Attach.cs" t="Include" />
           <e p="BoundBoxByColor.cs" t="Include" />
+          <e p="ColliderTest.cs" t="Include" />
           <e p="ColorByNumber.cs" t="Include" />
           <e p="ControllerGrabObject.cs" t="Include" />
           <e p="DepthCamScript.cs" t="Include" />
@@ -977,6 +977,7 @@
           <e p="GasStoveSwitch.cs" t="Include" />
           <e p="GraspMessage.cs" t="Include" />
           <e p="GuiPosition.cs" t="Include" />
+          <e p="InPredicate.cs" t="Include" />
           <e p="Manager.cs" t="Include" />
           <e p="MeshCut" t="Include">
             <e p="BackgroundColorChange.cs" t="Include" />
@@ -989,6 +990,7 @@
           </e>
           <e p="MyGameObjectRecorder.cs" t="Include" />
           <e p="ObjectId.cs" t="Include" />
+          <e p="OnPredicate.cs" t="Include" />
           <e p="PlayModeManager.cs" t="Include" />
           <e p="RecordObjectPosRot.cs" t="Include" />
           <e p="RecordStrings.cs" t="Include" />

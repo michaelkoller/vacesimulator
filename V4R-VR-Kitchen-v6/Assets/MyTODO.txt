@@ -107,7 +107,13 @@ avatar kopf verrückt --> in cmu compliant skeleton den Head transform aus origi
 
 initial scene into owl file for protege? eigentlich nicht. Dynamische infos werden ja eigentlich in die problem instance geschrieben.
 es sollte frame 1 der jeweiligen prädikat-recordings benutzt werden können um alle anfangsprädikate für das planning problem bereitstellen zu können.
- 
+
+
+Predicate problems:
+- multiple entries for in and on
+- repeated entered/left within a frame / across multiple frames
+- in: cabinet can be in bowl. should not be possible
+    -- objects with concave colliders make problems. 
 
 ------------------------------------
 Workflow during recording
