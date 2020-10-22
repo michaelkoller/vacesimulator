@@ -7,148 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
+
 //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
-
-
-[System.Serializable]
-public class PositionAndRotationFrameArr
-{
-    public string type = "position_and_rotation_frame_arr";
-    public string recipe = "";
-    public string creation_time = "";
-    public List<PositionAndRotationFrame> positionAndRotationFrameArr = new List<PositionAndRotationFrame>();
-}
-
-[System.Serializable]
-public class PositionAndRotationFrame
-{
-    public string type = "position_and_rotation_frame";
-    public int frame_number = 0;
-    public float time = 0.0f;
-    public float delta_time = 0.0f;
-    public List<ObjectPosition> objectPositionAndRotationArr = new List<ObjectPosition>();
-}
-
-[System.Serializable]
-public class ObjectPosition
-{
-    public string type = "object_pos";
-    public string name = "";
-    public float posX = 0.0f;
-    public float posY = 0.0f;
-    public float posZ = 0.0f;
-    public float angX = 0.0f;
-    public float angY = 0.0f;
-    public float angZ = 0.0f;
-}
-
-
-[System.Serializable]
-public class ColormapJSON
-{
-    public List<ColormapEntryJSON> object_colors = new List<ColormapEntryJSON>();
-}
-
-[System.Serializable]
-public class ColormapEntryJSON
-{
-    public string name = "";
-    public float r = 0f;
-    public float g = 0f;
-    public float b = 0f;
-    public float a = 0f;
-    public int id_no = -1;
-}
-
-
-[System.Serializable]
-public class BbFrameArray
-{
-    public List<BbFrame> bb_frame_arr = new List<BbFrame>();
-}
-
-[System.Serializable]
-public class BbFrame
-{
-    public int frame_number = -1;
-    public List<BbObject> bb_obect_arr = new List<BbObject>();
-}
-
-[System.Serializable]
-public class BbObject
-{
-    public string name = "";
-    public int id_no = -1;
-    public int x_max = -1;
-    public int x_min = -1;
-    public int y_max = -1;
-    public int y_min = -1;
-}
-
-[System.Serializable]
-public class CutRecord
-{
-    public int frame = -1;
-    public string name = "";
-    public float contact_point_x = 0f;
-    public float contact_point_y = 0f;
-    public float contact_point_z = 0f;
-    public float cut_direction_x = 0f;
-    public float cut_direction_y = 0f;
-    public float cut_direction_z = 0f;
-}
-
-[System.Serializable]
-public class CutRecords
-{
-    public List<CutRecord> cuts = new List<CutRecord>();
-}
-
-[System.Serializable]
-public class GraspRecord
-{
-    public int frame = -1;
-    public string grasp_type = ""; //grasp / release
-    public string grasped_object = "";
-    public string hand = "";
-}
-
-[System.Serializable]
-public class GraspRecords
-{
-    public List<GraspRecord> grasps = new List<GraspRecord>();
-}
-
-[System.Serializable]
-public class InPredicateRecord
-{
-    public int frame = -1;
-    public string inside_object = "";
-    public string container_object = "";
-    public string relation_type = ""; //entered or left
-}
-
-[System.Serializable]
-public class InPredicateRecords
-{
-    public List<InPredicateRecord> inPredicateRecords = new List<InPredicateRecord>();
-}
-
-[System.Serializable]
-public class OnPredicateRecord
-{
-    public int frame = -1;
-    public string top_object = "";
-    public string bottom_object = "";
-    public string relation_type = ""; //start_touching or end_touching
-}
-
-[System.Serializable]
-public class OnPredicateRecords
-{
-    public List<OnPredicateRecord> onPredicateRecords = new List<OnPredicateRecord>();
-}
-
 public class RecordObjectPosRot : MonoBehaviour
 {
     int currentFrame = 1;
@@ -180,11 +40,11 @@ public class RecordObjectPosRot : MonoBehaviour
     private ParticleSystem [] particleSystems;
     private Dictionary<string, ParticleSystem> particleSystemDict;
     private string pathParticles;
-    private PositionAndRotationFrameArr posRotFrameArr;
-    private CutRecords jsonCuts;
-    private GraspRecords jsonGrasps;
-    private InPredicateRecords jsonInPredicates;
-    private OnPredicateRecords jsonOnPredicates;
+    private JSONDataStructures.PositionAndRotationFrameArr posRotFrameArr;
+    private JSONDataStructures.CutRecords jsonCuts;
+    private JSONDataStructures.GraspRecords jsonGrasps;
+    private JSONDataStructures.InPredicateRecords jsonInPredicates;
+    private JSONDataStructures.OnPredicateRecords jsonOnPredicates;
     public Dictionary<string, int> onPredicateStatusDict;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
@@ -274,11 +134,11 @@ public class RecordObjectPosRot : MonoBehaviour
             sbParticleSystems = new StringBuilder();
             pathPosRotJSON = GetPosRotJSONPath();
             
-            posRotFrameArr = new PositionAndRotationFrameArr();
-            jsonCuts = new CutRecords();
-            jsonGrasps = new GraspRecords();
-            jsonInPredicates = new InPredicateRecords();
-            jsonOnPredicates = new OnPredicateRecords();
+            posRotFrameArr = new JSONDataStructures.PositionAndRotationFrameArr();
+            jsonCuts = new JSONDataStructures.CutRecords();
+            jsonGrasps = new JSONDataStructures.GraspRecords();
+            jsonInPredicates = new JSONDataStructures.InPredicateRecords();
+            jsonOnPredicates = new JSONDataStructures.OnPredicateRecords();
             
             //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
@@ -289,7 +149,7 @@ public class RecordObjectPosRot : MonoBehaviour
                 allGameObjectsWithRendererDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
             }
             
-            ColormapJSON cm = new ColormapJSON();
+            JSONDataStructures.ColormapJSON cm = new JSONDataStructures.ColormapJSON();
 
             ObjectId[] objectIds = FindObjectsOfType<ObjectId>();
             foreach(ObjectId objectId in objectIds)
@@ -299,7 +159,7 @@ public class RecordObjectPosRot : MonoBehaviour
                                       +", "+objectId.c.b.ToString("G17") +", "+objectId.c.a.ToString("G17"));
                 sbColorMap.AppendLine(objectId.id.ToString());
                 
-                ColormapEntryJSON cme = new ColormapEntryJSON();
+                JSONDataStructures.ColormapEntryJSON cme = new JSONDataStructures.ColormapEntryJSON();
                 cme.name = objectId.objectName;
                 cme.r = objectId.c.r;
                 cme.g = objectId.c.g;
@@ -311,7 +171,7 @@ public class RecordObjectPosRot : MonoBehaviour
             File.WriteAllText(pathColorMap, sbColorMap.ToString());
             sbColorMap.Clear();
 
-            SaveIntoJson<ColormapJSON>(GetPathColorMapJSON(), cm);
+            SaveIntoJson<JSONDataStructures.ColormapJSON>(GetPathColorMapJSON(), cm);
             
             dictArray = new Dictionary<string, GameObject>[3];
             dictArray[0] = allGameObjectsWithRendererDict;
@@ -358,7 +218,8 @@ public class RecordObjectPosRot : MonoBehaviour
                 }
             }
             
-            //JSON
+            //JSON regular obj posrot data
+            /*
             PositionAndRotationFrame posRotFrame = new PositionAndRotationFrame();
             posRotFrameArr.positionAndRotationFrameArr.Add(posRotFrame);
             posRotFrame.frame_number = currentFrame;
@@ -377,7 +238,7 @@ public class RecordObjectPosRot : MonoBehaviour
                 op.angZ = goPair.Value.transform.eulerAngles.z;
                 posRotFrame.objectPositionAndRotationArr.Add(op);
             }
-            
+            */
             
             //regular GOs
             sb.AppendLine("frame " + currentFrame.ToString());
@@ -444,9 +305,10 @@ public class RecordObjectPosRot : MonoBehaviour
                 sbParticleSystems.Clear();
                 pathParticles = GetPathParticles();
                 
-                SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
-                posRotFrameArr = new PositionAndRotationFrameArr();
-                pathPosRotJSON = GetPosRotJSONPath();
+                //Writing PosRot Object Data JSON
+                //SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
+                //posRotFrameArr = new PositionAndRotationFrameArr();
+                //pathPosRotJSON = GetPosRotJSONPath();
 
             }
 
@@ -477,7 +339,7 @@ public class RecordObjectPosRot : MonoBehaviour
         delGosAfterCut.Add(originalGameObjectName);
         addGosAfterCut.Add(leftGO);
         addGosAfterCut.Add(rightGO);
-        CutRecord jsonCut = new CutRecord();
+        JSONDataStructures.CutRecord jsonCut = new JSONDataStructures.CutRecord();
         jsonCut.frame = currentFrame;
         jsonCut.name = originalGameObjectName;
         jsonCut.contact_point_x = _contactPoint.x;
@@ -495,7 +357,7 @@ public class RecordObjectPosRot : MonoBehaviour
 
     public void RecordGrasp(string gameObjectName, string handName, string graspType)
     {
-        GraspRecord jsonGrasp = new GraspRecord();
+        JSONDataStructures.GraspRecord jsonGrasp = new JSONDataStructures.GraspRecord();
         jsonGrasp.frame = currentFrame;
         jsonGrasp.grasp_type = graspType;
         jsonGrasp.grasped_object = gameObjectName;
@@ -505,7 +367,7 @@ public class RecordObjectPosRot : MonoBehaviour
 
     public void RecordInPredicate(string insideObject, string containerObject, string relationType) //relationType: entered or left
     {
-        InPredicateRecord jsonInPredicate = new InPredicateRecord();
+        JSONDataStructures.InPredicateRecord jsonInPredicate = new JSONDataStructures.InPredicateRecord();
         jsonInPredicate.frame = currentFrame;
         jsonInPredicate.inside_object = insideObject;
         jsonInPredicate.container_object = containerObject;
@@ -551,7 +413,7 @@ public class RecordObjectPosRot : MonoBehaviour
         }
         if (record)
         {
-            OnPredicateRecord jsonOnPredicate = new OnPredicateRecord();
+            JSONDataStructures.OnPredicateRecord jsonOnPredicate = new JSONDataStructures.OnPredicateRecord();
             jsonOnPredicate.frame = currentFrame;
             jsonOnPredicate.top_object = topObject;
             jsonOnPredicate.bottom_object = bottomObject;
@@ -572,11 +434,12 @@ public class RecordObjectPosRot : MonoBehaviour
         File.WriteAllText(pathParticles, sbParticleSystems.ToString());
         sbParticleSystems.Clear();    
         
-        SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
-        SaveIntoJson<CutRecords>(GetPathCutJSON(), jsonCuts);
-        SaveIntoJson<GraspRecords>(GetPathGraspJSON(), jsonGrasps);
-        SaveIntoJson<InPredicateRecords>(GetPathInJSON(), jsonInPredicates);
-        SaveIntoJson<OnPredicateRecords>(GetPathOnJSON(), jsonOnPredicates);
+        //Save object data posrot JSON
+        //SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
+        SaveIntoJson<JSONDataStructures.CutRecords>(GetPathCutJSON(), jsonCuts);
+        SaveIntoJson<JSONDataStructures.GraspRecords>(GetPathGraspJSON(), jsonGrasps);
+        SaveIntoJson<JSONDataStructures.InPredicateRecords>(GetPathInJSON(), jsonInPredicates);
+        SaveIntoJson<JSONDataStructures.OnPredicateRecords>(GetPathOnJSON(), jsonOnPredicates);
     }
     
     void OnDestroy()

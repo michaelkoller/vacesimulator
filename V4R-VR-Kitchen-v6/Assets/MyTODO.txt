@@ -115,6 +115,16 @@ Predicate problems:
 - in: cabinet can be in bowl. should not be possible
     -- objects with concave colliders make problems. 
 
+Todo:
+make push action possible for e.g. pushing stuff off of a board
+    first idea: there is a handcollider instantiated after scene start
+    but the layer isnt default so it doesnt interact with anything
+    turning it to default works but not quite as intended, because ist jerky when trying to shove many small objects
+write boundboxes
+rewrite json position predicates into replay mode to stop stutter
+start rec with button press
+recreate 20 videos from mpii cooking 2
+
 ------------------------------------
 Workflow during recording
 ------------------------------------
@@ -129,3 +139,6 @@ Workflow during recording
 - choose render now or later
 - choose exit or new recipe
 - if new recipe reset kitchen
+
+
+

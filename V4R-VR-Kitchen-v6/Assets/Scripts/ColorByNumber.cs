@@ -8,8 +8,6 @@ using UnityEngine.UIElements;
 using Unity.Burst;
 using Unity.Jobs;
 using Unity.Collections;
-using UnityEditor.Media;
-using UnityEngine.iOS;
 using Valve.VR.InteractionSystem;
 
 public class ColorByNumber : MonoBehaviour {

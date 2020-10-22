@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using UnityEngine.iOS;
 using Valve.VR;
 using Object = System.Object;
 
@@ -317,7 +316,7 @@ public class PlayModeManager : MonoBehaviour
     private Dictionary<string, string> colorToNameDict = new Dictionary<string, string>();
     public bool initialized = false;
 
-    private BbFrameArray bbFrameArray;
+    private JSONDataStructures.BbFrameArray bbFrameArray;
     private string bbSavePath;
     
     // Start is called before the first frame update
@@ -409,7 +408,7 @@ public class PlayModeManager : MonoBehaviour
             recording.SetActive(true);
             recordingDepth.SetActive(true);
             
-            bbFrameArray = new BbFrameArray();
+            bbFrameArray = new JSONDataStructures.BbFrameArray();
             bbSavePath = sampleDir + @"\RecordingsFiles\Annotations\BoundingBox\bounding_box_1.json";
             initialized = true;
         }
@@ -511,7 +510,7 @@ public class PlayModeManager : MonoBehaviour
             colorByNumber.StoreAllAs(sampleDir + @"\RecordingsFiles\Videos\Cam1\", ps.frameNumber);
 
             //save bounding boxes for each frame
-            BbFrame bbf = new BbFrame();
+            JSONDataStructures.BbFrame bbf = new JSONDataStructures.BbFrame();
             bbFrameArray.bb_frame_arr.Add(bbf);
             for (int i = 0; i < colorByNumber.objectIds.Length; i++)
             {
@@ -520,7 +519,7 @@ public class PlayModeManager : MonoBehaviour
                     colorByNumber.objectIds[i].yMax != int.MinValue && 
                     colorByNumber.objectIds[i].yMin != int.MaxValue)
                 {
-                    BbObject bbo = new BbObject();
+                    JSONDataStructures.BbObject bbo = new JSONDataStructures.BbObject();
                     bbo.name = colorByNumber.objectIds[i].objectName;
                     bbo.id_no = colorByNumber.objectIds[i].id;
                     bbo.x_max = colorByNumber.objectIds[i].xMax;

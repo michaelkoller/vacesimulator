@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-using System.Net.Configuration;
 using UnityEngine.UI;
 using Valve.VR;
 using System.Text;

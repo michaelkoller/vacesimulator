@@ -10,6 +10,8 @@ public class Cutter : MonoBehaviour
     public static Mesh originalMesh;
     public static RecordObjectPosRot recordObjectPosRot;
     public static PlayModeManager playModeManager;
+    private static Rigidbody origRb;
+    private static Rigidbody rightGoRb;
 
     public static GameObject Cut(GameObject _originalGameObject, Vector3 _contactPoint, Vector3 _direction, Material _cutMaterial = null, bool fill = true, bool _addRigidbody = false)
     {
@@ -148,7 +150,7 @@ public class Cutter : MonoBehaviour
         rightGO.name = _originalGameObject.name + "1";
         _originalGameObject.name += "0";
         _originalGameObject.GetComponent<ObjectId>().objectName += "0";
-
+        
         if (!playModeManager.playback)
         {   
             recordObjectPosRot.RecordCut(oldObjectName, _contactPoint, _direction, _originalGameObject, rightGO);
@@ -168,7 +170,11 @@ public class Cutter : MonoBehaviour
         rightGoObjectId.cuttable = true;
         rightGoObjectId.c = origObjectId.c;
         rightGoObjectId.id = origObjectId.id;
-        
+
+        origRb = _originalGameObject.GetComponent<Rigidbody>();
+        rightGoRb = rightGO.GetComponent<Rigidbody>();
+        origRb.mass /= 2;
+        rightGoRb.mass = origRb.mass;
         return rightGO;
     }
 

@@ -978,6 +978,7 @@
           <e p="GraspMessage.cs" t="Include" />
           <e p="GuiPosition.cs" t="Include" />
           <e p="InPredicate.cs" t="Include" />
+          <e p="JSONDataStructures.cs" t="Include" />
           <e p="Manager.cs" t="Include" />
           <e p="MeshCut" t="Include">
             <e p="BackgroundColorChange.cs" t="Include" />
