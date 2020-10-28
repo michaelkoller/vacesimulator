@@ -101,14 +101,14 @@ public class PlaybackState
         
         Transform[] rightHandDescendants = rightHandParent.GetComponentsInChildren<Transform>();
         foreach (Transform t in rightHandDescendants)
-        {    
-            rightHandDict.Add(t.gameObject.name, t.gameObject);
+        {   if(t.gameObject.name != "attach")
+                rightHandDict.Add(t.gameObject.name, t.gameObject);
         }
         
         Transform[] leftHandDescendants = leftHandParent.GetComponentsInChildren<Transform>();
         foreach (Transform t in leftHandDescendants)
-        {
-            leftHandDict.Add(t.gameObject.name, t.gameObject);
+        {   if(t.gameObject.name != "attach")
+                leftHandDict.Add(t.gameObject.name, t.gameObject);
         }
         
         ParticleSystem[] particleSystems = GameObject.FindObjectsOfType<ParticleSystem>();
@@ -163,12 +163,7 @@ public class PlaybackState
             {
                 rotFloat[j] = float.Parse(rot[j]);
             }
-//            if (name == "big_spoon_1")
-//            {
-//                Debug.Log(i);
-//                Debug.Log(posFloat[0] + " " + posFloat[1] + " " + posFloat[2]);
-//                Debug.Log(rot);
-//            }
+
             this.gameObjectDict[name].transform.position = new Vector3(posFloat[0],posFloat[1],posFloat[2]);
             this.gameObjectDict[name].transform.eulerAngles = new Vector3(rotFloat[0],rotFloat[1],rotFloat[2]);
         }

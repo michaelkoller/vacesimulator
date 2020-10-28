@@ -120,9 +120,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/UnityRecorderFromScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshCut/Cutter.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/JSONDataStructures.cs" />
-        <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayModeManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayModeManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
       </list>
     </option>
   </component>
@@ -235,7 +235,7 @@
       <workItem from="1603108561809" duration="1590000" />
       <workItem from="1603354747228" duration="4613000" />
       <workItem from="1603374458739" duration="4122000" />
-      <workItem from="1603808541299" duration="5599000" />
+      <workItem from="1603808541299" duration="14804000" />
     </task>
     <servers />
   </component>

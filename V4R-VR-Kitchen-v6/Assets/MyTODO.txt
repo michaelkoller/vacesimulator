@@ -47,22 +47,15 @@ highlight currently selected object (like it was before), but only make it visib
 ,m
 start and stop the recording and playback via function call and not via start/awake/update
 
-in recording mode: stockt, wenn die json files geschrieben werden.
---> schreibe json files, wenn in playback mode?
-
 Aus bildern videos machen
 
 Bug: Schranktüren können beim ersten mal nur über den handgriffcollider bewegt werden, danach aber über die ganze schranktür
-
-Release mode statt Debug mode!
 
 obj w colliders register when on top of containers 
 
 in topcabinet:
 --> todo ghosts sizes and positions checken
 coffee_machine_ghost
-
-potato, bun_1 disappears when being cut
 
 https://deparkes.co.uk/2018/01/05/create-video-images-ffmpeg/
 cmd to screenshots, where the ffmpeg.exe file is too, then:
@@ -146,3 +139,13 @@ Workflow during recording
                     the bb json files are then: 1 -- 200, 1 -- 400, 1- 600 instead of 1 --200, 201 -- 400, 401 -- 600?
                     --> maybe fixed, but check later
 
+Controller Bindings:
+PDF Steam VR Unity Plugin in Assets/SteamVR
+explains the actions and bindings to a specific controller, here htc vive
+UI binding browser port has changed, this works:
+http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
+
+-- hände werden im replaymodus nicht bewegt (attach objects überall ausgeblendet?)
+
+-- bilder werden in zu großen abständen gemacht? nachschauen, woran die frequenz der bilderzeugung gekoppelt ist
+    das bloße replay im scene view ist nämlich nicht so low fps

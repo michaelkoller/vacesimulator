@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
+using Valve.VR;
 
 //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
 public class RecordObjectPosRot : MonoBehaviour
@@ -46,6 +46,15 @@ public class RecordObjectPosRot : MonoBehaviour
     private JSONDataStructures.InPredicateRecords jsonInPredicates;
     private JSONDataStructures.OnPredicateRecords jsonOnPredicates;
     public Dictionary<string, int> onPredicateStatusDict;
+    
+    public SteamVR_Input_Sources myInputSource;
+    public SteamVR_Action_Boolean clickRightAction;
+    public SteamVR_Action_Boolean clickLeftAction;
+    public SteamVR_Action_Boolean clickUpAction;
+    public SteamVR_Action_Boolean clickDownAction;
+    public SteamVR_Action_Boolean clickRecordAction;
+    public SteamVR_Action_Boolean clickShowInstructions;
+    private bool currentlyRecording = false;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -118,6 +127,10 @@ public class RecordObjectPosRot : MonoBehaviour
         addGosAfterCut = new List<GameObject>();
         delGosAfterCut = new List<string>();
         onPredicateStatusDict = new Dictionary<string, int>();
+        
+        //TODO maybe next line not needed:
+        clickRightAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ClickRight");
+        
         if (!playback)
         {
             path = GetPath();
@@ -140,12 +153,9 @@ public class RecordObjectPosRot : MonoBehaviour
             jsonInPredicates = new JSONDataStructures.InPredicateRecords();
             jsonOnPredicates = new JSONDataStructures.OnPredicateRecords();
             
-            //allGameObjects = GameObject.FindObjectsOfType<GameObject>();
             allRenderers = FindObjectsOfType<Renderer>();
-            //allGameObjectsWithRenderer = new GameObject[allRenderers.Length];
             for (int i = 0; i < allRenderers.Length; i++)
             {
-                //allGameObjectsWithRenderer[i] = allRenderers[i].gameObject;
                 allGameObjectsWithRendererDict.Add(allRenderers[i].gameObject.name, allRenderers[i].gameObject);
             }
             
@@ -184,14 +194,15 @@ public class RecordObjectPosRot : MonoBehaviour
             {
                 particleSystemDict.Add(ps.gameObject.name, ps);
             }
+            
+            //InvokeRepeating("RecordFrame", 0.0f, 0.03333333333f);
         }
     }
     
 
-
-    // Update is called once per frame
-    void Update()
-    {   if(!playback){
+    public void RecordFrame()
+    {
+        if(!playback){
             if (rightHandParent == null)
             {
                 rightHandParent = GameObject.Find("RightRenderModel Slim(Clone)");
@@ -200,7 +211,8 @@ public class RecordObjectPosRot : MonoBehaviour
                     Transform[] rightHandDescendants = rightHandParent.GetComponentsInChildren<Transform>();
                     foreach (Transform t in rightHandDescendants)
                     {    
-                        rightHandDict.Add(t.gameObject.name, t.gameObject);
+                        if(t.gameObject.name != "attach")
+                            rightHandDict.Add(t.gameObject.name, t.gameObject);
                     }
                 }
             }
@@ -213,7 +225,8 @@ public class RecordObjectPosRot : MonoBehaviour
                     Transform[] leftHandDescendants = leftHandParent.GetComponentsInChildren<Transform>();
                     foreach (Transform t in leftHandDescendants)
                     {
-                        leftHandDict.Add(t.gameObject.name, t.gameObject);
+                        if(t.gameObject.name != "attach")
+                            leftHandDict.Add(t.gameObject.name, t.gameObject);
                     }
                 }
             }
@@ -282,12 +295,6 @@ public class RecordObjectPosRot : MonoBehaviour
                 File.WriteAllText(pathParticles, sbParticleSystems.ToString());
                 sbParticleSystems.Clear();
                 pathParticles = GetPathParticles();
-                
-                //Writing PosRot Object Data JSON
-                //SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
-                //posRotFrameArr = new PositionAndRotationFrameArr();
-                //pathPosRotJSON = GetPosRotJSONPath();
-
             }
 
             foreach (string s in delGosAfterCut)
@@ -304,6 +311,29 @@ public class RecordObjectPosRot : MonoBehaviour
             
             currentFrame++;
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (clickRecordAction.GetStateDown(myInputSource))
+        {
+            if (!currentlyRecording)
+            {
+                InvokeRepeating("RecordFrame", 0.0f, 0.03333333333f);
+                Debug.Log("RECORDING");
+                currentlyRecording = true;
+            }
+            else
+            {    
+                CancelInvoke("RecordFrame");
+                FlushRecordings();
+                Debug.Log("STOPPED");
+                currentlyRecording = false;
+            }
+
+        }
+        //RecordFrame();
     }
 
     public void RecordCut(string originalGameObjectName, Vector3 _contactPoint, Vector3 _direction, GameObject leftGO, GameObject rightGO, Material _cutMaterial = null, bool fill = true, bool _addRigidbody = false)
@@ -327,10 +357,6 @@ public class RecordObjectPosRot : MonoBehaviour
         jsonCut.cut_direction_y = _direction.y;
         jsonCut.cut_direction_z = _direction.z;
         jsonCuts.cuts.Add(jsonCut);
-        
-        //allGameObjectsWithRendererDict.Remove(originalGameObjectName);
-        //allGameObjectsWithRendererDict.Add(leftGO.name, leftGO);
-        //allGameObjectsWithRendererDict.Add(rightGO.name, rightGO);
     }
 
     public void RecordGrasp(string gameObjectName, string handName, string graspType)
@@ -412,12 +438,14 @@ public class RecordObjectPosRot : MonoBehaviour
         File.WriteAllText(pathParticles, sbParticleSystems.ToString());
         sbParticleSystems.Clear();    
         
-        //Save object data posrot JSON
-        //SaveIntoJson<PositionAndRotationFrameArr>(pathPosRotJSON, posRotFrameArr);
         SaveIntoJson<JSONDataStructures.CutRecords>(GetPathCutJSON(), jsonCuts);
         SaveIntoJson<JSONDataStructures.GraspRecords>(GetPathGraspJSON(), jsonGrasps);
         SaveIntoJson<JSONDataStructures.InPredicateRecords>(GetPathInJSON(), jsonInPredicates);
         SaveIntoJson<JSONDataStructures.OnPredicateRecords>(GetPathOnJSON(), jsonOnPredicates);
+        jsonCuts = null;
+        jsonGrasps = null;
+        jsonInPredicates = null;
+        jsonOnPredicates = null;
     }
     
     void OnDestroy()
