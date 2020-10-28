@@ -217,29 +217,7 @@ public class RecordObjectPosRot : MonoBehaviour
                     }
                 }
             }
-            
-            //JSON regular obj posrot data
-            /*
-            PositionAndRotationFrame posRotFrame = new PositionAndRotationFrame();
-            posRotFrameArr.positionAndRotationFrameArr.Add(posRotFrame);
-            posRotFrame.frame_number = currentFrame;
-            posRotFrame.time = Time.time;
-            posRotFrame.delta_time = Time.deltaTime;
-            
-            foreach(KeyValuePair<string,GameObject> goPair in allGameObjectsWithRendererDict)
-            {
-                ObjectPosition op = new ObjectPosition();
-                op.name = goPair.Key;
-                op.posX = goPair.Value.transform.position.x;
-                op.posY = goPair.Value.transform.position.y;
-                op.posZ = goPair.Value.transform.position.z;
-                op.angX = goPair.Value.transform.eulerAngles.x;
-                op.angY = goPair.Value.transform.eulerAngles.y;
-                op.angZ = goPair.Value.transform.eulerAngles.z;
-                posRotFrame.objectPositionAndRotationArr.Add(op);
-            }
-            */
-            
+
             //regular GOs
             sb.AppendLine("frame " + currentFrame.ToString());
             sb.AppendLine(Time.time.ToString());

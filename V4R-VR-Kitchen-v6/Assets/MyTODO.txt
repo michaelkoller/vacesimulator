@@ -141,4 +141,8 @@ Workflow during recording
 - if new recipe reset kitchen
 
 
+-------------------in playmodemanager: bbframearray is only ever instantiated in awake: does this mean that whenever frame
+                    number % 200 == 0, all frames from 1 to X are written?
+                    the bb json files are then: 1 -- 200, 1 -- 400, 1- 600 instead of 1 --200, 201 -- 400, 401 -- 600?
+                    --> maybe fixed, but check later
 

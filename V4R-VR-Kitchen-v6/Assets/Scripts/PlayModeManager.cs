@@ -442,6 +442,70 @@ public class PlayModeManager : MonoBehaviour
                 oid.id = intid;
             }
             
+            //create position and orientation json files from txt files
+            string replayPosRotFolder = sampleDir + @"\ReplayFiles\PositionAndOrientation";
+            string [] fileEntries = Directory.GetFiles(replayPosRotFolder);
+            for (int i = 0; i < fileEntries.Length; i++)
+            {
+                string fileName = fileEntries[i].Split('\\').Last();
+                string fileNumber = new String(fileName.Where(Char.IsDigit).ToArray());
+                string posRotFrameArrSaveFile = sampleDir + @"\RecordingsFiles\Annotations\PoseAndOrientation\position_and_orientation_"  
+                    + fileNumber + ".json";
+                JSONDataStructures.PositionAndRotationFrameArr posRotFrameArr = new JSONDataStructures.PositionAndRotationFrameArr();
+                posRotFrameArr.type = "position_and_rotation_frame_arr";
+                StreamReader posRotReader = new StreamReader(fileEntries[i]);
+             
+                string line = posRotReader.ReadLine();
+                while (!posRotReader.EndOfStream && line.Contains("frame"))
+                {
+                    JSONDataStructures.PositionAndRotationFrame posRotFrame = new JSONDataStructures.PositionAndRotationFrame();
+                    string frameNumberString = line.Trim().Split(' ')[1];
+                    int frameNumber = int.Parse(frameNumberString);
+                    float time = float.Parse(posRotReader.ReadLine().Trim());
+                    float deltaTime = float.Parse(posRotReader.ReadLine().Trim());
+                    
+                    posRotFrameArr.positionAndRotationFrameArr.Add(posRotFrame);
+                    posRotFrame.frame_number = frameNumber;
+                    posRotFrame.time = time;
+                    posRotFrame.delta_time = deltaTime;
+                    posRotFrame.type = "position_and_rotation_frame";
+                    
+                    line = posRotReader.ReadLine();
+                    while (!posRotReader.EndOfStream && !line.Contains("frame"))
+                    {
+                        string name = line.Trim().Split((' '))[0];
+                        string[] pos = posRotReader.ReadLine().Trim('(').Trim(')').Split(',');
+                        string[] rot = posRotReader.ReadLine().Trim('(').Trim(')').Split(',');
+
+                        float[] posFloat = new float[3];
+                        float[] rotFloat = new float[3];
+
+                        for (int j = 0; j < 3; j++)
+                        {
+                            posFloat[j] = float.Parse(pos[j]);
+                        }
+
+                        for (int j = 0; j < 3; j++)
+                        {
+                            rotFloat[j] = float.Parse(rot[j]);
+                        }
+
+                        JSONDataStructures.ObjectPosition op = new JSONDataStructures.ObjectPosition();
+                        op.name = line;
+                        op.posX = posFloat[0];
+                        op.posY = posFloat[1];
+                        op.posZ = posFloat[2];
+                        op.angX = rotFloat[0];
+                        op.angY = rotFloat[1];
+                        op.angZ = rotFloat[2];
+                        posRotFrame.objectPositionAndRotationArr.Add(op);
+                        
+                        line = posRotReader.ReadLine();
+                    }
+                }
+                RecordObjectPosRot.SaveIntoJson(posRotFrameArrSaveFile, posRotFrameArr);
+            }
+
             CopyComponent<ObjectId>(steamVRleftHand.GetComponent<ObjectId>(), leftRenderModelInstance);
             CopyComponent<ObjectId>(steamVRrightHand.GetComponent<ObjectId>(), rightRenderModelInstance);
 
@@ -532,10 +596,10 @@ public class PlayModeManager : MonoBehaviour
 
             if (ps.frameNumber % 200 == 0)
             {
-
                 RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
                 bbSavePath = sampleDir + @"\RecordingsFiles\Annotations\BoundingBox\bounding_box_" +
                              ps.frameNumber.ToString() + ".json";
+                bbFrameArray = new JSONDataStructures.BbFrameArray();
             }
         }
     }
