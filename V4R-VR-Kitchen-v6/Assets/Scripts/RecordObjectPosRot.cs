@@ -328,7 +328,7 @@ public class RecordObjectPosRot : MonoBehaviour
             {    
                 CancelInvoke("RecordFrame");
                 FlushRecordings();
-                Debug.Log("STOPPED");
+                Debug.Log("RECORDING STOPPED");
                 currentlyRecording = false;
             }
 
@@ -427,15 +427,15 @@ public class RecordObjectPosRot : MonoBehaviour
     }
     private void FlushRecordings()
     {
-        File.WriteAllText(path, sb.ToString());
+        File.AppendAllText(path, sb.ToString());
         sb.Clear();
         File.AppendAllText(pathCut, sbCut.ToString());
         sbCut.Clear();
-        File.WriteAllText(pathRightHand, sbRightHand.ToString());
+        File.AppendAllText(pathRightHand, sbRightHand.ToString());
         sbRightHand.Clear();
-        File.WriteAllText(pathLeftHand, sbLeftHand.ToString());
+        File.AppendAllText(pathLeftHand, sbLeftHand.ToString());
         sbLeftHand.Clear();
-        File.WriteAllText(pathParticles, sbParticleSystems.ToString());
+        File.AppendAllText(pathParticles, sbParticleSystems.ToString());
         sbParticleSystems.Clear();    
         
         SaveIntoJson<JSONDataStructures.CutRecords>(GetPathCutJSON(), jsonCuts);
@@ -448,11 +448,11 @@ public class RecordObjectPosRot : MonoBehaviour
         jsonOnPredicates = null;
     }
     
-    void OnDestroy()
+    void OnDestroy() //not necessary anymore because of recording stop button
     {
-        if (!playModeManager.playback)
-        {
-            FlushRecordings();
-        }
+//        if (!playModeManager.playback)
+//        {
+//            FlushRecordings();
+//        }
     }
 }

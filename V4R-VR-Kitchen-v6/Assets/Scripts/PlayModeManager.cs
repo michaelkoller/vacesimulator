@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using UnityEditor;
 using Valve.VR;
 using Object = System.Object;
 
@@ -129,7 +130,7 @@ public class PlaybackState
         currPathPOfileNumber++;
     }
 
-    public void GetStateOfFrame()
+    public bool GetStateOfFrame()
     {
         if (this.reader.EndOfStream && currPathPOfileNumber < poFileCount)
         {
@@ -138,7 +139,7 @@ public class PlaybackState
         else if(this.reader.EndOfStream)
         {
             playbackFinished = true;
-            return;
+            return true;
         }
         
         //Regular Objects
@@ -174,11 +175,13 @@ public class PlaybackState
         this.frameNumber = int.Parse(frameNumberString); //Watch out for problems if these numbers don't match in the regular obj, righthand, lefthand
         this.time = float.Parse(readerRightHand.ReadLine().Trim());
         this.deltaTime = float.Parse(readerRightHand.ReadLine().Trim());
-        for (int i = 0; i < rightHandDict.Count; i++)
+        //for (int i = 0; i < rightHandDict.Count; i++)
+        while(true)
         {
             string name = readerRightHand.ReadLine().Trim();
             if (name == "--stop--")
-            { break;
+            {   
+                break;
             }
             string[] pos = readerRightHand.ReadLine().Trim('(').Trim(')').Split(',');
             string[] rot = readerRightHand.ReadLine().Trim('(').Trim(')').Split(',');
@@ -192,13 +195,15 @@ public class PlaybackState
             {
                 rotFloat[j] = float.Parse(rot[j]);
             }
-            this.rightHandDict[name].transform.position = new Vector3(posFloat[0],posFloat[1],posFloat[2]);
-            this.rightHandDict[name].transform.eulerAngles = new Vector3(rotFloat[0],rotFloat[1],rotFloat[2]);
-
-            if (i == rightHandDict.Count - 1)
-            {
-                readerRightHand.ReadLine();
+            if(rightHandDict.ContainsKey(name)){
+                this.rightHandDict[name].transform.position = new Vector3(posFloat[0], posFloat[1], posFloat[2]);
+                this.rightHandDict[name].transform.eulerAngles = new Vector3(rotFloat[0], rotFloat[1], rotFloat[2]);
             }
+
+//            if (i == rightHandDict.Count - 1)
+//            {
+//                readerRightHand.ReadLine();
+//            }
         }
 
         //Left Hand
@@ -206,7 +211,8 @@ public class PlaybackState
         this.frameNumber = int.Parse(frameNumberString); //Watch out for problems if these numbers don't match in the regular obj, righthand, lefthand
         this.time = float.Parse(readerLeftHand.ReadLine().Trim());
         this.deltaTime = float.Parse(readerLeftHand.ReadLine().Trim());
-        for (int i = 0; i < leftHandDict.Count; i++)
+        //for (int i = 0; i < leftHandDict.Count; i++)
+        while(true)
         {
             string name = readerLeftHand.ReadLine().Trim();
             if (name == "--stop--")
@@ -225,13 +231,18 @@ public class PlaybackState
             {
                 rotFloat[j] = float.Parse(rot[j]);
             }
-            this.leftHandDict[name].transform.position = new Vector3(posFloat[0],posFloat[1],posFloat[2]);
-            this.leftHandDict[name].transform.eulerAngles = new Vector3(rotFloat[0],rotFloat[1],rotFloat[2]);
-            
-            if (i == leftHandDict.Count - 1)
+
+            if (leftHandDict.ContainsKey(name))
             {
-                readerLeftHand.ReadLine();
+                this.leftHandDict[name].transform.position = new Vector3(posFloat[0], posFloat[1], posFloat[2]);
+                this.leftHandDict[name].transform.eulerAngles = new Vector3(rotFloat[0], rotFloat[1], rotFloat[2]);
             }
+
+//            if (i == leftHandDict.Count - 1)
+//            {
+//                readerLeftHand.ReadLine();
+//            }
+
         }
         
         //Particles
@@ -277,6 +288,8 @@ public class PlaybackState
                 nextFrameForCutting = int.Parse(cutReader.ReadLine().Trim().Split(' ')[1]);
             }
         }
+
+        return false;
     }
 }
 
@@ -313,6 +326,8 @@ public class PlayModeManager : MonoBehaviour
 
     private JSONDataStructures.BbFrameArray bbFrameArray;
     private string bbSavePath;
+    private bool allowSetupFirstFrame = true;
+    private bool skipFirstGetFrame = true;
     
     // Start is called before the first frame update
     void Awake()
@@ -560,11 +575,39 @@ public class PlayModeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //time to let everything setup otw the first few frames are black
+        
         if (playback)
         {
             MakeOrigHandsInvisible();
-            ps.GetStateOfFrame();
+            bool playbackIsFinished = false;
+            //TODO set body here so it is already in correct position for frame 1?
+            if (Time.time > 4f && allowSetupFirstFrame)
+            {
+                playbackIsFinished = ps.GetStateOfFrame();
+                allowSetupFirstFrame = false;
+                return;
+            }
+            else if (Time.time < 5f)
+            {
+                return;
+            }else if (allowSetupFirstFrame == false && skipFirstGetFrame)
+            {
+                skipFirstGetFrame = false;
+            }
+            else{
+                playbackIsFinished = ps.GetStateOfFrame();
+            }
+            
 
+            if (playbackIsFinished)
+            {
+                //Application.Quit();
+                #if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+                #endif
+            }
+            
             //Write Video Files
             colorByNumber.StoreAllAs(sampleDir + @"\RecordingsFiles\Videos\Cam1\", ps.frameNumber);
 

@@ -63,9 +63,6 @@ ffmpeg -framerate 30 -i rgb-%d.jpg -codec copy video.avi
 download ffmpeg from https://www.gyan.dev/ffmpeg/builds/
 link from: http://ffmpeg.org/download.html#build-windows
 
-use the recorded deltatime in the replay files to calculate when to take pictures in the record mode s.t. the image is in the correct speed and actually smooth
-but then: recording files numbers wont match the video sequence numbers...
-
 all concave collider objects must be set up like saucepan_big_1
 
 test on other env: 
@@ -149,3 +146,9 @@ http://localhost:27062/dashboard/controllerbinding.html?app=application.generate
 
 -- bilder werden in zu großen abständen gemacht? nachschauen, woran die frequenz der bilderzeugung gekoppelt ist
     das bloße replay im scene view ist nämlich nicht so low fps
+    
+    
+-- first two images show incorrect body pose in replay mode
+
+-- check if predicates correct with start / stop recording
+ -- "on" seems fine, "in" has stuttering entered/left entries
