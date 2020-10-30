@@ -88,9 +88,7 @@ and then turn on "displayrecipe" script again
 test bounding boxes in json on video files 
 
 make better workflow:
-start and stop recording in play mode via button
 give options for replay: immediate after record finish or batch mode for all samples in a dir?
-create video after replay
 scene restart necessary when change between record and render mode?
 
 avatar kopf verrückt --> in cmu compliant skeleton den Head transform aus origin setzen
@@ -110,9 +108,7 @@ make push action possible for e.g. pushing stuff off of a board
     first idea: there is a handcollider instantiated after scene start
     but the layer isnt default so it doesnt interact with anything
     turning it to default works but not quite as intended, because ist jerky when trying to shove many small objects
-write boundboxes
-rewrite json position predicates into replay mode to stop stutter
-start rec with button press
+
 recreate 20 videos from mpii cooking 2
 
 ------------------------------------
@@ -130,25 +126,20 @@ Workflow during recording
 - choose exit or new recipe
 - if new recipe reset kitchen
 
-
--------------------in playmodemanager: bbframearray is only ever instantiated in awake: does this mean that whenever frame
-                    number % 200 == 0, all frames from 1 to X are written?
-                    the bb json files are then: 1 -- 200, 1 -- 400, 1- 600 instead of 1 --200, 201 -- 400, 401 -- 600?
-                    --> maybe fixed, but check later
-
 Controller Bindings:
 PDF Steam VR Unity Plugin in Assets/SteamVR
 explains the actions and bindings to a specific controller, here htc vive
 UI binding browser port has changed, this works:
 http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
-
--- hände werden im replaymodus nicht bewegt (attach objects überall ausgeblendet?)
-
--- bilder werden in zu großen abständen gemacht? nachschauen, woran die frequenz der bilderzeugung gekoppelt ist
-    das bloße replay im scene view ist nämlich nicht so low fps
-    
-    
--- first two images show incorrect body pose in replay mode
+   
+-- first image show incorrect body pose in replay mode
 
 -- check if predicates correct with start / stop recording
  -- "on" seems fine, "in" has stuttering entered/left entries
+ 
+--ellbogenposition in hocke seltsam.
+    --ellbogen targets sollten ebenfalls tiefer gehen, sobald man sich hinhockt
+    
+//TODO video createion in playmodemanager: this folder location wont work when used in an executable. Works only when run from editor
+    
+--predicate visualization with graph

@@ -171,10 +171,14 @@ public class Cutter : MonoBehaviour
         rightGoObjectId.c = origObjectId.c;
         rightGoObjectId.id = origObjectId.id;
 
-        origRb = _originalGameObject.GetComponent<Rigidbody>();
-        rightGoRb = rightGO.GetComponent<Rigidbody>();
-        origRb.mass /= 2;
-        rightGoRb.mass = origRb.mass;
+        if (!playModeManager.playback)
+        {   
+            origRb = _originalGameObject.GetComponent<Rigidbody>();
+            rightGoRb = rightGO.GetComponent<Rigidbody>();
+            origRb.mass /= 2;
+            rightGoRb.mass = origRb.mass;        
+        }
+
         return rightGO;
     }
 

@@ -179,9 +179,9 @@ public class ColorByNumber : MonoBehaviour {
 
     public void StoreAllAs(string path, int frameNo)
     {   
-        StoreAs(cam.targetTexture, "segmentation-" + frameNo +  ".jpg", false);
-        StoreAs(rgbCamNoBB.targetTexture, "rgb-" + frameNo +  ".jpg", false);
-        StoreAs(depthCam.targetTexture, "depth-" + frameNo +  ".jpg", false);
+        StoreAs(cam.targetTexture, "segmentation-" + frameNo +  ".png", false);
+        StoreAs(rgbCamNoBB.targetTexture, "rgb-" + frameNo +  ".jpg", true);
+        StoreAs(depthCam.targetTexture, "depth-" + frameNo +  ".png", false);
     }
     
     private void Update()
@@ -339,17 +339,18 @@ public class ColorByNumber : MonoBehaviour {
         byte[] bytes;
         if (exr)
         {
-            bytes = tex.EncodeToEXR(Texture2D.EXRFlags.CompressZIP);
+            //bytes = tex.EncodeToEXR(Texture2D.EXRFlags.CompressZIP);
+            bytes = tex.EncodeToJPG();
         }
         else
         {
-            //bytes = tex.EncodeToPNG();
-            bytes = tex.EncodeToJPG();
+            bytes = tex.EncodeToPNG();
+            //bytes = tex.EncodeToJPG();
         }
         
         string filepath = screenshotPath + filename;
         System.IO.File.WriteAllBytes(filepath, bytes);
-        //Debug.Log(string.Format("Took screenshot to: {0}", filename));
+        //Debug.Log(string.Format("Took screenshot to: {0}", filepath));
     }
     
     private void OnPreRender()

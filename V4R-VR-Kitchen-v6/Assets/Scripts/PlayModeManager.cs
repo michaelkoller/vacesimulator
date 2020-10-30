@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using UnityEngine;
 using System.IO;
@@ -10,9 +11,7 @@ using System.Threading;
 using UnityEditor;
 using Valve.VR;
 using Object = System.Object;
-
-
-
+using System.Diagnostics;
 
 public class PlaybackState
 {   
@@ -343,7 +342,7 @@ public class PlayModeManager : MonoBehaviour
             
             //Create Folder Structures
             string now = DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss");
-            Debug.Log("DATE "+now); //in this folder everything is saved
+            UnityEngine.Debug.Log("DATE "+now); //in this folder everything is saved
             sampleDir = directory + @"\Sample" + now;
             Directory.CreateDirectory(sampleDir);
             replayDir = sampleDir + @"\ReplayFiles";
@@ -571,6 +570,25 @@ public class PlayModeManager : MonoBehaviour
         }
         return copy as T;
     }
+    
+    //https://stackoverflow.com/questions/43102046/cant-start-an-extern-process-in-unity
+    public static void ExecProcess(string name, string args)
+    {
+        Process p = new Process();
+        p.StartInfo.FileName = name;
+        p.StartInfo.Arguments = args;
+        p.StartInfo.RedirectStandardError = true;
+        p.StartInfo.RedirectStandardOutput = true;
+        p.StartInfo.CreateNoWindow = true;
+        p.StartInfo.UseShellExecute = false;
+        p.Start();
+
+        string log = p.StandardOutput.ReadToEnd();
+        string errorLog = p.StandardError.ReadToEnd();
+
+        p.WaitForExit();
+        p.Close();
+    }
 
     // Update is called once per frame
     void Update()
@@ -578,8 +596,7 @@ public class PlayModeManager : MonoBehaviour
         //time to let everything setup otw the first few frames are black
         
         if (playback)
-        {
-            MakeOrigHandsInvisible();
+        {   MakeOrigHandsInvisible();
             bool playbackIsFinished = false;
             //TODO set body here so it is already in correct position for frame 1?
             if (Time.time > 4f && allowSetupFirstFrame)
@@ -602,6 +619,11 @@ public class PlayModeManager : MonoBehaviour
 
             if (playbackIsFinished)
             {
+                //TODO this folder location wont work when used in an executable. Works only when run from editor
+                ExecProcess(Application.dataPath + @"\ffmpeg.exe", "-framerate 30 -i "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\rgb-%d.jpg -codec copy "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\video-rgb.avi");
+                ExecProcess(Application.dataPath + @"\ffmpeg.exe", "-framerate 30 -i "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\depth-%d.png -codec copy "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\video-depth.avi");
+                ExecProcess(Application.dataPath + @"\ffmpeg.exe", "-framerate 30 -i "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\segmentation-%d.png -codec copy "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\video-segmentation.avi");
+
                 //Application.Quit();
                 #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
@@ -614,6 +636,7 @@ public class PlayModeManager : MonoBehaviour
             //save bounding boxes for each frame
             JSONDataStructures.BbFrame bbf = new JSONDataStructures.BbFrame();
             bbFrameArray.bb_frame_arr.Add(bbf);
+            bbf.frame_number = ps.frameNumber;
             for (int i = 0; i < colorByNumber.objectIds.Length; i++)
             {
                 if (colorByNumber.objectIds[i].xMax != int.MinValue &&
@@ -646,13 +669,13 @@ public class PlayModeManager : MonoBehaviour
     {
         Physics.autoSimulation = false;
         //Print the time of when the function is first called.
-        Debug.Log("Turned off physics at timestamp : " + Time.time);
+        UnityEngine.Debug.Log("Turned off physics at timestamp : " + Time.time);
 
         //yield on a new YieldInstruction that waits for X seconds.
         yield return new WaitForSeconds(1);
 
         //After we have waited 5 seconds print the time again.
-        Debug.Log("Turned on physics at timestamp : " + Time.time);
+        UnityEngine.Debug.Log("Turned on physics at timestamp : " + Time.time);
         Physics.autoSimulation = true;
     }
     
