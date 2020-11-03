@@ -43,9 +43,11 @@ public class RecordObjectPosRot : MonoBehaviour
     private JSONDataStructures.PositionAndRotationFrameArr posRotFrameArr;
     private JSONDataStructures.CutRecords jsonCuts;
     private JSONDataStructures.GraspRecords jsonGrasps;
+    private JSONDataStructures.PushRecords jsonPushes;
     private JSONDataStructures.InPredicateRecords jsonInPredicates;
     private JSONDataStructures.OnPredicateRecords jsonOnPredicates;
     public Dictionary<string, int> onPredicateStatusDict;
+    public Dictionary<string, int> pushPredicateStatusDict;
     
     public SteamVR_Input_Sources myInputSource;
     public SteamVR_Action_Boolean clickRightAction;
@@ -54,7 +56,7 @@ public class RecordObjectPosRot : MonoBehaviour
     public SteamVR_Action_Boolean clickDownAction;
     public SteamVR_Action_Boolean clickRecordAction;
     public SteamVR_Action_Boolean clickShowInstructions;
-    private bool currentlyRecording = false;
+    public bool currentlyRecording = false;
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -78,6 +80,11 @@ public class RecordObjectPosRot : MonoBehaviour
     string GetPathGraspJSON()
     {
         return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\grasps.json";
+    }
+    
+    string GetPathPushJSON()
+    {
+        return  playModeManager.sampleDir +@"\RecordingsFiles\Annotations\Predicates\push.json";
     }
     
     string GetPathInJSON()
@@ -127,6 +134,7 @@ public class RecordObjectPosRot : MonoBehaviour
         addGosAfterCut = new List<GameObject>();
         delGosAfterCut = new List<string>();
         onPredicateStatusDict = new Dictionary<string, int>();
+        pushPredicateStatusDict = new Dictionary<string, int>();
         
         //TODO maybe next line not needed:
         clickRightAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ClickRight");
@@ -150,6 +158,7 @@ public class RecordObjectPosRot : MonoBehaviour
             posRotFrameArr = new JSONDataStructures.PositionAndRotationFrameArr();
             jsonCuts = new JSONDataStructures.CutRecords();
             jsonGrasps = new JSONDataStructures.GraspRecords();
+            jsonPushes = new JSONDataStructures.PushRecords();
             jsonInPredicates = new JSONDataStructures.InPredicateRecords();
             jsonOnPredicates = new JSONDataStructures.OnPredicateRecords();
             
@@ -308,7 +317,6 @@ public class RecordObjectPosRot : MonoBehaviour
                 allGameObjectsWithRendererDict.Add(go.name, go);
             }
             addGosAfterCut.Clear();
-            
             currentFrame++;
         }
     }
@@ -338,6 +346,8 @@ public class RecordObjectPosRot : MonoBehaviour
 
     public void RecordCut(string originalGameObjectName, Vector3 _contactPoint, Vector3 _direction, GameObject leftGO, GameObject rightGO, Material _cutMaterial = null, bool fill = true, bool _addRigidbody = false)
     {   
+        if (!currentlyRecording) return;
+
         sbCut.AppendLine("frame " + currentFrame.ToString());
         sbCut.AppendLine(originalGameObjectName);
         sbCut.AppendLine(_contactPoint.ToString("F3"));
@@ -361,12 +371,61 @@ public class RecordObjectPosRot : MonoBehaviour
 
     public void RecordGrasp(string gameObjectName, string handName, string graspType)
     {
+        if (!currentlyRecording) return;
+
         JSONDataStructures.GraspRecord jsonGrasp = new JSONDataStructures.GraspRecord();
         jsonGrasp.frame = currentFrame;
         jsonGrasp.grasp_type = graspType;
         jsonGrasp.grasped_object = gameObjectName;
         jsonGrasp.hand = handName;
         jsonGrasps.grasps.Add(jsonGrasp);
+    }
+    
+    public void RecordPush(string gameObjectName, string handName, string pushType)
+    {
+        string key = gameObjectName + " " + handName;
+        bool record = false;
+        if (pushType == "start_pushing")
+        {
+            if (!pushPredicateStatusDict.ContainsKey(key))
+            {
+                pushPredicateStatusDict.Add(key, 1);
+                record = true;
+            }else if (pushPredicateStatusDict[key] == 0)
+            {
+                pushPredicateStatusDict[key] += 1;
+                record = true;
+            }
+            else
+            {
+                pushPredicateStatusDict[key] += 1;
+            }
+        }else if (pushType == "end_pushing")
+        {
+            if (!pushPredicateStatusDict.ContainsKey(key))
+            {
+                Debug.LogError("PushPredicateDict Counting Error");
+            }
+            else if(pushPredicateStatusDict[key] == 1)
+            {
+                pushPredicateStatusDict[key] = 0;
+                record = true;
+            }
+            else
+            {
+                pushPredicateStatusDict[key] -= 1;
+            }
+        }
+        
+        if (record)
+        {
+            JSONDataStructures.PushRecord jsonPush = new JSONDataStructures.PushRecord();
+            jsonPush.frame = currentFrame;
+            jsonPush.push_type = pushType;
+            jsonPush.pushed_object = gameObjectName;
+            jsonPush.hand = handName;
+            jsonPushes.pushes.Add(jsonPush);
+        }
     }
 
     public void RecordInPredicate(string insideObject, string containerObject, string relationType) //relationType: entered or left
@@ -440,10 +499,12 @@ public class RecordObjectPosRot : MonoBehaviour
         
         SaveIntoJson<JSONDataStructures.CutRecords>(GetPathCutJSON(), jsonCuts);
         SaveIntoJson<JSONDataStructures.GraspRecords>(GetPathGraspJSON(), jsonGrasps);
+        SaveIntoJson<JSONDataStructures.PushRecords>(GetPathPushJSON(), jsonPushes);
         SaveIntoJson<JSONDataStructures.InPredicateRecords>(GetPathInJSON(), jsonInPredicates);
         SaveIntoJson<JSONDataStructures.OnPredicateRecords>(GetPathOnJSON(), jsonOnPredicates);
         jsonCuts = null;
         jsonGrasps = null;
+        jsonPushes = null;
         jsonInPredicates = null;
         jsonOnPredicates = null;
     }

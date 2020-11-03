@@ -103,11 +103,10 @@ Predicate problems:
 - in: cabinet can be in bowl. should not be possible
     -- objects with concave colliders make problems. 
 
+pushing: works, when you use the hand as a kind of shovel. push direction needs to be normal to the plane of the open hand palm
+otw the hand starts turning under the torque applied to the object to be pushed
 Todo:
-make push action possible for e.g. pushing stuff off of a board
-    first idea: there is a handcollider instantiated after scene start
-    but the layer isnt default so it doesnt interact with anything
-    turning it to default works but not quite as intended, because ist jerky when trying to shove many small objects
+track push actions, push predicate
 
 recreate 20 videos from mpii cooking 2
 
@@ -143,3 +142,10 @@ http://localhost:27062/dashboard/controllerbinding.html?app=application.generate
 //TODO video createion in playmodemanager: this folder location wont work when used in an executable. Works only when run from editor
     
 --predicate visualization with graph
+
+--recording: only actually record predicates that are registered through triggers when recording is on.
+--but then, when recording starts, all on/in predicates must be requested
+
+--towel ghost is on the kitchen table
+
+--need to check particle replay at some point, should still work

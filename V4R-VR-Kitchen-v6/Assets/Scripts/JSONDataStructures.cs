@@ -109,6 +109,22 @@ public class GraspRecord
 }
 
 [System.Serializable]
+public class PushRecords
+{
+    public List<PushRecord> pushes = new List<PushRecord>();
+}
+
+
+[System.Serializable]
+public class PushRecord
+{
+    public int frame = -1;
+    public string push_type = ""; //start_pushing / stop_pushing
+    public string pushed_object = "";
+    public string hand = "";
+}
+
+[System.Serializable]
 public class GraspRecords
 {
     public List<GraspRecord> grasps = new List<GraspRecord>();

@@ -27,6 +27,10 @@ public class InPredicate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Need to know the on properties already before starting to record.
+        //Therefore no check for currentlyRecording
+        //if (!recordObjectPosRot.currentlyRecording) return;
+        
         ObjectId otherId = other.GetComponent<ObjectId>();
         if (otherId && !enteredObjectIds.Contains(otherId))
         {
@@ -37,6 +41,10 @@ public class InPredicate : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
+        //Need to know the on properties already before starting to record.
+        //Therefore no check for currentlyRecording
+        //if (!recordObjectPosRot.currentlyRecording) return;
+        
         ObjectId otherId = other.GetComponent<ObjectId>();
         if (otherId &&!exitedObjectIds.Contains(otherId))
         {

@@ -51,6 +51,10 @@ public class OnPredicate : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        //Need to know the on properties already before starting to record.
+        //Therefore no check for currentlyRecording
+        //if (!recordObjectPosRot.currentlyRecording) return;
+
         GameObject otherGo = collision.gameObject;
         ObjectId otherObjectId = otherGo.GetComponentInParent<ObjectId>();
         
@@ -77,8 +81,14 @@ public class OnPredicate : MonoBehaviour
         }
     }
     
+    
+    
     void OnCollisionExit(Collision collision)
     {
+        //Need to know the on properties already before starting to record.
+        //Therefore no check for currentlyRecording
+        //if (!recordObjectPosRot.currentlyRecording) return;
+        
         GameObject otherGo = collision.gameObject;
         ObjectId otherObjectId = otherGo.GetComponentInParent<ObjectId>();
         if (currentlyOnList.Contains(otherObjectId))

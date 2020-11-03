@@ -12,12 +12,6 @@ public class GraspMessage : MonoBehaviour
         recordScript = GameObject.FindGameObjectWithTag("Manager").GetComponent<RecordObjectPosRot>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnAttachedToCircularDrive(Valve.VR.InteractionSystem.Hand hand)
     {
         //Debug.Log("ATTACHED CIRC "+ gameObject.transform.parent.name +" "+ gameObject.name + " " + hand.handType);
