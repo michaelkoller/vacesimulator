@@ -1,10 +1,6 @@
 ﻿
 My Todos
      
-
-Handle end of recording
-Link the start record command to the record button on controller
-make recording mode be startable from script
                             
 Improve Avatar
     Legs should make Footsteps
@@ -14,16 +10,6 @@ Improve Avatar
 Change Gloves?
 
 Initial Scene Description wrt logical predicates?
-
-save stuff in json format?
-use relevant predicates from visual genome dataset
-json_dataset, predicates: ["on", "wear", "has", "next to", "sleep next to", "sit next to", "stand next to", "park next", "walk next to", "above", "behind", "stand behind", "sit behind", "park behind", "in the front of", "under", "stand under", "sit under", "near", "walk to", "walk", "walk past", "in", "below", "beside", "walk beside", "over", "hold", "by", "beneath", "with", "on the top of", "on the left of", "on the right of", "sit on", "ride", "carry", "look", "stand on", "use", "at", "attach to", "cover", "touch", "watch", "against", "inside", "adjacent to", "across", "contain", "drive", "drive on", "taller than", "eat", "park on", "lying on", "pull", "talk", "lean on", "fly", "face", "play with", "sleep on", "outside of", "rest on", "follow", "hit", "feed", "kick", "skate on"]
-
-filtered predicates:
-["on", "wear", "has", "next to", "stand next to", "walk next to", "above", "behind", "stand behind",  "in the front of", "under", "stand under", "near", "walk to", "walk", "walk past", "in", "below", "beside", "walk beside", "over", "hold", "by", "beneath", "with", "on the top of", "on the left of", "on the right of", "carry", "look", "stand on", "use", "at", "attach to", "cover", "touch", "watch", "against", "inside", "adjacent to", "across", "contain", "taller than", "eat", "lying on", "pull", "talk", "lean on", "fly", "face", "play with", "outside of", "rest on", "follow", "hit", "feed", "kick"]
-
-further filter:
-["on", "next to", "above", "behind", "in the front of", "under", "walk", "in", "below", "beside", "hold", "on the top of", "on the left of", "on the right of", "carry", "use", "cover", "touch", "contain", "eat", "pull"]
 
 further filter:
 ["on", "next to", "in", "walk", "hold", "use", "cover", "touch", "eat"]
@@ -41,20 +27,8 @@ cupboard predicates müssen noch auf andere kästen gegeben weren (im prefab!)
 auch auf pfannen und töpfe?
 schauen, ob alle game objects mit objectid auch einen collider haben, damit InPredicate triggern kann --> wine glass und andere objects, die mit dem "colliders" script concave colliders machen zb.
 
-
-make grasping more intuitive: 
-highlight currently selected object (like it was before), but only make it visible for the ego perspective
-,m
-start and stop the recording and playback via function call and not via start/awake/update
-
-Aus bildern videos machen
-
-Bug: Schranktüren können beim ersten mal nur über den handgriffcollider bewegt werden, danach aber über die ganze schranktür
-
 obj w colliders register when on top of containers 
 
-in topcabinet:
---> todo ghosts sizes and positions checken
 coffee_machine_ghost
 
 https://deparkes.co.uk/2018/01/05/create-video-images-ffmpeg/
@@ -69,29 +43,14 @@ test on other env:
 Relay Policy Learning: Solving Long-Horizon Tasksvia Imitation and Reinforcement Learning by Gupta '19
 kitchen env with robot arm
 
-some objects in top cabinet have 2 ghosts?
-
-pot_1: transform is falling down along y axis (but the actual visible go is colliding correctly with floor)
-also, the ghost is too high after the first grasp
-
 check all objects in scene that are somehow nested --> is objectid on correct object etc.
-e.g. milk?
-
-do a test recipe........
-
-put all video, pictures, objectposition scripts etc in the right sample folder
-translate objectposition into json
 
 todo get mpii2 cooking dataset stuff from work
 and then turn on "displayrecipe" script again
 
-test bounding boxes in json on video files 
-
 make better workflow:
 give options for replay: immediate after record finish or batch mode for all samples in a dir?
 scene restart necessary when change between record and render mode?
-
-avatar kopf verrückt --> in cmu compliant skeleton den Head transform aus origin setzen
 
 initial scene into owl file for protege? eigentlich nicht. Dynamische infos werden ja eigentlich in die problem instance geschrieben.
 es sollte frame 1 der jeweiligen prädikat-recordings benutzt werden können um alle anfangsprädikate für das planning problem bereitstellen zu können.
@@ -105,8 +64,6 @@ Predicate problems:
 
 pushing: works, when you use the hand as a kind of shovel. push direction needs to be normal to the plane of the open hand palm
 otw the hand starts turning under the torque applied to the object to be pushed
-Todo:
-track push actions, push predicate
 
 recreate 20 videos from mpii cooking 2
 
@@ -131,8 +88,6 @@ explains the actions and bindings to a specific controller, here htc vive
 UI binding browser port has changed, this works:
 http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
    
--- first image show incorrect body pose in replay mode
-
 -- check if predicates correct with start / stop recording
  -- "on" seems fine, "in" has stuttering entered/left entries
  
@@ -146,6 +101,17 @@ http://localhost:27062/dashboard/controllerbinding.html?app=application.generate
 --recording: only actually record predicates that are registered through triggers when recording is on.
 --but then, when recording starts, all on/in predicates must be requested
 
---towel ghost is on the kitchen table
+--display recipe restore?
 
---need to check particle replay at some point, should still work
+--automate rendering step
+
+--there are often onpredicatecountingerrors
+--with subsequent: KeyNotFoundException: The given key was not present in the dictionary.
+                   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <599589bf4ce248909b8a14cbe4a2034e>:0)
+                   OnPredicate.OnCollisionExit (UnityEngine.Collision collision) (at Assets/Scripts/OnPredicate.cs:99)
+        --probably from too many small cut objects?
+        
+
+--augäpfel
+
+--need oven tray

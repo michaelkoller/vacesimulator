@@ -27,7 +27,6 @@
       <Path>Library</Path>
       <Path>Logs</Path>
       <Path>Recordings</Path>
-      <Path>Temp</Path>
       <Path>build_run</Path>
       <Path>obj</Path>
     </explicitExcludes>

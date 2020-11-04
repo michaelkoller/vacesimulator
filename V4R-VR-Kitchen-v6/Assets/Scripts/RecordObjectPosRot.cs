@@ -47,7 +47,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private JSONDataStructures.InPredicateRecords jsonInPredicates;
     private JSONDataStructures.OnPredicateRecords jsonOnPredicates;
     public Dictionary<string, int> onPredicateStatusDict;
-    public Dictionary<string, int> pushPredicateStatusDict;
+    public new HashSet<string> pushPredicateStatusSet;
     
     public SteamVR_Input_Sources myInputSource;
     public SteamVR_Action_Boolean clickRightAction;
@@ -134,7 +134,7 @@ public class RecordObjectPosRot : MonoBehaviour
         addGosAfterCut = new List<GameObject>();
         delGosAfterCut = new List<string>();
         onPredicateStatusDict = new Dictionary<string, int>();
-        pushPredicateStatusDict = new Dictionary<string, int>();
+        pushPredicateStatusSet = new HashSet<string>();
         
         //TODO maybe next line not needed:
         clickRightAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ClickRight");
@@ -383,8 +383,11 @@ public class RecordObjectPosRot : MonoBehaviour
     
     public void RecordPush(string gameObjectName, string handName, string pushType)
     {
-        string key = gameObjectName + " " + handName;
-        bool record = false;
+        string key = currentFrame + " " + gameObjectName + " " + handName;
+        if (pushPredicateStatusSet.Contains(key)) return;
+        
+        pushPredicateStatusSet.Add(key);
+        /*bool record = false;
         if (pushType == "start_pushing")
         {
             if (!pushPredicateStatusDict.ContainsKey(key))
@@ -416,16 +419,16 @@ public class RecordObjectPosRot : MonoBehaviour
                 pushPredicateStatusDict[key] -= 1;
             }
         }
-        
-        if (record)
-        {
-            JSONDataStructures.PushRecord jsonPush = new JSONDataStructures.PushRecord();
-            jsonPush.frame = currentFrame;
-            jsonPush.push_type = pushType;
-            jsonPush.pushed_object = gameObjectName;
-            jsonPush.hand = handName;
-            jsonPushes.pushes.Add(jsonPush);
-        }
+        */
+        //if (record)
+        //{
+        JSONDataStructures.PushRecord jsonPush = new JSONDataStructures.PushRecord();
+        jsonPush.frame = currentFrame;
+        jsonPush.push_type = pushType;
+        jsonPush.pushed_object = gameObjectName;
+        jsonPush.hand = handName;
+        jsonPushes.pushes.Add(jsonPush);
+        //}
     }
 
     public void RecordInPredicate(string insideObject, string containerObject, string relationType) //relationType: entered or left

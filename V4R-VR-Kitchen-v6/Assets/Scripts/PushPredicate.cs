@@ -6,14 +6,26 @@ using UnityEngine;
 public class PushPredicate : MonoBehaviour
 {
     private RecordObjectPosRot recordObjectPosRot;
-    private List<ObjectId> currentPushList = new List<ObjectId>();
+    //private List<ObjectId> currentPushList = new List<ObjectId>();
     
     void Start()
     {
         recordObjectPosRot = GameObject.FindGameObjectWithTag("Manager").GetComponent<RecordObjectPosRot>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    
+    private void OnCollisionStay(Collision other)
+    {
+        if (!recordObjectPosRot.currentlyRecording) return;
+        
+        GameObject otherGo = other.gameObject;
+        ObjectId otherObjectId = otherGo.GetComponentInParent<ObjectId>();
+        if (otherObjectId != null)
+        {
+            recordObjectPosRot.RecordPush(otherObjectId.objectName, this.gameObject.name, "pushing");
+        }
+    }
+    /*private void OnCollisionEnter(Collision other)
     {
         if (!recordObjectPosRot.currentlyRecording) return;
         
@@ -37,5 +49,5 @@ public class PushPredicate : MonoBehaviour
             recordObjectPosRot.RecordPush(otherObjectId.objectName, this.gameObject.name, "end_pushing");
             currentPushList.Remove(otherObjectId);
         }    
-    }
+    }*/
 }
