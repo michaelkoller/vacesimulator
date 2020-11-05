@@ -12,6 +12,8 @@ using UnityEditor;
 using Valve.VR;
 using Object = System.Object;
 using System.Diagnostics;
+using System.Text;
+using UnityEngine.SceneManagement;
 
 public class PlaybackState
 {   
@@ -292,6 +294,7 @@ public class PlaybackState
     }
 }
 
+public enum RenderFileSelection {RenderLastRecording, RenderAll};
 
 public class PlayModeManager : MonoBehaviour
 {
@@ -304,7 +307,7 @@ public class PlayModeManager : MonoBehaviour
     private string replayDir;
     private string recordingsDir;
     public bool playback;
-    public bool useMostRecentRecording;
+    public RenderFileSelection renderFileSelection;
     private string colorMapPath;
     private ColorByNumber colorByNumber;
 
@@ -327,6 +330,8 @@ public class PlayModeManager : MonoBehaviour
     private string bbSavePath;
     private bool allowSetupFirstFrame = true;
     private bool skipFirstGetFrame = true;
+
+    private int sampleToRenderCount;
     
     // Start is called before the first frame update
     void Awake()
@@ -356,7 +361,15 @@ public class PlayModeManager : MonoBehaviour
             Directory.CreateDirectory(replayDir + @"\RightHand");
             Directory.CreateDirectory(replayDir + @"\LeftHand");
 
-
+            StringBuilder sampleReadmeStringBuilder = new StringBuilder();
+            sampleReadmeStringBuilder.AppendLine("dataset: "); //name of the dataset
+            sampleReadmeStringBuilder.AppendLine("sample_no: "); //the sample number in the dataset
+            sampleReadmeStringBuilder.AppendLine("dish: "); //which dish is cooked
+            sampleReadmeStringBuilder.AppendLine("subject: "); //subject number describes the participants
+            sampleReadmeStringBuilder.AppendLine("variant: "); //this describes the samples of the same dish. i.e., if subject perpares a dish multiple times you can number it here
+            File.AppendAllText(sampleDir+@"\sample_readme.txt", sampleReadmeStringBuilder.ToString());
+            sampleReadmeStringBuilder.Clear();
+            File.WriteAllText(sampleDir+@"\not_rendered.txt", "");
             string videoDir = recordingsDir + @"\Videos";
             Directory.CreateDirectory(videoDir);
             string annotationDir = recordingsDir + @"\Annotations";
@@ -386,14 +399,41 @@ public class PlayModeManager : MonoBehaviour
             //Adjust physics settings to prepare for playback mode
             Physics.autoSimulation = false;
 
-            DirectoryInfo sampleFolderDirInfo;
-            //get most recent replay
-            if (useMostRecentRecording)
+            //get most recent replay or one of the unrendered ones
+            if (renderFileSelection == RenderFileSelection.RenderLastRecording)
             {
                 sampleDir = new DirectoryInfo(directory).GetDirectories().OrderByDescending(d=>d.LastWriteTimeUtc).First().ToString();
-                replayDir = sampleDir + @"\ReplayFiles";
-                colorMapPath = sampleDir + @"\RecordingsFiles\Annotations\Colormap\colormap1.txt";
+
             }
+            else if(renderFileSelection == RenderFileSelection.RenderAll)
+            {
+                var dirs = new DirectoryInfo(directory).GetDirectories();
+                sampleToRenderCount = 0;
+                for (int i = 0; i < dirs.Length; i++)
+                {
+                    FileInfo[] info = dirs[i].GetFiles("not_rendered.txt");
+                    if (info.Length > 0)
+                    {
+                        if (sampleToRenderCount == 0)
+                        {
+                            sampleDir = dirs[i].ToString();
+                            File.Delete(sampleDir + @"\not_rendered.txt");
+                        }
+                        sampleToRenderCount += 1;
+                    }
+                }
+
+                if (sampleToRenderCount == 0)
+                {
+                    #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+                    #else
+                        Application.Quit();
+                    #endif
+                }
+            }
+            replayDir = sampleDir + @"\ReplayFiles";
+            colorMapPath = sampleDir + @"\RecordingsFiles\Annotations\Colormap\colormap1.txt";
             
             //This is the hand model without the vr input script and animator
             leftRenderModelInstance = GameObject.Instantiate(leftRenderModelPrefab);
@@ -624,10 +664,23 @@ public class PlayModeManager : MonoBehaviour
                 ExecProcess(Application.dataPath + @"\ffmpeg.exe", "-framerate 30 -i "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\depth-%d.png -codec copy "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\video-depth.avi");
                 ExecProcess(Application.dataPath + @"\ffmpeg.exe", "-framerate 30 -i "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\segmentation-%d.png -codec copy "+ sampleDir+@"\RecordingsFiles\Videos\Cam1\video-segmentation.avi");
 
+                
                 //Application.Quit();
-                #if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false;
-                #endif
+                //#if UNITY_EDITOR
+                //    UnityEditor.EditorApplication.isPlaying = false;
+                //#endif
+                RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
+                if(sampleToRenderCount >= 2)
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                else
+                {
+                    #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+                    #else
+                        Application.Quit();
+                    #endif
+                }
+                
             }
             
             //Write Video Files
@@ -681,10 +734,10 @@ public class PlayModeManager : MonoBehaviour
     
     void OnDestroy()
     {
-        if (playback)
-        {   
-            RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
-        }
+        //if (playback)
+        //{   
+        //    RecordObjectPosRot.SaveIntoJson(bbSavePath, bbFrameArray);
+        //}
     }
 }
 

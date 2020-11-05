@@ -92,10 +92,6 @@ public class ObjectId : MonoBehaviour
 
     private void MakeGhost()
     {
-        if (name == "small_plate_1")
-        {
-            Debug.Log("IN MAKE GHOST SMALL PLATE 1");
-        }
         if (!this.makeGhost)
         {
             return;

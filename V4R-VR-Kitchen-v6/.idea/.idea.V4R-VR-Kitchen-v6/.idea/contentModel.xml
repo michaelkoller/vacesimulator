@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="CollisionTest.cs" t="Include" />
         <e p="Editor" t="Include">
+          <e p="CenterKitchenLocation.cs" t="Include" />
           <e p="HeadResetTool.cs" t="Include" />
           <e p="ScenePhysicsTool.cs" t="Include" />
           <e p="SetupConcaveObjectsEditor.cs" t="Include" />
