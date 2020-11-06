@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using UnityEngine.UI;
 using Valve.VR;
 
 //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
@@ -57,6 +58,9 @@ public class RecordObjectPosRot : MonoBehaviour
     public SteamVR_Action_Boolean clickRecordAction;
     public SteamVR_Action_Boolean clickShowInstructions;
     public bool currentlyRecording = false;
+    public GameObject recordSignGameObject;
+    private Image recordSign;
+
 
     public static void SaveIntoJson<T>(string path, T jsonstruct){
         string jsonstructstring = JsonUtility.ToJson(jsonstruct);
@@ -138,7 +142,9 @@ public class RecordObjectPosRot : MonoBehaviour
         
         //TODO maybe next line not needed:
         clickRightAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ClickRight");
-        
+
+        recordSign = recordSignGameObject.GetComponent<Image>();
+        Debug.Log("RS " + recordSign);
         if (!playback)
         {
             path = GetPath();
@@ -331,6 +337,7 @@ public class RecordObjectPosRot : MonoBehaviour
                 InvokeRepeating("RecordFrame", 0.0f, 0.03333333333f);
                 Debug.Log("RECORDING");
                 currentlyRecording = true;
+                recordSign.enabled = true;
             }
             else
             {    
@@ -338,6 +345,7 @@ public class RecordObjectPosRot : MonoBehaviour
                 FlushRecordings();
                 Debug.Log("RECORDING STOPPED");
                 currentlyRecording = false;
+                recordSign.enabled = false;
             }
 
         }

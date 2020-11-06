@@ -83,7 +83,7 @@ Workflow during recording
 - if new recipe reset kitchen
 
 Controller Bindings:
-PDF Steam VR Unity Plugin in Assets/SteamVR
+PDF Steam VR Unity Plugin in Assets/SteamVR/SteamVR Unity Plugin - Input System
 explains the actions and bindings to a specific controller, here htc vive
 UI binding browser port has changed, this works:
 http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
