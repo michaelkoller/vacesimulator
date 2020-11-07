@@ -48,6 +48,7 @@ public class RecordObjectPosRot : MonoBehaviour
     private JSONDataStructures.InPredicateRecords jsonInPredicates;
     private JSONDataStructures.OnPredicateRecords jsonOnPredicates;
     public Dictionary<string, int> onPredicateStatusDict;
+    public Dictionary<string, string> inPredicateStatusDict;
     public new HashSet<string> pushPredicateStatusSet;
     
     public SteamVR_Input_Sources myInputSource;
@@ -139,7 +140,7 @@ public class RecordObjectPosRot : MonoBehaviour
         delGosAfterCut = new List<string>();
         onPredicateStatusDict = new Dictionary<string, int>();
         pushPredicateStatusSet = new HashSet<string>();
-        
+        inPredicateStatusDict = new Dictionary<string, string>();
         //TODO maybe next line not needed:
         clickRightAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ClickRight");
 
@@ -323,6 +324,7 @@ public class RecordObjectPosRot : MonoBehaviour
                 allGameObjectsWithRendererDict.Add(go.name, go);
             }
             addGosAfterCut.Clear();
+            WriteInPredicate();
             currentFrame++;
         }
     }
@@ -438,17 +440,32 @@ public class RecordObjectPosRot : MonoBehaviour
         jsonPushes.pushes.Add(jsonPush);
         //}
     }
-
-    public void RecordInPredicate(string insideObject, string containerObject, string relationType) //relationType: entered or left
-    {
-        JSONDataStructures.InPredicateRecord jsonInPredicate = new JSONDataStructures.InPredicateRecord();
-        jsonInPredicate.frame = currentFrame;
-        jsonInPredicate.inside_object = insideObject;
-        jsonInPredicate.container_object = containerObject;
-        jsonInPredicate.relation_type = relationType;
-        jsonInPredicates.inPredicateRecords.Add(jsonInPredicate);
-    }
     
+    public void RecordInPredicate(string insideObject, string containerObject, string relationType) //relationType: entered or left
+    {   //Entries are gathered here. The most recent entry overwrites older entries for a key
+        //At the end of a frame, all entries in the status dict are writen to file, then the dict is emptied (WriteInPredicate())
+        string key = insideObject + "+" + containerObject;
+        inPredicateStatusDict[key] = relationType;
+    }
+
+    private void WriteInPredicate()
+    {
+        foreach (KeyValuePair<string, string> entry in inPredicateStatusDict)
+        {
+            string[] keyArr = entry.Key.Split('+');
+            string insideObject = keyArr[0];
+            string containerObject = keyArr[1];
+            string relationType = entry.Value;
+            JSONDataStructures.InPredicateRecord jsonInPredicate = new JSONDataStructures.InPredicateRecord();
+            jsonInPredicate.frame = currentFrame;
+            jsonInPredicate.inside_object = insideObject;
+            jsonInPredicate.container_object = containerObject;
+            jsonInPredicate.relation_type = relationType;
+            jsonInPredicates.inPredicateRecords.Add(jsonInPredicate);
+        }
+        inPredicateStatusDict = new Dictionary<string, string>();
+    }
+
     public void RecordOnPredicate(string topObject, string bottomObject, string relationType) //relationType: start_touching or end_touching 
     {
         string key = topObject + " " + bottomObject;

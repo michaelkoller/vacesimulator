@@ -113,3 +113,13 @@ http://localhost:27062/dashboard/controllerbinding.html?app=application.generate
         
 
 --augäpfel
+
+
+--fix on predicate
+--fix in predicate
+--visualize predicates
+--record 20 samples
+    --jausenbrot
+    --salat
+    --smoothie
+    --fruit salad
