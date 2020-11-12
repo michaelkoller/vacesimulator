@@ -114,10 +114,6 @@ public class ObjectId : MonoBehaviour
             mC.sharedMesh = mcs[i].sharedMesh;
             ghost.AddComponent<GraspMessage>();
             ghosts.Add(ghost);
-            if (name == "small_plate_1")
-            {
-                Debug.Log("IN MAKE GHOST SMALL PLATE 1");
-            }
         }
     }
 

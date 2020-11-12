@@ -114,12 +114,25 @@ http://localhost:27062/dashboard/controllerbinding.html?app=application.generate
 
 --augäpfel
 
+ --replay mode fails when the controllers go offline
+ 
+ -- on predicate should not try to record after end of recording
+ 
+--avatar calibration: height and arm length
+    -- have own mode for that, save values
+    
+--automate sample copying and renaming folders wrt subject, dish, variation
 
---fix on predicate
---fix in predicate
---visualize predicates
---record 20 samples
-    --jausenbrot
-    --salat
-    --smoothie
-    --fruit salad
+-- grasp highlighting is necessary when touching small objects
+
+-- do phd sem next steps: ontology and pull old project onto work desk?
+
+-- DO PLAN REC
+-- website
+-- more kitchens / more avatars later / more textures
+-- better brighter lighting
+-- think about algorithmic advantage
+
+-- camera intrinsic parameters and tf
+
+--small cut pieces behave weird when grasping: set new transform origin when cutting: origin should be geometric mean of all vertices of the newly cut object

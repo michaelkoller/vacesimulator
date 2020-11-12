@@ -145,7 +145,6 @@ public class RecordObjectPosRot : MonoBehaviour
         clickRightAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ClickRight");
 
         recordSign = recordSignGameObject.GetComponent<Image>();
-        Debug.Log("RS " + recordSign);
         if (!playback)
         {
             path = GetPath();

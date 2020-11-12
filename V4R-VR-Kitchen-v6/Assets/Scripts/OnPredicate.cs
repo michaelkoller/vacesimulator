@@ -73,7 +73,7 @@ public class OnPredicate : MonoBehaviour
                         recordObjectPosRot = GameObject.FindGameObjectWithTag("Manager").GetComponent<RecordObjectPosRot>();
                     }
                     recordObjectPosRot.RecordOnPredicate(n,otherObjectId.objectName, "start_touching");
-                    Debug.Log(n + " is on " + otherObjectId.objectName + " " + Time.time + " " + recordObjectPosRot.onPredicateStatusDict[n + " " + otherObjectId.objectName]);
+                    //Debug.Log(n + " is on " + otherObjectId.objectName + " " + Time.time + " " + recordObjectPosRot.onPredicateStatusDict[n + " " + otherObjectId.objectName]);
                     
                     return;
                 }
@@ -96,7 +96,7 @@ public class OnPredicate : MonoBehaviour
             currentlyOnList.Remove(otherObjectId);
             //Debug.Log(thisObjectId.objectName + " is not anymore on " + otherObjectId.objectName);
             recordObjectPosRot.RecordOnPredicate(thisObjectId.objectName,otherObjectId.objectName, "end_touching");
-            Debug.Log(gameObject.name + " is NOT " + otherObjectId.objectName + " " + Time.time + " " + recordObjectPosRot.onPredicateStatusDict[thisObjectId.objectName + " " +otherObjectId.objectName]);
+            //Debug.Log(gameObject.name + " is NOT " + otherObjectId.objectName + " " + Time.time + " " + recordObjectPosRot.onPredicateStatusDict[thisObjectId.objectName + " " +otherObjectId.objectName]);
         }
     }
 }
