@@ -62,3 +62,5 @@ crashlytics-build.properties
 /[Aa]ssets/RecordingsForRender/*
 V4R-VR-Kitchen-v6/Recordings/gif_animation_001.gif
 V4R-VR-Kitchen-v6/Recordings/gif_animation_002.gif
+V4R-VR-Kitchen-v6/Recordings/*
+!V4R-VR-Kitchen-v6/Recordings/.gitignore

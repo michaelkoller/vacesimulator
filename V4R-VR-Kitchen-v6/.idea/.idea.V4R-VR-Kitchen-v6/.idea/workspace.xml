@@ -80,7 +80,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/FastIK/Scripts/FastIK/FastIKLook.cs" />
         <option value="$PROJECT_DIR$/Assets/SetFootToGround.cs" />
         <option value="$PROJECT_DIR$/Assets/UnityRecorderFromScript.cs" />
         <option value="$PROJECT_DIR$/Assets/DepthCamScript.cs" />
@@ -131,6 +130,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
+        <option value="$PROJECT_DIR$/../.gitignore" />
       </list>
     </option>
   </component>
@@ -253,6 +253,8 @@
       <workItem from="1604668341547" duration="9648000" />
       <workItem from="1604917656577" duration="12732000" />
       <workItem from="1606118462835" duration="626000" />
+      <workItem from="1636487119169" duration="630000" />
+      <workItem from="1636553792485" duration="335000" />
     </task>
     <servers />
   </component>
