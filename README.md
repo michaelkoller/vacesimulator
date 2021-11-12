@@ -1,12 +1,11 @@
 # VACE: Virtual Annotated Cooking Environment
-A Virtual Reality Interactive Simulator for Kitchen Tasks
 
 The VACE simulator is an richly furnished interactive 3D VR kitchen environment which enables users to efficiently record well annotated object interaction samples. The VACE dataset is available at https://sites.google.com/view/vacedataset.
 
  <p float="left">
-   <img src="readme-resources/cuc-color.gif" width="100" />
-   <img src="readme-resources/cucumber-depth.gif" width="100" /> 
-   <img src="readme-resources/cucumber-seg.gif" width="100" />
+   <img src="readme-resources/cuc-color.gif" width="200" />
+   <img src="readme-resources/cucumber-depth.gif" width="200" /> 
+   <img src="readme-resources/cucumber-seg.gif" width="200" />
  </p>
 
 Tested on Hardware:
@@ -23,36 +22,36 @@ Tested on Software:
 
 ## Setup Instructions:
 * Setup HTC Vive and tracker
-** https://www.vive.com/setup/vive/
-** https://www.vive.com/de/accessory/tracker3/
+  * https://www.vive.com/setup/vive/
+  * https://www.vive.com/de/accessory/tracker3/
 * Install SteamVR
-** https://store.steampowered.com/app/250820/SteamVR/
+  * https://store.steampowered.com/app/250820/SteamVR/
 * Start SteamVR
-** Do room measurement and set up at least a 4m x 4m space
+  * Do room measurement and set up at least a 4m x 4m space
 * Clone repo to your machine
 * Install Unity Hub: 
-** https://unity3d.com/get-unity/download
-** Instruction: https://docs.unity3d.com/Manual/GettingStartedInstallingHub.html
+  * https://unity3d.com/get-unity/download
+  * Instruction: https://docs.unity3d.com/Manual/GettingStartedInstallingHub.html
 * Open Unity Hub --> Installs --> Add --> Click "Visit our download archive" -->Redirect to: https://unity3d.com/get-unity/download/archive --> Scroll to Unity 2019.2.9 --> Click "Unity Hub" --> Back in Unity Hub, complete installing this version
 * Now in Unity Hub --> Projects --> Open --> Open the downloaded project --> Choose Unity version 2019.2.9
 * In Unity
-** Start the project
-** Window -> Package Manager and let it show all available packages --> Install Burst compiler
-** Install the SteamVR Unity plugin
-*** https://valvesoftware.github.io/steamvr_unity_plugin/
-*** Window --> SteamVR Input --> Verify that the actions "Record" and "ShowInstructions" are defined in the active action set, see below
+  * Start the project
+  * Window -> Package Manager and let it show all available packages --> Install Burst compiler
+  * Install the SteamVR Unity plugin
+    * https://valvesoftware.github.io/steamvr_unity_plugin/
+    * Window --> SteamVR Input --> Verify that the actions "Record" and "ShowInstructions" are defined in the active action set, see below
 ![Action set settings](readme-resources/steamvrinput-settings.PNG)
-** File --> Open Scene --> Assets/Scenes/SampleScene.unity
-** In scene hierarchy, find the game object Manager, click it
-** In the inspector of the Manager, make sure the controller settings are correct, see below
+  * File --> Open Scene --> Assets/Scenes/SampleScene.unity
+  * In scene hierarchy, find the game object Manager, click it
+  * In the inspector of the Manager, make sure the controller settings are correct, see below
 ![Controller settings](readme-resources/input-settings.PNG)
-** More controller trouble shooting available at "Assets/SteamVR/SteamVR Unity Plugin - Input System"
-***http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
-** In the same inspector window, set a path for the recordings, see below
+  * More controller trouble shooting available at "Assets/SteamVR/SteamVR Unity Plugin - Input System"
+    *http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
+  * In the same inspector window, set a path for the recordings, see below
 ![Recording settings](readme-resources/manager-settings.PNG)
-** In the hierarchy, find PlayerWithAvatar --> SteamVRObjects --> Tracker
-*** In its inspector, check the device index of the tracker and choose the correct number
-** Make sure "Playback" is unchecked, click "Play" (the triangle) in the top
+  * In the hierarchy, find PlayerWithAvatar --> SteamVRObjects --> Tracker
+    * In its inspector, check the device index of the tracker and choose the correct number
+  * Make sure "Playback" is unchecked, click "Play" (the triangle) in the top
 
 ## How to Interact
 * Use the trigger or the grip button in both hands for grasping
