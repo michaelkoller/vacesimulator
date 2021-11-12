@@ -40,7 +40,7 @@ Tested on Software:
   * Install the SteamVR Unity plugin
     * https://valvesoftware.github.io/steamvr_unity_plugin/
     * Window --> SteamVR Input --> Verify that the actions "Record" and "ShowInstructions" are defined in the active action set, see below
-![Action set settings](readme-resources/steamvrinput-settings.PNG)
+<img src="readme-resources/steamvrinput-settings.PNG" alt="Action set settings" width="400">
   * File --> Open Scene --> Assets/Scenes/SampleScene.unity
   * In scene hierarchy, find the game object Manager, click it
   * In the inspector of the Manager, make sure the controller settings are correct, see below
