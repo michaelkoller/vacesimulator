@@ -2,7 +2,7 @@
 
 The VACE simulator is an richly furnished interactive 3D VR kitchen environment which enables users to efficiently record well annotated object interaction samples. The VACE dataset is available at https://sites.google.com/view/vacedataset.
 
- <p float="left">
+ <p float="center">
    <img src="readme-resources/cuc-color.gif" width="200" />
    <img src="readme-resources/cucumber-depth.gif" width="200" /> 
    <img src="readme-resources/cucumber-seg.gif" width="200" />
@@ -46,7 +46,7 @@ Tested on Software:
   * In the inspector of the Manager, make sure the controller settings are correct, see below
 ![Controller settings](readme-resources/input-settings.PNG)
   * More controller trouble shooting available at "Assets/SteamVR/SteamVR Unity Plugin - Input System"
-    *http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
+    * http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
   * In the same inspector window, set a path for the recordings, see below
 ![Recording settings](readme-resources/manager-settings.PNG)
   * In the hierarchy, find PlayerWithAvatar --> SteamVRObjects --> Tracker
