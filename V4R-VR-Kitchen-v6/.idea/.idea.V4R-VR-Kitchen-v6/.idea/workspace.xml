@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9f7b6fa-7b52-4898-b0bb-ace01f26f678" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.V4R-VR-Kitchen-v6/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MyTODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MyTODO.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectId.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SetupConcaveObjects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SetupConcaveObjects.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +76,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/SetFootToGround.cs" />
         <option value="$PROJECT_DIR$/Assets/UnityRecorderFromScript.cs" />
         <option value="$PROJECT_DIR$/Assets/DepthCamScript.cs" />
         <option value="$PROJECT_DIR$/Assets/depthtextest.cs" />
@@ -131,6 +126,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/RecordObjectPosRot.cs" />
         <option value="$PROJECT_DIR$/Assets/MyTODO.txt" />
         <option value="$PROJECT_DIR$/../.gitignore" />
+        <option value="$PROJECT_DIR$/../README.md" />
       </list>
     </option>
   </component>
@@ -254,7 +250,9 @@
       <workItem from="1604917656577" duration="12732000" />
       <workItem from="1606118462835" duration="626000" />
       <workItem from="1636487119169" duration="630000" />
-      <workItem from="1636553792485" duration="335000" />
+      <workItem from="1636553792485" duration="1804000" />
+      <workItem from="1636640009892" duration="823000" />
+      <workItem from="1636727202257" duration="7338000" />
     </task>
     <servers />
   </component>
