@@ -1,6 +1,6 @@
 # VACE: Virtual Annotated Cooking Environment
 
-The VACE simulator is an richly furnished interactive 3D VR kitchen environment which enables users to efficiently record well annotated object interaction samples. The VACE dataset is available at https://sites.google.com/view/vacedataset.
+The VACE simulator is an richly furnished interactive 3D VR kitchen environment which enables users to efficiently record well annotated object interaction samples. The VACE dataset is available at https://researchdata.tuwien.ac.at/records/r5d7q-bdn48. Visit our landing page at https://sites.google.com/view/vacedataset.
 
  <p float="center">
    <img src="readme-resources/cuc-color.gif" width="250" />
@@ -51,7 +51,7 @@ Tested on Software:
   * In the same inspector window, set a path for the recordings, see below
 ![Recording settings](readme-resources/manager-settings.PNG)
   * In the hierarchy, find PlayerWithAvatar --> SteamVRObjects --> Tracker
-    * In its inspector, check the device index of the tracker and choose the correct number
+    * In its inspector, make sure the device index of the tracker is 3
   * Make sure "Playback" is unchecked, click "Play" (the triangle) in the top
 
 ## How to Interact
@@ -63,13 +63,13 @@ Tested on Software:
 * Use knives and the grater to cut any food item into smaller pieces
 
 ## How to HUD
-* Click X on the right controller to toggle the MPII 2 Cooking dataset recipe collection
+* Click center on the trackpad of the right controller to toggle the MPII 2 Cooking dataset recipe collection
 * Click up and down on the right controller trackpad to select a recipe
-* Click on the right controller right to show the next step of the recipe, left to show the previous step of the recipe
+* Click right on the trackpad to show the next step of the recipe, left to show the previous step of the recipe
 ![HUD visuals](readme-resources/hud.gif)
 
 ## How to Record Samples
-* When ready, click Y on the right controller, and then again to stop the recording
+* When ready, click the menu button on the right controller, and then again to stop the recording
 
 ## How to Postprocess
 * Stop the play mode after recording one or more samples, then put a check on "Playback" in the inspector of the Manager game object, and press play again. Post-processing is slower than real time.
@@ -83,11 +83,11 @@ Automatic annotation is the main reason for the project and users do not have to
 If you use this repository in your publications, please cite
 
 ```
-@inproceedings{VACE2022,
-author = {X},
-title = {Virtual Annotated Cooking Environment: A New VR Kitchen Environment for Recording Well Annotated Object Interaction Tasks}},
+@inproceedings{koller2022vace,
+author = Koller, Michael and Patten, Timothy and Vincze, Markus},
+title = {A New VR Kitchen Environment for Recording Well Annotated Object Interaction Tasks}},
 booktitle= {Proceedings of the 2022 ACM/IEEE International Conference on Human-Robot Interaction},
-pages = {1-2},
+pages = {x-y},
 year = {2022},
 }
 ```
