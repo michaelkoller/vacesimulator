@@ -83,11 +83,12 @@ Automatic annotation is the main reason for the project and users do not have to
 If you use this repository in your publications, please cite
 
 ```
-@inproceedings{koller2022vace,
-author = Koller, Michael and Patten, Timothy and Vincze, Markus},
-title = {A New VR Kitchen Environment for Recording Well Annotated Object Interaction Tasks}},
-booktitle= {Proceedings of the 2022 ACM/IEEE International Conference on Human-Robot Interaction},
-pages = {x-y},
-year = {2022},
+@inproceedings{koller2022new,
+  title={A New VR Kitchen Environment for Recording Well Annotated Object Interaction Tasks},
+  author={Koller, Michael and Patten, Timothy and Vincze, Markus},
+  booktitle={Proceedings of the 2022 ACM/IEEE International Conference on Human-Robot Interaction},
+  pages={629--633},
+  year={2022}
 }
+
 ```
