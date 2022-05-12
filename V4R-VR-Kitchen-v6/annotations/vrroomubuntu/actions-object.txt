@@ -1,0 +1,726 @@
+entryNumber, fileId, fileName, subject, dish, startTimeSeconds, endTimeSeconds, startFrame, endFrame, activity, tool, toolProperties, ingredients, ingredientsProperties, containers, containersProperties, containersSource, containersDestination, className
+
+
+ACTIONS
+addV
+apply plasterV
+arrangeV
+assembleV
+change temperatureV
+chopV
+cleanV
+closeV
+cut apartV
+cut diceV
+cut off endsV
+cut out insideV
+cut stripesV
+cutV
+dryV
+enterV
+fillV
+flipV
+foldV
+gatherV
+grateV
+grindV
+hangV
+lockV
+mixV
+moveV
+open capV
+open closeV
+open eggV
+open tinV
+openV
+packageV
+peelV
+plugV
+pokeV
+pourV
+pressV
+pull apartV
+pull upV
+pullV
+pureeV
+purgeV
+push downV
+put inV
+put lidV
+put onV
+put rubber bandV
+readV
+remove from packageV
+remove labelV
+remove rubber bandV
+rip offV
+rip openV
+rip-offV
+rollV
+scratch offV
+screw closeV
+screw openV
+shakeV
+shapeV
+sharpenV
+sliceV
+smellV
+spiceV
+spreadV
+squashV
+squeezeV
+stampV
+stirV
+strewV
+take apartV
+take lidV
+take outV
+tapV
+tasteV
+test sharpnessV
+test temperatureV
+throw in garbageV
+turn offV
+turn onV
+turn overV
+unlockV
+unplugV
+unrollV
+washV
+whipV
+wring outV
+87
+
+ALL OBJECTS
+
+apple
+arils
+asparagus
+asparagus boiled
+avocado
+avocado peeled piece
+bag
+baked
+baking-paper
+baking-tray
+beer
+blender
+boiled
+boiled peeled
+boiled peeled sliced
+bottle
+bottle-cap
+bowl
+box
+box lime
+box-grater
+bread
+bread sliced
+bread sliced toasted
+bread toasted
+bread-knife
+broccoli
+broccoli boiled
+broccoli cooked
+broccoli floret
+broccoli floret cooked
+broccoli piece
+broccoli stem
+broiler-rack
+brown-sugar
+bun
+bun hot-dog
+bundle
+bundle parsley
+butter
+button
+cake
+cap-opener
+cappuccino
+cappuccino-powder
+cappuccino-powder-bag
+cappuccino-powder-bag cappuccino-powder
+cappucino-powder-bag cappucino-powder
+carafe
+carafe water
+carrot
+carrot chopped
+carrot grated
+carrot peeled grated
+cauliflower
+cauliflower boiled
+cauliflower floret
+cauliflower leaves
+cauliflower piece
+cauliflower piece cooked
+cauliflower stem
+cheese
+cheese grated
+cheese sliced
+chefs-knife
+chilli
+chilli sliced
+chive
+chocolate
+chocolate grated
+chocolate-bag
+choped
+chopped
+chopped cooked
+chopped fried
+cleaning-brush
+cofee-container coffee-powder
+coffee
+coffee-container
+coffee-container coffee-powder
+coffee-filter
+coffee-machine
+coffee-powder
+coffee-powder-bag
+colander
+cooked
+cooked peeled
+cooked peeled diced
+cooked peeled half
+cooked peeled piece
+cooked peeled sliced
+cooked peeled strip
+cooked sliced
+cooking-spoon
+corn
+counter
+cream
+cucumber
+cucumber peeled diced
+cucumber sliced
+cup
+cup sugar
+cupboard
+cutting-board
+detergent
+diced
+dish-washer
+dough
+dough half
+drawer
+drink
+egg
+egg scrambled
+egg-cup
+egg-white
+eggs
+eggshell
+electricity-column
+electricity-plug
+electricity-socket
+electrivity-plug
+fig
+fig sliced
+filter-basket
+filter-basket coffee-filter coffee-powder
+finger
+flat-grater
+floor
+floret
+floret cooked
+floret piece
+flour
+flower-pot
+flower-pot chive
+food
+food-pusher
+fork
+fridge
+fried
+front-peeler
+fruit
+fruit-salad
+frying-pan
+garbage
+garlic-bulb
+garlic-clove
+garlic-clove peeled chopped
+garlic-clove peeled pressed
+garlic-press
+ginger
+glass
+glass-mug
+grated
+green-beans
+green-beans piece fried
+ground
+half
+half diced
+half peeled
+half peeled sliced
+half sliced
+half sliced peeled
+half strip
+ham
+hand
+handle
+honey
+hook
+hot
+hot-chocolate
+hot-chocolate-powder
+hot-chocolate-powder-bag
+hot-chocolate-powder-bag hot-chocolate-powder
+hot-dog
+jam
+jar
+juice
+ketchup
+kettle-power-base
+kiwi
+kiwi peeled diced
+kiwi sliced
+knife
+knife-sharpener
+kohlrabi
+label
+ladle
+leaves
+leaves chopped
+leaves chopped fried
+leaves piece
+leek
+leek chopped
+leek sliced
+leg
+lemon
+lemon juice
+lemon-juice
+lemon-juice-container
+lever
+lid
+lime
+lime half
+lime juice
+liquid-soap
+mango
+mango peeled strip
+margarine
+mashed
+masher
+measuring-pitcher
+measuring-spoon
+milk
+mobile-phone
+mortar
+mushroom
+mustard
+net-bag
+oil
+onion
+onion diced
+onion peeled chopped
+onion peeled diced
+onion peeled diced fried
+orange
+orange juice
+orange peeled diced
+orange peeled piece
+oregano
+oven
+paper
+paper-bag
+paper-box
+paper-box green-beans
+parsley
+parsley chopped
+parsley stem
+pasta
+pasta cooked
+peach
+peach diced
+peanut-butter
+pear
+peel
+peel carrot
+peel cucumber
+peel fig
+peel plum
+peel pomegranate
+peel potato
+peeled
+peeled chopped
+peeled chopped chefs-knife
+peeled cooked diced
+peeled diced
+peeled diced fried
+peeled grated
+peeled half
+peeled half sliced
+peeled piece
+peeled pressed
+peeled sliced
+peeled sliced fried
+peeled squashed
+peeled strip
+peeled strip cutting-board
+pepper
+pepper sliced
+peppercorn
+peppercorn ground
+pestle
+philadelphia
+piece
+piece cooked
+piece fried
+piece peeled
+piece sliced
+pieceknife
+pineapple
+pizza
+plaster
+plastic-bag
+plastic-bottle
+plastic-box
+plastic-box carrot
+plastic-paper-bag
+plate
+plum
+plum peeled sliced
+pomegranate
+pomegranate juice
+pomegranate piece
+pot
+potato
+potato chopped cooked
+potato mashed
+potato peeled
+potato peeled sliced
+potato-powder
+potato-powder-bag
+potato-powder-bag potato-powder
+pulp
+puree
+rasberries
+raspberries
+roast-onion-lard
+rolling-pin
+rubber-band
+salad
+salami
+salt
+scrambled
+seed
+side-peeler
+sink
+sink-strainer
+slice
+sliced
+sliced fried
+sliced peeled
+sliced toasted
+soup
+soup-powder
+soup-powder-bag
+spaghetti-spoon
+spatula
+spice
+spice-holder
+spice-shaker
+spinach
+spinach leaves
+spinach piece
+sponge
+sponge-cloth
+spoon
+squashed
+squashed peeled
+squashed peeled chopped
+squeezed
+squeezer
+stem
+stem chopped
+stem piece
+stirred
+stone
+stove
+strip
+sugar
+syrup
+t-shirt
+table-knife
+tap
+tea
+tea-egg
+tea-herbs
+teapot
+teaspoon
+temp-knob
+tin
+tin-opener
+tissue
+toasted
+toaster
+tomato
+tomato piece
+tomato puree
+tongs
+top
+towel
+tube
+vinegar
+water
+water boiled
+water hot
+water-kettle
+water-kettle water
+water-reservoir
+water-reservoir water
+whisked
+wire-whisk
+wrapping-paper
+wrapping-paper ham
+yolk
+zest
+zest grated
+zucchini
+387
+
+FILTERED OBJECTS
+X apple
+arils ???
+O asparagus (boiled)
+X avocado (peeled, piece)
+bag
+X baking-paper (it's a brown plane)
+X baking-tray
+X beer (can, bottle)
+X blender
+X bottle (beer and milk)
+X bottle-cap (on milk)
+X bowl
+box
+O box lime (put limes in box?)
+X box-grater
+X bread (sliced, toasted)
+O bread-knife (use other big knife)
+X broccoli (boiled, cooked, floret, piece, stem)
+broiler-rack
+brown-sugar
+X bun
+O bun hot-dog
+bundle
+bundle parsley
+X butter (yellow cube on plate)
+O button (button is on device?)
+X cake
+X cap-opener (set of cubes)
+X cappuccino
+cappuccino-powder
+cappuccino-powder-bag
+carafe
+carafe water
+X carrot (choped, grated, peeled)
+cauliflower (boiled, floret, leaves, piece, cooked, stem)
+X cheese (grated, sliced)
+X chefs-knife
+X chilli (sliced)
+chive
+chocolate (grated)
+chocolate-bag
+cleaning-brush
+X coffee
+X coffee-container
+coffee-filter
+Xcoffee-machine
+coffee-powder
+coffee-powder-bag
+colander
+cooking-spoon
+X corn
+X counter
+cream
+X cucumber (peeled, diced, sliced)
+X cup
+cup sugar
+X cupboard
+X cutting-board
+X detergent (tide)
+dish-washer
+X dough
+O dough half
+X drawer
+X drink (if it is a cocktail like thing, oj drink in scene)
+X egg (scrambled)
+X egg-cup
+X egg-white
+X eggshell
+X electricity-column (model with moveable cube with electricity-socket
+electricity-plug
+X electricity-socket
+electrivity-plug
+X fig (sliced)
+filter-basket
+finger
+O flat-grater (use box-grater instead)
+X floor
+floret (cooked, piece)
+flour
+flower-pot
+X food
+food-pusher
+X fork
+X fridge
+X front-peeler (self made from cubes, like cap opener
+X fruit
+fruit-salad
+X frying-pan
+X garbage
+X garlic-bulb
+garlic-clove (peeled, chopped, pressed)
+garlic-press
+ginger
+X glass
+X glass-mug
+green-beans (piece, fried)
+X ham
+hand
+handle
+honey
+hook
+hot-chocolate
+hot-chocolate-powder
+hot-chocolate-powder-bag
+X hot-dog
+jam
+jar
+juice
+ketchup
+kettle-power-base
+X kiwi (peeled, diced, sliced)
+X knife
+X knife-sharpener
+kohlrabi
+label
+X ladle
+leaves (chopped, fried, piece)
+X leek (chopped, sliced)
+leg
+X lemon
+lemon-juice
+lemon-juice-container
+lever
+lid
+X lime (half)
+lime juice
+X liquid-soap
+mango (peeled, strip)
+margarine
+masher
+measuring-pitcher
+measuring-spoon
+X milk
+X mobile-phone
+X mortar
+X mushroom
+mustard
+net-bag
+oil
+X onion (peeled, chopped, diced, fried)
+X orange (peeled, diced, piece)
+orange juice 
+oregano
+X oven
+paper
+paper-bag
+paper-box
+paper-box green-beans
+parsley (chopped, stem)
+pasta (cooked)
+peach (diced)
+peanut-butter
+X pear
+peel
+peel carrot
+peel cucumber
+peel fig
+peel plum
+peel pomegranate
+peel potato
+X pepper (as in salt and pepper)
+X pepper (sliced)
+peppercorn (ground)
+X pestle
+philadelphia
+pieceknife
+X pineapple
+X pizza
+plaster
+plastic-bag
+X plastic-bottle
+plastic-box
+plastic-box carrot
+plastic-paper-bag
+X plate
+plum (peeled, sliced)
+pomegranate (piece)
+pomegranate juice
+X pot
+potato (chopped, cooked, mashed, peeled, sliced)
+potato-powder
+potato-powder-bag
+pulp
+puree
+raspberries
+roast-onion-lard
+X rolling-pin
+rubber-band
+X salad
+X salami
+X salt
+seed
+O side-peeler (use front peeler)
+X sink
+O sink-strainer
+soup
+soup-powder
+soup-powder-bag
+spaghetti-spoon
+X spatula
+spice
+spice-holder
+spice-shaker
+spinach (leaves, piece)
+sponge
+sponge-cloth
+X spoon
+squeezer
+stem (chopped, piece)
+stone
+X stove
+sugar
+syrup
+t-shirt
+X table-knife
+X tap
+X tea
+tea-egg
+tea-herbs
+X teapot
+teaspoon
+temp-knob
+X tin (can)
+X tin-opener (can-opener)
+X tissue
+X toaster
+X tomato (piece, puree)
+tongs
+top
+X towel
+tube
+vinegar
+water (boiled, hot)
+X water-kettle
+water-reservoir
+X wire-whisk
+wrapping-paper
+wrapping-paper ham
+yolk
+zest (grated)
+X zucchini
+

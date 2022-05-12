@@ -1,0 +1,71 @@
+{
+   "action_manifest_version" : 0,
+   "alias_info" : {},
+   "app_key" : "application.generated.unity.v4rvrkitchenv3.exe",
+   "bindings" : {
+      "/actions/buggy" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : []
+      },
+      "/actions/default" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : [
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/showinstructions"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/controllermovement"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "center" : {
+                     "output" : "/actions/default/in/showinstructions"
+                  },
+                  "east" : {
+                     "output" : "/actions/default/in/clickright"
+                  },
+                  "north" : {
+                     "output" : "/actions/default/in/clickup"
+                  },
+                  "south" : {
+                     "output" : "/actions/default/in/clickdown"
+                  },
+                  "west" : {
+                     "output" : "/actions/default/in/clickleft"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/right/input/trackpad"
+            }
+         ]
+      },
+      "/actions/platformer" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : []
+      }
+   },
+   "category" : "steamvr_input",
+   "controller_type" : "vive_controller",
+   "description" : "michael-vr-kitchen-v3",
+   "name" : "My V4R-VR-Kitchen-v3 [Testing] configuration for Vive Controller",
+   "options" : {},
+   "simulated_actions" : []
+}

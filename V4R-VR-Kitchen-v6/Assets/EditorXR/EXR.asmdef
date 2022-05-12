@@ -1,0 +1,15 @@
+{
+    "name": "EXR",
+    "references": [
+        "EXR-Dependencies",
+        "input-prototype",
+        "VRLR",
+        "Unity.TextMeshPro",
+        "UnityEngine.SpatialTracking",
+        "PolyToolkit"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

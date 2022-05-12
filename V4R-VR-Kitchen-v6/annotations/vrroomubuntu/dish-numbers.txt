@@ -1,0 +1,59 @@
+1, bread with butter cheese tomato OR jam OR peanut butter
+2, vegetable (tomato cucumber ...) salad with oil
+3, potato stew ?
+4, potato cucumber egg omlette ?
+5, scrambled eggs ?
+6, vegetable soup ? OR packerlsuppe
+7, pizza ?
+8, gemüseauflauf ?
+9, potato puree from powder and water OR from potato (with garnish like cut tomatos)
+10, fruit salad
+11, fruit juice, multiple fruits, pureed
+12, vegetable snack plate (cut vegetables)
+13, apple pie, non-rolled apfel strudel?
+14, instant soup, packerlsuppe, from hot water in pot to mug
+21, prepare cucumber
+23, prepare carrot
+24, prepare peach ?, peel, cut
+25, prepare slice of bread
+26, prepare karfiol (cut and clean, no cooking)
+27, prepare onion (cut small)
+28, prepare orange
+29, prepare fresh parsley, basil, spices from earth pot (cut)
+31, prepare garlic with garlic press
+32, prepare aspargus, cut, clean
+34, prepare potato?ginger?
+35, prepare a red fuit, peel, cut
+36, prepare lemon zest
+39, prepare leek, clean, cut
+40, prepare lime ? juice
+41, prepare pomegranate
+42, prepare and cook brocolli
+43, prepare potato (yam?), peel, cut
+45, prepare paprika
+46, prepare pineapple, peel, cut
+47, prepare some green leafy vegetable, spinach?
+48, prepare chili schote
+49, prepare pasta ?
+50, separate egg yolk and egg white
+51, prepare fisolen (green pea pods?), clean, cut
+52, prepare kiwi
+53, prepare avocade, cut
+54, prepare mango
+55, prepare fig, cut
+57, prepare spring onion
+58, prepare karfiol (duplicate?)
+59, roasted carrots and potato stripes
+60, grate carrot
+61, sharpen knife
+62, peel carrot
+63, prepare toasted toast bread
+65, wash hands, then use mortar on smthng in a glass mug (eicheln, muskatnuss?)
+67, take bowl out of oven, put content into other bowl ? no dish!
+68, grate parmesan OR carrot
+69, omlette ?
+70, make freshly pressed orange juice with pulp
+71, hotdog
+72, pour glass of beer from beer bottle
+73, boil water in water kettle, use electricity column, tea with tea egg, sugar
+74, filter coffee, filter coffee machine and electricity column

@@ -1,0 +1,138 @@
+﻿
+My Todos
+     
+                            
+Improve Avatar
+    Legs should make Footsteps
+    Hands should not detach from arms
+    Collisions between avatar and furniture?
+         
+Change Gloves?
+
+Initial Scene Description wrt logical predicates?
+
+further filter:
+["on", "next to", "in", "walk", "hold", "use", "cover", "touch", "eat"]
+
+ROGER:
+on, above, in, cutting, holding, moving
+cutting: read the cuts replay file --DONE
+holding: record when hands grasp action is used --DONE
+moving: compare last frame to current frame. if position and rot diff > threshold then object is moving. use recording file
+
+mit script cupboard predicates:
+ontriggerenter/exit erfasst prädikat "in"
+im ersten frame werden anscheinen auch alle enters getriggered, die bereits in den kästen sind. damit kann man vllcht den initial state erfassen
+cupboard predicates müssen noch auf andere kästen gegeben weren (im prefab!)
+auch auf pfannen und töpfe?
+schauen, ob alle game objects mit objectid auch einen collider haben, damit InPredicate triggern kann --> wine glass und andere objects, die mit dem "colliders" script concave colliders machen zb.
+
+obj w colliders register when on top of containers 
+
+coffee_machine_ghost
+
+https://deparkes.co.uk/2018/01/05/create-video-images-ffmpeg/
+cmd to screenshots, where the ffmpeg.exe file is too, then:
+ffmpeg -framerate 30 -i rgb-%d.jpg -codec copy video.avi
+download ffmpeg from https://www.gyan.dev/ffmpeg/builds/
+link from: http://ffmpeg.org/download.html#build-windows
+
+all concave collider objects must be set up like saucepan_big_1
+
+test on other env: 
+Relay Policy Learning: Solving Long-Horizon Tasksvia Imitation and Reinforcement Learning by Gupta '19
+kitchen env with robot arm
+
+check all objects in scene that are somehow nested --> is objectid on correct object etc.
+
+todo get mpii2 cooking dataset stuff from work
+and then turn on "displayrecipe" script again
+
+make better workflow:
+give options for replay: immediate after record finish or batch mode for all samples in a dir?
+scene restart necessary when change between record and render mode?
+
+initial scene into owl file for protege? eigentlich nicht. Dynamische infos werden ja eigentlich in die problem instance geschrieben.
+es sollte frame 1 der jeweiligen prädikat-recordings benutzt werden können um alle anfangsprädikate für das planning problem bereitstellen zu können.
+
+
+Predicate problems:
+- multiple entries for in and on
+- repeated entered/left within a frame / across multiple frames
+- in: cabinet can be in bowl. should not be possible
+    -- objects with concave colliders make problems. 
+
+pushing: works, when you use the hand as a kind of shovel. push direction needs to be normal to the plane of the open hand palm
+otw the hand starts turning under the torque applied to the object to be pushed
+
+recreate 20 videos from mpii cooking 2
+
+------------------------------------
+Workflow during recording
+------------------------------------
+
+- start executable
+- show status for vr equipment
+- start scene, prompt to choose recipe
+- choose recipe
+- start recording
+- perform recipe following the instructions on display
+- stop recording
+- choose render now or later
+- choose exit or new recipe
+- if new recipe reset kitchen
+
+Controller Bindings:
+PDF Steam VR Unity Plugin in Assets/SteamVR/SteamVR Unity Plugin - Input System
+explains the actions and bindings to a specific controller, here htc vive
+UI binding browser port has changed, this works:
+http://localhost:27062/dashboard/controllerbinding.html?app=application.generated.unity.v4rvrkitchenv3.exe
+   
+-- check if predicates correct with start / stop recording
+ -- "on" seems fine, "in" has stuttering entered/left entries
+ 
+--ellbogenposition in hocke seltsam.
+    --ellbogen targets sollten ebenfalls tiefer gehen, sobald man sich hinhockt
+    
+//TODO video createion in playmodemanager: this folder location wont work when used in an executable. Works only when run from editor
+    
+--predicate visualization with graph
+
+--recording: only actually record predicates that are registered through triggers when recording is on.
+--but then, when recording starts, all on/in predicates must be requested
+
+--display recipe restore?
+
+--automate rendering step
+
+--there are often onpredicatecountingerrors
+--with subsequent: KeyNotFoundException: The given key was not present in the dictionary.
+                   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <599589bf4ce248909b8a14cbe4a2034e>:0)
+                   OnPredicate.OnCollisionExit (UnityEngine.Collision collision) (at Assets/Scripts/OnPredicate.cs:99)
+        --probably from too many small cut objects?
+        
+
+--augäpfel
+
+ --replay mode fails when the controllers go offline
+ 
+ -- on predicate should not try to record after end of recording
+ 
+--avatar calibration: height and arm length
+    -- have own mode for that, save values
+    
+--automate sample copying and renaming folders wrt subject, dish, variation
+
+-- grasp highlighting is necessary when touching small objects
+
+-- do phd sem next steps: ontology and pull old project onto work desk?
+
+-- DO PLAN REC
+-- website
+-- more kitchens / more avatars later / more textures
+-- better brighter lighting
+-- think about algorithmic advantage
+
+-- camera intrinsic parameters and tf
+
+--small cut pieces behave weird when grasping: set new transform origin when cutting: origin should be geometric mean of all vertices of the newly cut object

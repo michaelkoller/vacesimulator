@@ -1,0 +1,12 @@
+{
+    "name": "PolyToolkit.Editor",
+    "references": [
+        "PolyToolkit"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

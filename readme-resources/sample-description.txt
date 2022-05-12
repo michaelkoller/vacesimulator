@@ -1,0 +1,94 @@
+|   sample_readme.txt					# Contains information about sample number, dish number, participant number, dish variant
+|   							# and a description of the dish variant
++---RecordingsFiles
+|   +---Annotations
+|   |   +---BoundingBox
+|   |   |       bounding_box_1.json			# JSON file with bounding box information for 200 frames of the sample.
+|   |   |       bounding_box_200.json			# Structure: frame --> object --> {name, id_no, x_max, x_min, y_max, y_min}
+|   |   |       bounding_box_400.json
+|   |   |       bounding_box_600.json
+|   |   |       bounding_box_800.json
+|   |   |       ...
+|   |   |       
+|   |   +---Colormap
+|   |   |       colormap.json				# JSON file with color code information of all objects {name, r, g, b, a, id_no}, used for segmentation pictures
+|   |   |       colormap1.txt				# Same information as txt file
+|   |   |       
+|   |   +---PoseAndOrientation
+|   |   |       position_and_orientation_1.json		# JSON file with position and orientation of all objects for 200 frames of the sample.
+|   |   |       position_and_orientation_200.json	# Structure: frame: {frame_number, time, delta_time} --> object: {name, posX, posY, posZ, angX, angY, angZ}
+|   |   |       position_and_orientation_400.json
+|   |   |       position_and_orientation_600.json
+|   |   |       position_and_orientation_800.json
+|   |   |       ...
+|   |   |       
+|   |   \---Predicates
+|   |           cuts.json				# JSON file describing in which frame which object got cut, at which contact point with which cutting direction
+|   |           grasps.json				# JSON file describing which object was grasped or released by which hand (left/right) in which frame
+|   |           in.json					# JSON file describing in which frame which "inside object" entered/exited which "container object"
+|   |           on.json					# JSON file describing in which frame which "top object" started/ended touching which "bottom object"
+|   |           push.json				# JSON file describing which hand (left/right) pushed which other object (without grasping it)
+|   |           
+|   \---Videos
+|       +---Cam1
+|       |       depth-1.png				
+|       |       depth-2.png
+|       |       depth-3.png
+|       |       depth-4.png
+|       |       depth-5.png
+|       |       depth-6.png
+|       |       ...
+|       |       rgb-1.jpg
+|       |       rgb-2.jpg
+|       |       rgb-3.jpg
+|       |       rgb-4.jpg
+|       |       rgb-5.jpg
+|       |       rgb-6.jpg
+|       |       ...
+|       |       segmentation-1.png
+|       |       segmentation-2.png
+|       |       segmentation-3.png
+|       |       segmentation-4.png
+|       |       segmentation-5.png
+|       |       segmentation-6.png
+|       |       ...
+|       |       video-depth.avi				# Video of depth camera 
+|       |       video-rgb.avi				# Video of rgb camera
+|       |       video-segmentation.avi			# Video of segmentation mask camera
+|       |       
+\---ReplayFiles
+    +---Cuts
+    |       Cuts1.txt					# Cut information in txt format
+    |       
+    +---LeftHand
+    |       lhPO1.txt					# Left hand pose and orientation information in txt format
+    |       lhPO200.txt
+    |       lhPO400.txt
+    |       lhPO600.txt
+    |       lhPO800.txt
+    |       ...
+    |       
+    +---Particles
+    |       particles1.txt				# Particle emitters status in txt format (i.e., whether 4 stove plates and water tap is on/off)
+    |       particles200.txt
+    |       particles400.txt
+    |       particles600.txt
+    |       particles800.txt
+    |       ...
+    |       
+    +---PositionAndOrientation
+    |       PO1.txt					# Object pose and orientation in txt format
+    |       PO200.txt
+    |       PO400.txt
+    |       PO600.txt
+    |       PO800.txt
+    |       ...
+    |       
+    \---RightHand
+            rhPO1.txt					# Left hand pose and orientation information in txt format
+            rhPO200.txt
+            rhPO400.txt
+            rhPO600.txt
+            rhPO800.txt
+            ...
+            

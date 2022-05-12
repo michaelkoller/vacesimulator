@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: 03e31ea610078dd4496bc68434f5c45b
+timeCreated: 1568704414
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Almond1_High__200_Tris_
+    100002: Almond1_Low__50_Tris_
+    100004: Almond1_Mid__100_Tris_
+    100006: Almond2_High__200_Tris_
+    100008: Almond2_Low__50_Tris_
+    100010: Almond2_Mid__100_Tris_
+    100012: Almond3_High__200_Tris_
+    100014: Almond3_Low__50_Tris_
+    100016: Almond3_Mid__100_Tris_
+    100018: //RootNode
+    100020: High
+    100022: Low
+    100024: Mid
+    400000: Almond1_High__200_Tris_
+    400002: Almond1_Low__50_Tris_
+    400004: Almond1_Mid__100_Tris_
+    400006: Almond2_High__200_Tris_
+    400008: Almond2_Low__50_Tris_
+    400010: Almond2_Mid__100_Tris_
+    400012: Almond3_High__200_Tris_
+    400014: Almond3_Low__50_Tris_
+    400016: Almond3_Mid__100_Tris_
+    400018: //RootNode
+    400020: High
+    400022: Low
+    400024: Mid
+    2100000: No Name
+    2300000: Almond1_High__200_Tris_
+    2300002: Almond1_Low__50_Tris_
+    2300004: Almond1_Mid__100_Tris_
+    2300006: Almond2_High__200_Tris_
+    2300008: Almond2_Low__50_Tris_
+    2300010: Almond2_Mid__100_Tris_
+    2300012: Almond3_High__200_Tris_
+    2300014: Almond3_Low__50_Tris_
+    2300016: Almond3_Mid__100_Tris_
+    3300000: Almond1_High__200_Tris_
+    3300002: Almond1_Low__50_Tris_
+    3300004: Almond1_Mid__100_Tris_
+    3300006: Almond2_High__200_Tris_
+    3300008: Almond2_Low__50_Tris_
+    3300010: Almond2_Mid__100_Tris_
+    3300012: Almond3_High__200_Tris_
+    3300014: Almond3_Low__50_Tris_
+    3300016: Almond3_Mid__100_Tris_
+    4300000: Almond1_High__200_Tris_
+    4300002: Almond2_High__200_Tris_
+    4300004: Almond3_High__200_Tris_
+    4300006: Almond1_Mid__100_Tris_
+    4300008: Almond2_Mid__100_Tris_
+    4300010: Almond3_Mid__100_Tris_
+    4300012: Almond1_Low__50_Tris_
+    4300014: Almond2_Low__50_Tris_
+    4300016: Almond3_Low__50_Tris_
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 8
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
