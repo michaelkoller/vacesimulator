@@ -10,15 +10,16 @@ The VACE simulator is an richly furnished interactive 3D VR kitchen environment 
 
 Tested on Hardware:
 * 16GB RAM
-* AMD Ryzen 7 3700X 8-Core Processor
-* GeForce RTX 2060 SUPER
+* AMD Ryzen 8 5900X 12-Core Processor
+* GeForce RTX 3070
 
 Tested on Software:
 * Unity 2019.2.11f1
-* SteamVR 1.20.4
+* SteamVR 1.22.13
 * Windows 10
 * HTC Vive (headset, 2 controllers, 2 base stations)
 * HTC Vive tracker
+* Occulus Quest 2
 
 ## Setup Instructions:
 * Setup HTC Vive and tracker
@@ -54,6 +55,16 @@ Tested on Software:
     * In its inspector, make sure the device index of the tracker is 3
   * Make sure "Playback" is unchecked, click "Play" (the triangle) in the top
 
+## Trouble Shooting Controller Problems
+* If you want to rebind Buttons ot the hand modells are not showing up
+* to change that either open the VR menu in the game or open the Menu in Steam VR by pressing the 
+* three dashes in the steam VR window -> Press Settings -> go in the Controllers Tab -> Press Manage Controller Bindings ->
+* in the drop down select the V4R-VR-Kitchen(only visible if simulator is running) -> select Custom under Active Controller Binding ->
+* now select EDIT THIS BINDING -> here you can change the Bindings
+  * if you dont see the Hands likely the Action Pose is not set up -> in the middle under the controller drawing click "Edit Action Poses"-> 
+  * here add pose to "Left Hand Raw" and "Right Hand Raw"
+  
+
 ## How to Interact
 * Use the trigger or the grip button in both hands for grasping
 * Grasp and hold non-furniture objects to pick them up
@@ -70,6 +81,16 @@ Tested on Software:
 
 ## How to Record Samples
 * When ready, click the menu button on the right controller, and then again to stop the recording
+
+## How to play if you have a Steam VR Tracker
+* in the Vace Scene under Manager you can click the "Use Steam VR Tracker" check box and the Tracker will be useable
+
+## How to render in First Person
+* in the Vace Scene under Manager click the "First Person Perspective" check box and the data will be rendered in first person
+
+## How to render Annotation data that was created in the old Vace simulator
+* in the Vace Scene under Manager click the "Old Annotation Data" check box 
+* note that in First Person perspective this will lead to wrong boundig boxes if looking in areas without a ingame wall i.e. toword the screens or towords the sky
 
 ## How to Postprocess
 * Stop the play mode after recording one or more samples, then put a check on "Playback" in the inspector of the Manager game object, and press play again. Post-processing is slower than real time.

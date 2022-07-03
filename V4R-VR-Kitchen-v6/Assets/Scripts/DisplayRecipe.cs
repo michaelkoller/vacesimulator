@@ -182,10 +182,17 @@ public class DisplayRecipe : MonoBehaviour
         {
             string[] words = lines2[j].Split(',');
             List<string> ttt = new List<string>();
-            ttt.Add(dishDict[words[4].Trim()]);
-            ttt.Add(words[0].Trim());
-            ttt.Add(words[1].Trim());
-            ttt.Add(words[2].Trim());
+
+            if (words.Length >= 4) { 
+                ttt.Add(dishDict[words[4].Trim()]);
+                ttt.Add(words[0].Trim());
+                ttt.Add(words[1].Trim());
+                ttt.Add(words[2].Trim());
+            }
+            else {
+                continue;
+            }
+
             for (int i = 9; i < words.Length; i++)
             {
                 if (words[i] != "" && words[i] != " ")

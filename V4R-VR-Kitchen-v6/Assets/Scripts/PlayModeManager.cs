@@ -16,8 +16,7 @@ using System.Text;
 using UnityEngine.SceneManagement;
 
 public class PlaybackState
-{   
-  
+{
     public string replayDir;
     public string pathPO;
     public string pathCut;
@@ -142,33 +141,39 @@ public class PlaybackState
             playbackFinished = true;
             return true;
         }
-        
+
         //Regular Objects
-        string frameNumberString = reader.ReadLine().Trim().Split(' ')[1];
-        this.frameNumber = int.Parse(frameNumberString);
-        this.time = float.Parse(reader.ReadLine().Trim());
-        this.deltaTime = float.Parse(reader.ReadLine().Trim());
-        for (int i = 0; i < gameObjectDict.Count; i++)
+        try
         {
-            string name = reader.ReadLine().Trim().Split((' '))[0];
-            string[] pos = reader.ReadLine().Trim('(').Trim(')').Split(',');
-            string[] rot = reader.ReadLine().Trim('(').Trim(')').Split(',');
-
-            float[] posFloat = new float[3];
-            float[] rotFloat = new float[4];
-
-            for (int j = 0; j < 3; j++)
+            string temp = reader.ReadLine();
+            UnityEngine.Debug.Log("curr line: "+temp);
+            string frameNumberString = temp.Trim().Split(' ')[1];
+            this.frameNumber = int.Parse(frameNumberString);
+            this.time = float.Parse(reader.ReadLine().Trim());
+            this.deltaTime = float.Parse(reader.ReadLine().Trim());
+        
+            for (int i = 0; i < gameObjectDict.Count; i++)
             {
-                posFloat[j] = float.Parse(pos[j]);
-            }
-            for (int j = 0; j < 3; j++)
-            {
-                rotFloat[j] = float.Parse(rot[j]);
-            }
+                string name = reader.ReadLine().Trim().Split((' '))[0];
+                string[] pos = reader.ReadLine().Trim('(').Trim(')').Split(',');
+                string[] rot = reader.ReadLine().Trim('(').Trim(')').Split(',');
 
-            this.gameObjectDict[name].transform.position = new Vector3(posFloat[0],posFloat[1],posFloat[2]);
-            this.gameObjectDict[name].transform.eulerAngles = new Vector3(rotFloat[0],rotFloat[1],rotFloat[2]);
-        }
+                float[] posFloat = new float[3];
+                float[] rotFloat = new float[4];
+
+                for (int j = 0; j < 3; j++)
+                {
+                    posFloat[j] = float.Parse(pos[j]);
+                }
+                for (int j = 0; j < 3; j++)
+                {
+                    rotFloat[j] = float.Parse(rot[j]);
+                }
+
+                this.gameObjectDict[name].transform.position = new Vector3(posFloat[0], posFloat[1], posFloat[2]);
+                this.gameObjectDict[name].transform.eulerAngles = new Vector3(rotFloat[0], rotFloat[1], rotFloat[2]);
+            }
+        
 
         //Right Hand
         string r = readerRightHand.ReadLine();
@@ -289,6 +294,11 @@ public class PlaybackState
                 nextFrameForCutting = int.Parse(cutReader.ReadLine().Trim().Split(' ')[1]);
             }
         }
+        }
+        catch (Exception)
+        {
+            UnityEngine.Debug.Log("this is my error");
+        }
 
         return false;
     }
@@ -307,6 +317,9 @@ public class PlayModeManager : MonoBehaviour
     private string replayDir;
     private string recordingsDir;
     public bool playback;
+    public bool FirstPersonPerspective;
+    public bool OldAnnotationData;
+    public bool UseSteamVRTracker;
     public RenderFileSelection renderFileSelection;
     private string colorMapPath;
     private ColorByNumber colorByNumber;
@@ -483,12 +496,16 @@ public class PlayModeManager : MonoBehaviour
                 }
 
                 int intid = int.Parse(colorMapReader.ReadLine().Trim());
-                //Debug.Log("OBJNAME " + objName);
+                
                 GameObject g = GameObject.Find(objName);
-                ObjectId oid = g.GetComponent<ObjectId>();
-                oid.c = new Color(colorsf[0], colorsf[1], colorsf[2], colorsf[3]);
-                oid.objectName = objName;
-                oid.id = intid;
+                try { ObjectId oid = g.GetComponent<ObjectId>();
+                    oid.c = new Color(colorsf[0], colorsf[1], colorsf[2], colorsf[3]);
+                    oid.objectName = objName;
+                    oid.id = intid;
+                }
+                catch(Exception) { UnityEngine.Debug.Log("OBJNAME " + objName); }
+                
+                
             }
             
             //create position and orientation json files from txt files
@@ -531,7 +548,10 @@ public class PlayModeManager : MonoBehaviour
 
                         for (int j = 0; j < 3; j++)
                         {
-                            posFloat[j] = float.Parse(pos[j]);
+                            try { posFloat[j] = float.Parse(pos[j]); }
+                            catch (Exception) {
+                                UnityEngine.Debug.Log("Format error " + pos[j]);
+                            }
                         }
 
                         for (int j = 0; j < 3; j++)

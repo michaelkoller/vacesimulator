@@ -38,7 +38,7 @@ public class ColorByNumber : MonoBehaviour {
                     // ind += (int) (c.g * 10f);
                     // ind += (int) (c.r);
 
-                    if (ind != 0)
+                    if (ind != 0 && ind<bbs.Length)
                     {
                         MinMax mm = bbs[ind-1];
                         if (mm.xMax < x)

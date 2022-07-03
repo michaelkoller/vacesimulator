@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.v4rvrkitchenv3.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\Clemens\\Desktop\\vacesimulator-master\\V4R-VR-Kitchen-v6\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\Clemens\\AppData\\Documents\\GitHub\\vacesimulator\\V4R-VR-Kitchen-v6\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "V4R-VR-Kitchen-v3 [Testing]"
