@@ -548,12 +548,15 @@ public class PlayModeManager : MonoBehaviour
 
                         for (int j = 0; j < 3; j++)
                         {
-                            try { posFloat[j] = float.Parse(pos[j]); }
+                            try { posFloat[j] = float.Parse(pos[j]);
+                                
+                            }
                             catch (Exception) {
                                 UnityEngine.Debug.Log("Format error " + pos[j]);
+                                
                             }
                         }
-
+                        string test = name;
                         for (int j = 0; j < 3; j++)
                         {
                             rotFloat[j] = float.Parse(rot[j]);

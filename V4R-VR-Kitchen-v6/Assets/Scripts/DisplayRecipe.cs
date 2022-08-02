@@ -158,7 +158,7 @@ public class DisplayRecipe : MonoBehaviour
            StringSplitOptions.None
        );
 
-        Debug.Log(lines1[0]);
+        //Debug.Log(lines1[0]);
 
         foreach (var line in lines1)
         {

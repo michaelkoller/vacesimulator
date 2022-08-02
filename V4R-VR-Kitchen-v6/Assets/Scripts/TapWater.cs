@@ -21,7 +21,7 @@ public class TapWater : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other)
-    {   print("wasserhahn: "+other.name);
+    {  // print("wasserhahn: "+other.name);
         if (other.name.Contains("finger") || other.name.Contains("Sphere") || other.name.Contains("thumb"))
         {
             if (noCurrentlyTouching == 0)

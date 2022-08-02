@@ -20,7 +20,7 @@ public class Camera_tracking : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         First_Person = playModeManager.FirstPersonPerspective;
         if (playModeManager.FirstPersonPerspective) { 
